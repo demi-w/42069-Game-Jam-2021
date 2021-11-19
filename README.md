@@ -1,23 +1,3 @@
-<p align="right">
-<a href="https://discord.gg/KnJGY9S">
-  <img src="https://github.com/fenix-hub/ColoredBadges/blob/master/svg/social/discord.svg" alt="react" style="vertical-align:top; margin:6px 4px">
-</a>
-</p>
-
-This plugin is now supported in [Godot Extended Library Discord](https://discord.gg/JNrcucg), check out the [Godot Extended Library Project](https://github.com/godot-extended-libraries)!
-
-<img src="addons/github-integration/github-logo.png" align="left" width="64" height="64">
-
-# GitHub Integration
-A complete GitHub integration for your Godot Editor! Manage your project without even opening your browser.
-
-Author: *"Nicolo (fenix) Santilio"*  
-Version: *1.4.3*  
-Godot Version: *3.2.4-rc3*  
-Wiki: *[supported](https://github.com/fenix-hub/godot-engine.github-integration/wiki)*  
-
-<img align="center" src="addons/github-integration/screenshots/banner.png">
-
 ## What is this?
 *GitHub Integration* is a addon for Godot Engine that I've created mainly for a personal purpose.  
 Pushing and Pulling repositories while I'm working on Godot (especially if I'm under a GameJam) could take some time and force me to save the project, open the brwoser/git bash/git gui, and do all the stuff.  
