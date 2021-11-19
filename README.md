@@ -3,7 +3,7 @@
 Godot plugin to help importing Aseprite animations as SpriteFrames.
 
 This plugin uses Aseprite CLI to generate the spritesheet, and then converts it to SpriteFrames, that can be used in AnimatedSprite node.
-
+njknjksdnjfknsdjfksdnfjdksnfsdjkfnsdjkfnjsdknfjsdkfnksjfdsknfjsdk
 It also adds Aseprite importer to Godot, so you can use `*.ase` and `*.aseprite` files directly as resources.
 
 <img align="center" src="./screenshots/main_screen.png" />
