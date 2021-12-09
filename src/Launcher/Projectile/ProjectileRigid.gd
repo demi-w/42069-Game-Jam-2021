@@ -1,35 +1,37 @@
 extends RigidBody2D
 
+const tower = preload("res://src/Tower/Tower.tscn")
 
 const THROW_VELOCITY = 200
 
-onready var timer = $Timer
 onready var parent = get_parent()
 onready var sprite = $Sprite
 
 var is_grounded = false
 var followCursor = false
+var launched = false
 
 #func _ready():
 #	set_physics_process(false)
 
 
-#func _physics_process(delta):
-#	if followCursor :
-#		sprite.rotation = (get_global_mouse_position()-get_global_position()).angle() - PI/2
+func _physics_process(delta):
+	if launched :
+		sprite.rotation = linear_velocity.angle()
 
 
 func launch(velocity):
+	print(get_parent().name)
 	set_mode(0)
 	var temp = global_transform
-	var scene = get_tree().current_scene
+	var scene = get_tree().current_scene.get_node(@"Planet")
 	get_parent().remove_child(self)
 	scene.add_child(self)
 	global_transform = temp
-	apply_central_impulse(velocity)
-
-func _on_Timer_timeout():
-	queue_free()
+#	apply_central_impulse(velocity)
+	set_linear_velocity(velocity)
+	launched = true
+	print(get_parent().name)
 
 func follow_cursor(following):
 	followCursor = following
@@ -46,3 +48,15 @@ func follow_cursor(following):
 ##				queue_free()
 #		else:
 #			pass
+
+
+func _on_RigidBody2D_body_entered(body):
+	print(body.name)
+	queue_free()
+	var newTower = tower.instance()
+	var texture = get_node(@"Sprite").get_texture()
+	body.add_child(newTower)
+	newTower.global_position = global_position
+	newTower.set_rotation(newTower.get_position().angle() + PI / 2)
+	queue_free()
+	print("yeet")
