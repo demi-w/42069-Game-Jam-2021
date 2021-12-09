@@ -58,5 +58,6 @@ func _on_RigidBody2D_body_entered(body):
 	body.add_child(newTower)
 	newTower.global_position = global_position
 	newTower.set_rotation(newTower.get_position().angle() + PI / 2)
+	newTower.get_node(@"Sprite").set_texture(texture)
 	queue_free()
 	print("yeet")
