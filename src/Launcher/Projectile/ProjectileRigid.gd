@@ -17,7 +17,7 @@ var launched = false
 
 func _physics_process(delta):
 	if launched :
-		sprite.rotation = linear_velocity.angle() + PI / 2
+		sprite.global_rotation = linear_velocity.angle() + PI / 2
 
 
 func launch(velocity):
