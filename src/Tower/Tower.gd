@@ -1,5 +1,5 @@
 extends StaticBody2D
-
+class_name Tower
 
 # Declare member variables here. Examples:
 # var a = 2

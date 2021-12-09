@@ -49,12 +49,22 @@ func follow_cursor(following):
 
 
 func _on_RigidBody2D_body_entered(body):
-	print(body.name)
-	var newTower = tower.instance()
-	var texture = get_node(@"Sprite").get_texture()
-	body.add_child(newTower)
-	newTower.global_position = global_position
-	newTower.set_rotation(newTower.get_position().angle() + PI / 2)
-	newTower.set_position((newTower.position / newTower.position.length()) * 520)
-	newTower.get_node(@"Sprite").set_texture(texture)
-	queue_free()
+	if body is Planet:
+		print(body.name)
+		var newTower = tower.instance()
+		var texture = get_node(@"Sprite").get_texture()
+		body.add_child(newTower)
+		newTower.global_position = global_position
+		newTower.set_rotation(newTower.get_position().angle() + PI / 2)
+		newTower.set_position((newTower.position / newTower.position.length()) * 520)
+		newTower.get_node(@"Sprite").set_texture(texture)
+		queue_free()
+	elif body is Tower:
+		print(body.name)
+		var newTower = tower.instance()
+		var texture = get_node(@"Sprite").get_texture()
+		body.add_child(newTower)
+		newTower.set_rotation(body.get_node(@"Sprite").get_rotation())
+		newTower.set_position(Vector2(0,-16))
+		newTower.get_node(@"Sprite").set_texture(texture)
+		queue_free()
