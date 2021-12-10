@@ -8,6 +8,34 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Menu",
+"language": "GDScript",
+"path": "res://src/Menu Things/Base Menu.gd"
+}, {
+"base": "Node2D",
+"class": "Planet",
+"language": "GDScript",
+"path": "res://src/Planet/Planet.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://src/Phantoms/StateMachine.gd"
+}, {
+"base": "StaticBody2D",
+"class": "Tower",
+"language": "GDScript",
+"path": "res://src/Tower/Tower.gd"
+} ]
+_global_script_class_icons={
+"Menu": "",
+"Planet": "",
+"StateMachine": "",
+"Tower": ""
+}
+
 [application]
 
 config/name="fuck"
@@ -16,10 +44,10 @@ config/icon="res://icon.png"
 
 [autoload]
 
-PluginSettings="res://addons/github-integration/scripts/PluginSettings.gd"
-IconLoaderGithub="res://addons/github-integration/scripts/IconLoaderGithub.gd"
 UserData="res://addons/github-integration/scripts/user_data.gd"
 RestHandler="res://addons/github-integration/scenes/RestHandler.tscn"
+IconLoaderGithub="res://addons/github-integration/scripts/IconLoaderGithub.gd"
+PluginSettings="res://addons/github-integration/scripts/PluginSettings.gd"
 
 [editor_plugins]
 
