@@ -67,3 +67,4 @@ size_flags_vertical = 3
 text = "Level 3"
 
 [connection signal="pressed" from="Back" to="." method="_on_Back_pressed"]
+[connection signal="pressed" from="HBoxContainer/Level_1" to="." method="_on_Level_1_pressed"]

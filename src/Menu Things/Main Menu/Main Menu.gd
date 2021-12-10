@@ -26,3 +26,7 @@ func _on_Play_pressed():
 
 func _on_Exit_pressed():
 	get_tree().quit()
+
+
+func _on_Options_pressed():
+	emit_signal("switch_menu", menuKey, "options")

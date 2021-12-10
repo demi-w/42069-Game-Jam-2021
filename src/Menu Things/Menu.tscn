@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Menu Things/TEMP/Background.png" type="Texture" id=1]
 [ext_resource path="res://src/Menu Things/Menu.gd" type="Script" id=2]
 [ext_resource path="res://src/Menu Things/Main Menu/Main Menu.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Menu Things/Level Select/Level Select.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Menu Things/Options Menu/Options.tscn" type="PackedScene" id=5]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -23,22 +24,27 @@ __meta__ = {
 }
 
 [node name="Main_Menu" parent="Background" instance=ExtResource( 3 )]
-margin_left = -636.0
-margin_top = -468.0
-margin_right = -376.0
-margin_bottom = -162.0
+margin_left = -632.0
+margin_top = -448.0
+margin_right = -372.0
+margin_bottom = -142.0
 
 [node name="Level_Select" parent="Background" instance=ExtResource( 4 )]
 margin_left = 548.0
 margin_top = -476.0
 margin_right = 848.0
 margin_bottom = -126.0
-menuKey = "level_select"
+
+[node name="Options" parent="Background" instance=ExtResource( 5 )]
+margin_left = -604.0
+margin_top = 284.0
+margin_right = -515.0
+margin_bottom = 400.0
 
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Camera" type="Camera2D" parent="."]
-position = Vector2( 504, 280 )
+position = Vector2( 516, 300 )
 current = true
 limit_left = 0
 limit_top = 0
@@ -47,3 +53,4 @@ limit_bottom = 1200
 
 [connection signal="switch_menu" from="Background/Main_Menu" to="." method="switch_menu"]
 [connection signal="switch_menu" from="Background/Level_Select" to="." method="switch_menu"]
+[connection signal="switch_menu" from="Background/Options" to="." method="switch_menu"]

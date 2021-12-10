@@ -3,10 +3,11 @@ extends Control
 
 onready var mainMenu = $Background/Main_Menu
 onready var levelSelect = $Background/Level_Select
+onready var options = $Background/Options
 onready var tween = $Tween
 onready var background = $Background
 onready var camera = $Camera
-var options = null
+
 
 # Declare member variables here. Examples:
 # var a = 2
