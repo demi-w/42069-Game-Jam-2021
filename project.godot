@@ -41,7 +41,7 @@ _global_script_class_icons={
 config/name="fuck"
 run/main_scene="res://Main.tscn"
 boot_splash/image="res://SpacemanPortrait.png"
-config/icon="res://SpacemanPortrait.png"
+config/icon="res://SpacemanPortraitIcon.png"
 
 [autoload]
 

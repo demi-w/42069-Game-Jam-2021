@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SpacemanPortrait.png-d28f09a2fc2dc02cde0e7f3c14f18df3.stex"
+path="res://.import/SpacemanPortraitIcon.png-25002dc6e204564642d1e33a1535e047.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://SpacemanPortrait.png"
-dest_files=[ "res://.import/SpacemanPortrait.png-d28f09a2fc2dc02cde0e7f3c14f18df3.stex" ]
+source_file="res://SpacemanPortraitIcon.png"
+dest_files=[ "res://.import/SpacemanPortraitIcon.png-25002dc6e204564642d1e33a1535e047.stex" ]
 
 [params]
 
