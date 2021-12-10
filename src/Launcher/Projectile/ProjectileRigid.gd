@@ -22,8 +22,8 @@ func _physics_process(delta):
 func launch(velocity):
 	set_mode(0)
 	var temp = global_transform
-	var scene = get_tree().current_scene.get_node(@"Planet")
-	get_parent().remove_child(self)
+	var scene = parent
+	parent.remove_child(self)
 	scene.add_child(self)
 	global_transform = temp
 #	apply_central_impulse(velocity)

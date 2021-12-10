@@ -53,6 +53,10 @@ PluginSettings="res://addons/github-integration/scripts/PluginSettings.gd"
 
 enabled=PoolStringArray(  )
 
+[global]
+
+background=false
+
 [input]
 
 ui_select={
