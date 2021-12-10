@@ -6,6 +6,7 @@ const THROW_VELOCITY = 200
 
 onready var parent = get_parent()
 onready var sprite = $Sprite
+onready var statemachine = $State_Machine
 
 var is_grounded = false
 var followCursor = false
@@ -13,10 +14,6 @@ var launched = false
 
 #func _ready():
 #	set_physics_process(false)
-
-func _physics_process(delta):
-	if launched :
-		global_rotation = linear_velocity.angle() + PI / 2
 
 
 func launch(velocity):
@@ -29,10 +26,7 @@ func launch(velocity):
 #	apply_central_impulse(velocity)
 	set_linear_velocity(velocity)
 	parent = parent.get_parent()
-	launched = true
-
-func follow_cursor(following):
-	followCursor = following
+	statemachine.set_state(statemachine.states.Flying)
 
 #damage player
 #func _on_Hitarea_body_entered(body):

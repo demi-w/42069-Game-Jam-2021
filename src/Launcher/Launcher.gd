@@ -1,4 +1,5 @@
 extends Node2D
+class_name Launcher
 
 const projectilePhantom = preload("res://src/Launcher/Projectile/ProjectilePhantom.tscn")
 const projectile = preload("res://src/Launcher/Projectile/ProjectileRigid.tscn")
@@ -22,8 +23,8 @@ func spawn_tower(TowerType):
 
 
 func fire(direction):
-	remove_child(camera)			#camera stuff is temporary, for testing
-	currentTower.add_child(camera)
+#	remove_child(camera)			#camera stuff is temporary, for testing
+#	currentTower.add_child(camera)
 	currentTower.launch(direction)
 	currentTower = null
 
@@ -40,15 +41,12 @@ func on_button_pressed(TowerType):
 	spawn_tower(TowerType)
 
 func aim_reticle():
-	print(launchDir.get_position())
-	print(get_global_mouse_position()- get_position())
-	print((get_global_mouse_position() - get_position() - launchDir.get_position()) / 50)
 	tween.interpolate_property(launchDir, 'position', 
-			launchDir.get_position(), get_global_mouse_position() - get_position(),
-			abs((get_global_mouse_position() - get_position() - launchDir.get_position()).length() / 100), 
+			launchDir.get_position(), to_local(get_global_mouse_position()),
+			abs((to_local(get_global_mouse_position()) - launchDir.get_position()).length() / 100), 
 			0, 2)
 	tween.start()
 
-func predict_path():
-	pass
+func predict_path(direction):
+	currentTower.predict()
 
