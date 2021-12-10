@@ -6,8 +6,19 @@
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
 
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 2, 2 )
+
 [node name="Planet" parent="." instance=ExtResource( 1 )]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 656, -32 )
-current = true
+[node name="RayCast2D" type="RayCast2D" parent="Planet"]
+enabled = true
+cast_to = Vector2( 512, 0 )
+collision_mask = 48
+collide_with_areas = true
+
+[node name="Colony_Timer" type="Timer" parent="."]
+wait_time = 0.05
+
+[connection signal="timeout" from="Colony_Timer" to="." method="spawn_colonies"]
