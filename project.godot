@@ -50,6 +50,10 @@ RestHandler="res://addons/github-integration/scenes/RestHandler.tscn"
 IconLoaderGithub="res://addons/github-integration/scripts/IconLoaderGithub.gd"
 PluginSettings="res://addons/github-integration/scripts/PluginSettings.gd"
 
+[display]
+
+mouse_cursor/custom_image="res://src/Launcher/TEMP/cursor.png"
+
 [editor_plugins]
 
 enabled=PoolStringArray(  )
