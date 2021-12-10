@@ -1,47 +1,29 @@
 extends Node2D
 
+const projectilePhantom = preload("res://src/Launcher/Projectile/ProjectilePhantom.tscn")
 const projectile = preload("res://src/Launcher/Projectile/ProjectileRigid.tscn")
 
 onready var towerList = $TowerList
 onready var towerSpawn = $Tower_Spawn
 onready var camera = $Camera
-
-var cursor = load("res://src/Launcher/TEMP/cursor.png")
-var pointer = load("res://src/Launcher/TEMP/pointer.png")
+onready var launchDir = $Launch_Direction
+onready var tween = $Tween
 
 var currentTower
 var cursorInZone = false
 
-func _input(event):
-	if currentTower != null:
-		
-		if Input.is_action_pressed("ui_select"):
-			currentTower.rotation = (get_global_mouse_position()-towerSpawn.get_global_position()).angle() - PI/2
-		if Input.is_action_just_released("ui_select"):
-			fire(-(get_global_mouse_position()-towerSpawn.get_global_position()))
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
-	if currentTower != null:
-		if cursorInZone:
-			currentTower.follow_cursor(true)
-		else:
-			currentTower.follow_cursor(false)
 
 func spawn_tower(TowerType):
 	if currentTower == null:
 		currentTower = projectile.instance()
 		currentTower.get_node(@"Sprite").set_texture(load(towerList.get_tower(TowerType)))
-		towerSpawn.add_child(currentTower)
+		add_child(currentTower)
+		currentTower.set_position(towerSpawn.get_position())
+
 
 func fire(direction):
-#	remove_child(camera)			#camera stuff is temporary, for testing
-#	currentTower.add_child(camera)
+	remove_child(camera)			#camera stuff is temporary, for testing
+	currentTower.add_child(camera)
 	currentTower.launch(direction)
 	currentTower = null
 
@@ -54,16 +36,19 @@ func fire(direction):
 #	set_physics_process(true)
 
 
-func _on_Mouse_Area_mouse_entered():
-	Input.set_custom_mouse_cursor(pointer)
-	cursorInZone = true
-
-
-
-func _on_Mouse_Area_mouse_exited():
-	Input.set_custom_mouse_cursor(cursor)
-	cursorInZone = false
-
-
 func on_button_pressed(TowerType):
 	spawn_tower(TowerType)
+
+func aim_reticle():
+	print(launchDir.get_position())
+	print(get_global_mouse_position()- get_position())
+	print((get_global_mouse_position() - get_position() - launchDir.get_position()) / 50)
+	tween.interpolate_property(launchDir, 'position', 
+			launchDir.get_position(), get_global_mouse_position() - get_position(),
+			abs((get_global_mouse_position() - get_position() - launchDir.get_position()).length() / 100), 
+			0, 2)
+	tween.start()
+
+func predict_path():
+	pass
+
