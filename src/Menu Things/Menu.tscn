@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/Menu Things/TEMP/Background.png" type="Texture" id=1]
+[ext_resource path="res://src/Menu Things/Menu.gd" type="Script" id=2]
+[ext_resource path="res://src/Menu Things/Main Menu/Main Menu.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Menu Things/Level Select/Level Select.tscn" type="PackedScene" id=4]
+
+[node name="Menu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Background" type="TextureRect" parent="."]
+margin_right = 2048.0
+margin_bottom = 1200.0
+texture = ExtResource( 1 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Main_Menu" parent="Background" instance=ExtResource( 3 )]
+margin_left = -636.0
+margin_top = -468.0
+margin_right = -376.0
+margin_bottom = -162.0
+
+[node name="Level_Select" parent="Background" instance=ExtResource( 4 )]
+margin_left = 548.0
+margin_top = -476.0
+margin_right = 848.0
+margin_bottom = -126.0
+menuKey = "level_select"
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2( 504, 280 )
+current = true
+limit_left = 0
+limit_top = 0
+limit_right = 2048
+limit_bottom = 1200
+
+[connection signal="switch_menu" from="Background/Main_Menu" to="." method="switch_menu"]
+[connection signal="switch_menu" from="Background/Level_Select" to="." method="switch_menu"]

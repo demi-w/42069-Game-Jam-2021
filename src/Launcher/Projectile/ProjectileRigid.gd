@@ -14,7 +14,6 @@ var launched = false
 #func _ready():
 #	set_physics_process(false)
 
-
 func _physics_process(delta):
 	if launched :
 		sprite.global_rotation = linear_velocity.angle() + PI / 2

@@ -1,5 +1,7 @@
 extends Node
 
+var materials
+var energy
 
 func get_tower(key):
 	match key:

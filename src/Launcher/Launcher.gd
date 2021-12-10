@@ -40,8 +40,8 @@ func spawn_tower(TowerType):
 		towerSpawn.add_child(currentTower)
 
 func fire(direction):
-	#remove_child(camera)			#camera stuff is temporary, for testing
-	#currentTower.add_child(camera)
+#	remove_child(camera)			#camera stuff is temporary, for testing
+#	currentTower.add_child(camera)
 	currentTower.launch(direction)
 	currentTower = null
 

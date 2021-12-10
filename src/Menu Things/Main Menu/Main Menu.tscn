@@ -1,0 +1,61 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/Menu Things/Main Menu/Main Menu.gd" type="Script" id=2]
+
+[node name="Main_Menu" type="VBoxContainer"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -125.0
+margin_top = -150.0
+margin_right = 125.0
+margin_bottom = 150.0
+rect_pivot_offset = Vector2( 125, 150 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+menuKey = "main_menu"
+
+[node name="Play" type="Button" parent="."]
+margin_right = 250.0
+margin_bottom = 72.0
+focus_neighbour_top = NodePath("../Options")
+focus_neighbour_bottom = NodePath("../Credits")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Play"
+
+[node name="Credits" type="Button" parent="."]
+margin_top = 76.0
+margin_right = 250.0
+margin_bottom = 148.0
+focus_neighbour_top = NodePath("../Play")
+focus_neighbour_bottom = NodePath("../Options")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Credits"
+
+[node name="Options" type="Button" parent="."]
+margin_top = 152.0
+margin_right = 250.0
+margin_bottom = 224.0
+focus_neighbour_top = NodePath("../Credits")
+focus_neighbour_bottom = NodePath("../Exit")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Options"
+
+[node name="Exit" type="Button" parent="."]
+margin_top = 228.0
+margin_right = 250.0
+margin_bottom = 300.0
+focus_neighbour_top = NodePath("../Options")
+focus_neighbour_bottom = NodePath("../Play")
+size_flags_horizontal = 3
+size_flags_vertical = 3
+text = "Exit"
+
+[connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]
