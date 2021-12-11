@@ -24,13 +24,11 @@ func launch(velocity):
 	set_mode(0)
 	var temp = global_transform
 	var scene = parent
-	print(get_parent())
 	parent.remove_child(self)
 	scene.get_parent().add_child(self)
 	global_transform = temp
 	set_linear_velocity(velocity)
 	launched = true
-	print(get_parent())
 	parent = get_parent()
 	pathTimer.start()
 
@@ -64,4 +62,3 @@ func spawn_path():
 	newPath.set_position(position)
 	newPath.set_rotation(rotation - PI / 2)
 	pathTimer.start()
-	print(get_tree().get_nodes_in_group("Paths").size())
