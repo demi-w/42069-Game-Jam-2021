@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://src/Character/PlayerStateMachine.gd" type="Script" id=1]
+[ext_resource path="res://src/Character/TEMP/Spaceman1.png" type="Texture" id=2]
+[ext_resource path="res://src/Character/Player.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 4, 6 )
+
+[node name="Player" type="KinematicBody2D"]
+collision_mask = 16
+script = ExtResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 2 )
+shape = SubResource( 1 )
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -20.0
+margin_top = -16.0
+margin_right = 20.0
+margin_bottom = -2.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
