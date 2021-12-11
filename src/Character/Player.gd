@@ -27,10 +27,6 @@ func _ready():
 #	pass
 
 
-#func _update_movDir():
-#	movDir = Input.get_action_strength("right") - Input.get_action_strength("left")
-#
-#
 func _update_rotation():
 	set_rotation(get_position().angle() + PI / 2)
 
@@ -38,8 +34,10 @@ func _update_rotation():
 func _update_movDir():
 	movDir = Input.get_action_strength("right") - Input.get_action_strength("left")
 
+
 func _apply_gravity(delta):
 	pass #no
+
 
 func _handle_movement():
 	if get_linear_velocity().project(-get_position().tangent().normalized()).length() < maxSpeed:
@@ -49,12 +47,7 @@ func _handle_movement():
 			apply_central_impulse(-get_position().tangent().normalized() * movDir * movSpeed)
 	
 	is_grounded = groundcast.is_colliding()
-	
-	get_vertical_movement()
 
-func get_vertical_movement():
-	if (lastPosition - get_position()).length() > 2:
-		return true
 
 func get_vertical_direction():
 	return lastPosition.length() - get_position().length()

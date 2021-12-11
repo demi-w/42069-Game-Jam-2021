@@ -14,7 +14,7 @@ func _input(event):
 		if Input.is_action_pressed("jump"):
 			parent.apply_central_impulse(parent.get_position().normalized() * 100)
 		elif Input.is_action_pressed("run"):
-			parent.maxSpeed = 200
+			parent.maxSpeed = 150
 		if Input.is_action_just_released("run"):
 			parent.maxSpeed = 100
 
@@ -71,26 +71,25 @@ func _get_transition(delta):
 func _enter_state(new_state, old_state):
 	match new_state:
 		states.Idle:
-			print("Idle")
+			pass
 		states.Walk:
-			print("Walk")
+			pass
 		states.Jump:
-			print("Jump")
+			pass
 		states.Fall:
-			print("Fall")
+			pass
 		states.Run:
-			print("Run")
+			pass
 
 func _exit_state(new_state, old_state):
-	print("____")
 	match old_state:
 		states.Idle:
-			print("Idle")
+			pass
 		states.Walk:
-			print("Walk")
+			pass
 		states.Jump:
-			print("Jump")
+			pass
 		states.Fall:
-			print("Fall")
+			pass
 		states.Run:
-			print("Run")
+			pass
