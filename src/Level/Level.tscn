@@ -13,6 +13,7 @@ script = ExtResource( 2 )
 zoom = Vector2( 2, 2 )
 
 [node name="Planet" parent="." instance=ExtResource( 1 )]
+planetScale = Vector2( 0.997202, 0.841859 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Planet"]
 enabled = true
@@ -31,7 +32,7 @@ position = Vector2( 0, -600 )
 wait_time = 0.05
 
 [node name="AsteroidSpawner" parent="." instance=ExtResource( 5 )]
-spawnInterval = 0.05
+spawnInterval = 0.5
 asteroidsOnStart = 20.0
 planetPath = NodePath("../Planet")
 

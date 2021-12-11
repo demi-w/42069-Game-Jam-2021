@@ -2,16 +2,9 @@ extends Node
 
 const asteroidPrefab = preload("res://src/Asteroid/Asteroid.tscn")
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-
-
 export var spawnInterval : float = 3
 export var asteroidsOnStart : float = 0
 export var planetPath : NodePath
-
 
 onready var _planet = get_node(planetPath)
 var _spawnerRunning := false
@@ -22,12 +15,7 @@ var _rng : RandomNumberGenerator
 func _ready():
 	_rng = RandomNumberGenerator.new()
 	_rng.randomize()
-	queueAsteroids(50000)
-	spawner_coroutine()
-	spawner_coroutine()
-	spawner_coroutine()
-	spawner_coroutine()
-	spawner_coroutine()
+	queueAsteroids(asteroidsOnStart)
 
 func queueAsteroids(newAsteroids:int):
 	_queuedAsteroids += newAsteroids
@@ -46,9 +34,16 @@ func spawner_coroutine():
 			#{"period":1/(76+_rng.randf_range(0,4)),
 			#"initDist":1.4+_rng.randf_range(-0.01,0.01),
 			#"giveUpDist":1.1,
-			{"worldScale":_planet.planetRadius},
 			{
-			"rng":_rng
+				"worldScale":_planet.planetRadius
+#				"linearFall":_rng.randf_range(0,0.2),
+#				"linearFall":0,
+#				"initDist":1,
+#				"giveUpDist":0.8,
+#				"initDist": 1.1 + _rng.randf_range(-0.2,0.2)
+			},
+			{
+				"rng":_rng
 			})
 		add_child(newAsteroid)
 		#print("Added asteroid")

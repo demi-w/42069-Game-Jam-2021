@@ -1,12 +1,17 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://src/AsteroidSpawner/AsteroidSpawner.gd" type="Script" id=1]
+[ext_resource path="res://src/Planet/Planet.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/AsteroidSpawner/AsteroidSpawner.tscn" type="PackedScene" id=2]
 
-[node name="Spawner" type="Node"]
-script = ExtResource( 1 )
-spawnInterval = 0.0
-asteroidsOnStart = 5000.0
+[node name="Node2D" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.3, 0.3 )
+
+[node name="Planet" parent="." instance=ExtResource( 1 )]
+scale = Vector2( 0.2, 0.2 )
+
+[node name="AsteroidSpawner" parent="." instance=ExtResource( 2 )]
+spawnInterval = 0.01
+asteroidsOnStart = 5000.0
+planetPath = NodePath("../Planet")

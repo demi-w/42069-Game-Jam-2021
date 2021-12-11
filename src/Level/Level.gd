@@ -6,7 +6,7 @@ onready var planet = $Planet
 onready var raycast = $Planet/RayCast2D
 onready var colonyTimer = $Colony_Timer
 
-export (int) var numberOfColonies 
+export (int) var numberOfColonies
 
 func _ready():
 	randomize()
