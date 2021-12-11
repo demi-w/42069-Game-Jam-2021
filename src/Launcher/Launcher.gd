@@ -8,11 +8,15 @@ onready var towerSpawn = $Tower_Spawn
 onready var camera = $Camera
 onready var launchDir = $Launch_Direction
 onready var tween = $Tween
-onready var launchButton = $Control/Launch_Button
+onready var launchMats = $Control/Launch_Mats
+onready var towerMenu = $Control/Tower_Menu
 
 var currentTower
 var cursorInZone = false
 
+
+func _ready():
+	rotation = get_position().angle() + PI / 2
 
 func spawn_tower(TowerType):
 	if currentTower == null:
@@ -43,17 +47,37 @@ func on_button_pressed(TowerType):
 func aim_reticle():
 	tween.interpolate_property(launchDir, 'position', 
 			launchDir.get_position(), to_local(get_global_mouse_position()),
-			abs((to_local(get_global_mouse_position()) - launchDir.get_position()).length() / 100), 
+			abs((to_local(get_global_mouse_position()) - launchDir.get_position()).length() / 50), 
 			0, 2)
 	tween.start()
+	
 
 func predict_path(direction):
 	currentTower.predict(direction)
 
 func launch_button(value):
-	launchButton.set_visible(value)
+	launchMats.set_visible(value)
 	if value:
-		launchButton.set_position(-launchDir.get_position())
+		launchMats.set_position(-launchDir.get_position())
 
 func end_predict():
-	pass
+	print(get_tree().get_nodes_in_group("Paths").size())
+	get_tree().call_group("Paths", "queue_free")
+
+func build_menu(value):
+	if value:
+		towerMenu.set_visible(value)
+		print((1.0 - towerMenu.get_modulate().a) / .5)
+		tween.interpolate_property(towerMenu, 'modulate:a',
+				towerMenu.get_modulate().a, 1.0, 
+				(1.0 - towerMenu.get_modulate().a) / .5)
+		tween.start()
+	else:
+		tween.interpolate_property(towerMenu, 'modulate:a',
+				towerMenu.get_modulate().a, 0, 
+				abs(0 - towerMenu.get_modulate().a) / .5)
+		tween.start()
+		#tween.connect("tween_completed", self, "turnoff", [], CONNECT_ONESHOT)
+
+func turnoff():
+	towerMenu.set_visible(false)

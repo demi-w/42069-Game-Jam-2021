@@ -38,7 +38,7 @@ func _get_transition(delta):
 				return states.Idle
 
 func _enter_state(new_state, old_state):
-	match state:
+	match new_state:
 		states.Idle: 
 			parent.launchDir.set_visible(false)
 		states.Aim:
@@ -51,8 +51,11 @@ func _enter_state(new_state, old_state):
 			parent.launch_button(false)
 
 func _exit_state(new_state, old_state):
-	match state:
+	match old_state:
+		states.Aim:
+			parent.tween.stop(parent.launchDir)
 		states.Predict:
+
 			parent.end_predict()
 
 
@@ -66,4 +69,15 @@ func _on_Mouse_Area_mouse_exited():
 
 func _on_Launch_Button_pressed():
 	set_state(states.Launch)
-	pass
+
+
+func _on_Back_pressed():
+	set_state(states.Aim)
+
+
+func _on_Player_Detection_body_entered(body):
+	parent.build_menu(true)
+
+
+func _on_Player_Detection_body_exited(body):
+	parent.build_menu(false)
