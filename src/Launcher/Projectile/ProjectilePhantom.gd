@@ -76,7 +76,6 @@ func spawn_path():
 	newPath.set_visible(true)
 	var temp = global_transform
 	newPath.add_to_group("Paths")
-	remove_child(newPath)
 	parent.add_child(newPath)
 	newPath.set_position(position)
 	newPath.set_rotation(rotation - PI / 2)

@@ -13,8 +13,8 @@ func _input(event):
 		if [states.Aim].has(state):
 			if parent.cursorInZone:
 				if Input.is_action_pressed("ui_select"):
-					set_state(states.Predict)
-#					parent.fire(8*(parent.launchDir.get_global_position()-parent.towerSpawn.get_global_position()))
+#					set_state(states.Predict)
+					parent.fire(8*(parent.launchDir.get_global_position()-parent.towerSpawn.get_global_position()))
 					pass
 
 func _state_logic(delta):

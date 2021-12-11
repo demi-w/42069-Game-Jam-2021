@@ -1,8 +1,8 @@
 extends Node2D
 class_name Launcher
 
-const projectilePhantom = preload("res://src/Launcher/Projectile/ProjectilePhantom.tscn")
-const projectile = preload("res://src/Launcher/Projectile/ProjectileRigid.tscn")
+const projectile = preload("res://src/Launcher/Projectile/ProjectilePhantom.tscn")
+const projectilePhantom = preload("res://src/Launcher/Projectile/ProjectileRigid.tscn")
 
 onready var towerList = $TowerList
 onready var towerSpawn = $Tower_Spawn
@@ -23,8 +23,8 @@ func spawn_tower(TowerType):
 
 
 func fire(direction):
-#	remove_child(camera)			#camera stuff is temporary, for testing
-#	currentTower.add_child(camera)
+	remove_child(camera)			#camera stuff is temporary, for testing
+	currentTower.add_child(camera)
 	currentTower.launch(direction)
 	currentTower = null
 
