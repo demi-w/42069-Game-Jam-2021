@@ -45,10 +45,8 @@ func add_state(state_name):
 	states[state_name] = states.size()
 	state_names[states.size()-1] = state_name
 	
-	print(state_name)
-	print(states[state_name])
+#	print(state_name)
+#	print(states[state_name])
 
 func displayState(state_name):
-#	label.set_text(str(state_name))
-#	print(states[state_name])
 	label.set_text(state_names[state_name])

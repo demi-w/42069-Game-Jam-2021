@@ -12,7 +12,6 @@ script = ExtResource( 2 )
 zoom = Vector2( 2, 2 )
 
 [node name="Planet" parent="." instance=ExtResource( 1 )]
-position = Vector2( 0, -40 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Planet"]
 enabled = true
@@ -25,7 +24,7 @@ position = Vector2( 120, -496 )
 rotation = 0.370022
 
 [node name="Player" parent="Planet" instance=ExtResource( 4 )]
-position = Vector2( 336, -552 )
+position = Vector2( 0, -600 )
 
 [node name="Colony_Timer" type="Timer" parent="."]
 wait_time = 0.05

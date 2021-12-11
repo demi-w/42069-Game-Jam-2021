@@ -1,4 +1,4 @@
-extends KinematicBody2D
+extends RigidBody2D
 class_name Player
 
 onready var body = $Sprite
@@ -9,11 +9,15 @@ var normal = Vector2(0,-1)
 var velocity = Vector2()
 var gravity
 var parent = get_parent()
-var movDir
-var movSpeed = 200
+var movDir = 0
+var movSpeed = 20
+var lastmovDir = 1
+var maxSpeed = 100
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,19 +25,24 @@ func _ready():
 #	pass
 
 
+#func _update_movDir():
+#	movDir = Input.get_action_strength("right") - Input.get_action_strength("left")
+#
+#
+func _update_rotation():
+	set_rotation(get_position().angle() + PI / 2)
+
+
 func _update_movDir():
 	movDir = Input.get_action_strength("right") - Input.get_action_strength("left")
 
 func _apply_gravity(delta):
-	gravity = to_local(get_parent().get_position()).normalized() * 96
-	normal = -to_local(get_parent().get_position()).normalized()
-	velocity += gravity * delta
+	pass #no
 
 func _handle_movement():
-	velocity += movDir* gravity.tangent().normalized() * movSpeed
-	if movDir != 0:
-		body.scale.x *= movDir
-
-func _apply_movement():
-	velocity = move_and_slide_with_snap(velocity, snapvect, normal, true)
+	if get_linear_velocity().project(-get_position().tangent().normalized()).length() < maxSpeed:
+		if movDir != 0:
+			body.scale.x = movDir
+			lastmovDir = movDir
+			apply_central_impulse(-get_position().tangent().normalized() * movDir * movSpeed)
 

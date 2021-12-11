@@ -17,8 +17,6 @@ func _get_transition(delta):
 	match state:
 		states.Idle:
 			if parent.get_linear_velocity() > Vector2(0,0):
-				print("switch")
-				print("switch")
 				return states.Flying
 		states.Flying:
 			pass
