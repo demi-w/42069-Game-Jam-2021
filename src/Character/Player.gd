@@ -2,6 +2,7 @@ extends RigidBody2D
 class_name Player
 
 onready var body = $Sprite
+onready var groundcast = $Groundcast
 
 var snapvect = Vector2(0,4)
 var normal = Vector2(0,-1)
@@ -13,7 +14,8 @@ var movDir = 0
 var movSpeed = 20
 var lastmovDir = 1
 var maxSpeed = 100
-
+var lastPosition = Vector2()
+var is_grounded
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -45,4 +47,14 @@ func _handle_movement():
 			body.scale.x = movDir
 			lastmovDir = movDir
 			apply_central_impulse(-get_position().tangent().normalized() * movDir * movSpeed)
+	
+	is_grounded = groundcast.is_colliding()
+	
+	get_vertical_movement()
 
+func get_vertical_movement():
+	if (lastPosition - get_position()).length() > 2:
+		return true
+
+func get_vertical_direction():
+	return lastPosition.length() - get_position().length()
