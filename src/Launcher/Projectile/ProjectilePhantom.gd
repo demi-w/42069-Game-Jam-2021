@@ -34,6 +34,7 @@ func launch(velocity):
 	parent = get_parent()
 	pathTimer.start()
 
+
 func follow_cursor(following):
 	followCursor = following
 

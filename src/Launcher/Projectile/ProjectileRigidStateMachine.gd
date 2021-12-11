@@ -7,15 +7,12 @@ func _ready():
 
 func _state_logic(delta):
 	if state == states.Idle:
-		if parent is Planet:
-			pass
-		else:
+		if parent is Launcher:
 			parent.rotation = (parent.get_parent().launchDir.get_position() - parent.get_position()).angle() + PI / 2
 	elif state == states.Flying:
 		parent.global_rotation = parent.linear_velocity.angle() + PI / 2
 
 #parent.currentTower.rotation = (parent.get_global_mouse_position()-parent.towerSpawn.get_global_position()).angle() + PI/2
-
 
 func _get_transition(delta):
 	match state:
