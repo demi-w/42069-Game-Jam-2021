@@ -243,9 +243,13 @@ _global_script_class_icons={
 [application]
 
 config/name="fuck"
-run/main_scene="res://Main.tscn"
+run/main_scene="res://tests/asteroids.tscn"
 boot_splash/image="res://SpacemanPortrait.png"
 config/icon="res://SpacemanPortraitIcon.png"
+
+[debug]
+
+settings/stdout/print_fps=true
 
 [display]
 
@@ -293,4 +297,7 @@ common/enable_pause_aware_picking=true
 
 [rendering]
 
+quality/intended_usage/framebuffer_allocation=0
+quality/intended_usage/framebuffer_allocation.mobile=0
+quality/filters/anisotropic_filter_level=1
 environment/default_environment="res://default_env.tres"
