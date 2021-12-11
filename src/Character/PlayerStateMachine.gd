@@ -5,12 +5,11 @@ func _ready():
 	add_state("Idle")
 	add_state("Walk")
 	add_state("Fall")
-	add_state("")
+	add_state("Run")
 	call_deferred("set_state", states.Idle)
 
 func _state_logic(delta):
-	parent._apply_gravity(delta)
-	parent._apply_movement()
+	pass
 
 func _get_transition(delta):
 	return null
