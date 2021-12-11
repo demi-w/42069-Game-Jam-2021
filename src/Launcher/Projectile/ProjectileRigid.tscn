@@ -1,9 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Launcher/TEMP/Tower1.png" type="Texture" id=1]
 [ext_resource path="res://src/Launcher/Projectile/ProjectileRigid.gd" type="Script" id=2]
 [ext_resource path="res://src/Launcher/TEMP/cursor.png" type="Texture" id=3]
-[ext_resource path="res://src/Launcher/Projectile/ProjectileRigidStateMachine.gd" type="Script" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 8 )
@@ -27,9 +26,6 @@ texture = ExtResource( 3 )
 shape = SubResource( 1 )
 
 [node name="Tween" type="Tween" parent="."]
-
-[node name="State_Machine" type="Node" parent="."]
-script = ExtResource( 4 )
 
 [node name="Label" type="Label" parent="."]
 margin_right = 40.0

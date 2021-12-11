@@ -1,20 +1,22 @@
 extends RigidBody2D
 
 const tower = preload("res://src/Tower/Tower.tscn")
-
-const THROW_VELOCITY = 200
+const projectilePhantom = preload("res://src/Launcher/Projectile/ProjectilePhantom.tscn")
 
 onready var parent = get_parent()
 onready var sprite = $Sprite
-onready var statemachine = $State_Machine
 
 var is_grounded = false
 var followCursor = false
 var launched = false
-
 #func _ready():
 #	set_physics_process(false)
 
+func _physics_process(delta):
+	if launched:
+		global_rotation = linear_velocity.angle() + PI / 2
+	else:
+		rotation = (get_parent().launchDir.get_position() - get_position()).angle() + PI / 2
 
 func launch(velocity):
 	set_mode(0)
@@ -26,21 +28,20 @@ func launch(velocity):
 #	apply_central_impulse(velocity)
 	set_linear_velocity(velocity)
 	parent = parent.get_parent()
-	statemachine.set_state(statemachine.states.Flying)
+	launched = true
 
-#damage player
-#func _on_Hitarea_body_entered(body):
-#	if body is Player:
-#		if !is_grounded:
-#			body.take_damage()
-#			queue_free()
-##			if body.immuneTimer.is_stopped():
-##				#print("dab")
-##				body.take_damage()
-##				queue_free()
-#		else:
-#			pass
 
+func predict(direction):
+	var phantom = projectilePhantom.instance()
+	parent.add_child(phantom)
+	phantom.set_position(get_position())
+	phantom.launch(direction)
+
+#	if currentTower == null:
+#		currentTower = projectile.instance()
+#		currentTower.get_node(@"Sprite").set_texture(load(towerList.get_tower(TowerType)))
+#		add_child(currentTower)
+#		currentTower.set_position(towerSpawn.get_position())
 
 func _on_RigidBody2D_body_entered(body):
 	if body is Planet:

@@ -5,6 +5,7 @@ func _ready():
 	add_state("Idle")
 	add_state("Aim")
 	add_state("Predict")
+	add_state("Launch")
 	add_state("Fucking")
 	call_deferred("set_state", states.Idle)
 
@@ -13,14 +14,15 @@ func _input(event):
 		if [states.Aim].has(state):
 			if parent.cursorInZone:
 				if Input.is_action_pressed("ui_select"):
-#					set_state(states.Predict)
-					parent.fire(8*(parent.launchDir.get_global_position()-parent.towerSpawn.get_global_position()))
+					set_state(states.Predict)
+#					parent.fire(8*(parent.launchDir.get_global_position()-parent.towerSpawn.get_global_position()))
 					pass
 
 func _state_logic(delta):
 	if parent.currentTower != null:
 		if parent.cursorInZone:
-			parent.aim_reticle()
+			if state != states.Predict:
+				parent.aim_reticle()
 #			parent.currentTower.rotation = (parent.get_global_mouse_position()-parent.towerSpawn.get_global_position()).angle() + PI/2
 
 func _get_transition(delta):
@@ -31,6 +33,9 @@ func _get_transition(delta):
 		states.Aim:
 			if parent.currentTower == null:
 				return states.Idle
+		states.Launch:
+			if parent.currentTower == null:
+				return states.Idle
 
 func _enter_state(new_state, old_state):
 	match state:
@@ -38,9 +43,17 @@ func _enter_state(new_state, old_state):
 			parent.launchDir.set_visible(false)
 		states.Aim:
 			parent.launchDir.set_visible(true)
+		states.Predict:
+			parent.predict_path(8*(parent.launchDir.get_global_position()-parent.towerSpawn.get_global_position()))
+			parent.launch_button(true)
+		states.Launch:
+			parent.fire(8*(parent.launchDir.get_global_position()-parent.towerSpawn.get_global_position()))
+			parent.launch_button(false)
 
 func _exit_state(new_state, old_state):
-	pass
+	match state:
+		states.Predict:
+			parent.end_predict()
 
 
 func _on_Mouse_Area_mouse_entered():
@@ -49,3 +62,8 @@ func _on_Mouse_Area_mouse_entered():
 
 func _on_Mouse_Area_mouse_exited():
 	parent.cursorInZone = false
+
+
+func _on_Launch_Button_pressed():
+	set_state(states.Launch)
+	pass

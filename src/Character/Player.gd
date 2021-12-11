@@ -12,10 +12,11 @@ var parent = get_parent()
 var movDir = 0
 var movSpeed = 20
 var lastmovDir = 1
+var maxSpeed = 100
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	gravity = to_local(get_parent().get_position()).normalized() * 96
 	pass
 
 
@@ -29,28 +30,19 @@ func _ready():
 #
 #
 func _update_rotation():
-	#set_rotation(get_position().angle() + PI / 2)
-	pass
-#
-#
-#func _apply_gravity(delta):
-#	print(to_local(get_parent().get_position()).normalized() * 96)
-#	gravity = to_local(get_parent().get_position()).normalized() * 96
-#	velocity += gravity * delta
-#
-#
-#func _apply_movement():
-#	snapvect = gravity.normalized() * 16
-#	velocity = move_and_slide_with_snap(velocity, snapvect, normal, true)
+	set_rotation(get_position().angle() + PI / 2)
+
+
 func _update_movDir():
 	movDir = Input.get_action_strength("right") - Input.get_action_strength("left")
 
 func _apply_gravity(delta):
-	pass
+	pass #no
 
 func _handle_movement():
-	pass
+	if get_linear_velocity().project(-get_position().tangent().normalized()).length() < maxSpeed:
+		if movDir != 0:
+			body.scale.x = movDir
+			lastmovDir = movDir
+			apply_central_impulse(-get_position().tangent().normalized() * movDir * movSpeed)
 
-func _apply_movement():
-	pass
-	

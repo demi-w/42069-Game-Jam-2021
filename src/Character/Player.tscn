@@ -1,13 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Character/PlayerStateMachine.gd" type="Script" id=1]
 [ext_resource path="res://src/Character/TEMP/Spaceman1.png" type="Texture" id=2]
+[ext_resource path="res://src/Character/Player.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 6 )
 
 [node name="Player" type="RigidBody2D"]
+z_index = 1
 collision_mask = 16
+mode = 2
+script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -29,4 +33,6 @@ __meta__ = {
 }
 
 [node name="Camera2D" type="Camera2D" parent="."]
+rotating = true
 current = true
+zoom = Vector2( 0.5, 0.5 )

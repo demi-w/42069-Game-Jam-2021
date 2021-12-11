@@ -1,14 +1,14 @@
 extends Node2D
 class_name Launcher
 
-const projectile = preload("res://src/Launcher/Projectile/ProjectilePhantom.tscn")
-const projectilePhantom = preload("res://src/Launcher/Projectile/ProjectileRigid.tscn")
+const projectile = preload("res://src/Launcher/Projectile/ProjectileRigid.tscn")
 
 onready var towerList = $TowerList
 onready var towerSpawn = $Tower_Spawn
 onready var camera = $Camera
 onready var launchDir = $Launch_Direction
 onready var tween = $Tween
+onready var launchButton = $Control/Launch_Button
 
 var currentTower
 var cursorInZone = false
@@ -48,5 +48,12 @@ func aim_reticle():
 	tween.start()
 
 func predict_path(direction):
-	currentTower.predict()
+	currentTower.predict(direction)
 
+func launch_button(value):
+	launchButton.set_visible(value)
+	if value:
+		launchButton.set_position(-launchDir.get_position())
+
+func end_predict():
+	pass
