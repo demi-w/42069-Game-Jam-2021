@@ -19,6 +19,7 @@ func _input(event):
 					pass
 
 func _state_logic(delta):
+	print(parent.towerMenu.get_modulate().a)
 	if parent.currentTower != null:
 		if parent.cursorInZone:
 			if state != states.Predict:

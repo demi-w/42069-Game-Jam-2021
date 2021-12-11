@@ -148,5 +148,7 @@ shape = SubResource( 2 )
 [connection signal="pressed" from="Control/Launch_Mats/Back" to="State_Machine" method="_on_Back_pressed"]
 [connection signal="mouse_entered" from="Mouse_Area" to="State_Machine" method="_on_Mouse_Area_mouse_entered"]
 [connection signal="mouse_exited" from="Mouse_Area" to="State_Machine" method="_on_Mouse_Area_mouse_exited"]
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
+[connection signal="tween_started" from="Tween" to="." method="_on_Tween_tween_started"]
 [connection signal="body_entered" from="Player_Detection" to="State_Machine" method="_on_Player_Detection_body_entered"]
 [connection signal="body_exited" from="Player_Detection" to="State_Machine" method="_on_Player_Detection_body_exited"]

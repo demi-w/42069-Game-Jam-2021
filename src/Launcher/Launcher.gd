@@ -67,17 +67,21 @@ func end_predict():
 func build_menu(value):
 	if value:
 		towerMenu.set_visible(value)
-		print((1.0 - towerMenu.get_modulate().a) / .5)
+		tween.stop(towerMenu)
 		tween.interpolate_property(towerMenu, 'modulate:a',
 				towerMenu.get_modulate().a, 1.0, 
 				(1.0 - towerMenu.get_modulate().a) / .5)
 		tween.start()
 	else:
-		tween.interpolate_property(towerMenu, 'modulate:a',
-				towerMenu.get_modulate().a, 0, 
-				abs(0 - towerMenu.get_modulate().a) / .5)
-		tween.start()
-		#tween.connect("tween_completed", self, "turnoff", [], CONNECT_ONESHOT)
+		tween.stop(towerMenu)
+		#tween.interpolate_property(towerMenu, 'modulate:a',
+		#		towerMenu.get_modulate().a, 0.0, 
+		#		abs(0 - towerMenu.get_modulate().a) / .5)
+		#tween.start()
 
-func turnoff():
-	towerMenu.set_visible(false)
+
+
+func turnoff(object, key):
+	print(object.get_modulate().a)
+	print("FUCK")
+	#tween.stop(towerMenu)
