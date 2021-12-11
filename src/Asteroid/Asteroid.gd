@@ -1,24 +1,25 @@
 extends Node2D
 
 #Forgot I was defying naming convention, fix this if u wanna but i cannot b fuked to
-func _defaultInitDist(rng : RandomNumberGenerator):
-	return 2+rng.randf_range(-0.3,0.3)
+func _defaultInitDist(configInfo : Dictionary):
+	return (150+configInfo["rng"].randf_range(-15,15))/_worldScale
 
-func _defaultLinearFall(rng : RandomNumberGenerator):
-	return 0.2+rng.randf_range(-0.05,0.05)
+func _defaultLinearFall(configInfo : Dictionary):
+	return (.02+configInfo["rng"].randf_range(-.05,.05))*_worldScale
 
-func _defaultGiveUpDist(rng : RandomNumberGenerator):
-	return 1.4-(rng.randf_range(0,0.8)*rng.randf_range(0,0.8))/2
+func _defaultGiveUpDist(configInfo : Dictionary):
+	return (1.4-(configInfo["rng"].randf_range(0,0.8)*configInfo["rng"].randf_range(0,0.8)/_worldScale*200)/2)
 
-func _defaultPeriod(rng : RandomNumberGenerator):
-	return 1/(26+rng.randf_range(0,4))
+func _defaultPeriod(configInfo : Dictionary):
+	return 1/((1.5+configInfo["rng"].randf_range(0,3))*_worldScale)
 	#return 1/(15+rng.randf_range(0,5)*rng.randf_range(0,6))
 
-func _defaultPosRotation(rng : RandomNumberGenerator):
-	return rng.randf_range(0,2*PI)
+func _defaultPosRotation(configInfo : Dictionary):
+	return configInfo["rng"].randf_range(0,2*PI)
 
-func _defaultAsteroidHash(rng : RandomNumberGenerator):
-	return rng.randi()
+func _defaultAsteroidHash(configInfo : Dictionary):
+	return configInfo["rng"].randi()
+
 
 var defaultParamFuncs = {
 	"initDist" : funcref(self,"_defaultInitDist"),
@@ -26,7 +27,8 @@ var defaultParamFuncs = {
 	"giveUpDist" : funcref(self,"_defaultGiveUpDist"),
 	"period" : funcref(self,"_defaultPeriod"),
 	"posRotation" : funcref(self,"_defaultPosRotation"),
-	"asteroidHash" : funcref(self,"_defaultAsteroidHash")
+	"asteroidHash" : funcref(self,"_defaultAsteroidHash"),
+	"worldScale" : null
 }
 
 
@@ -35,33 +37,34 @@ var defaultParamFuncs = {
 # var b = "text"
 
 var timeAlive = 0
-var worldScale = 80
 var deathTime
 var _asteroidHash
 
 #THESE SHOULD BE CONSTANT PER ASTEROID (teehee they are now hidden)
+var _worldScale = 80
 var _initDist : float = 2
 var _linearFall : float = 0.2
 var _giveUpDist : float = 1.2
 var _period : float = 1.0/30.0
 var _posRotation: float = 0 # >= 0 && < 2*PI, determines offset for start above planet
 
-func setupParameters(params : Dictionary, rng : RandomNumberGenerator):
+func setupParameters(params : Dictionary, configInfo : Dictionary):
 	for param in defaultParamFuncs.keys():
 		if params.has(param):
 			self.set("_" + param,params[param])
 		else:
-			self.set("_" + param,defaultParamFuncs[param].call_func(rng))
+			assert(defaultParamFuncs[param] != null, "Mandatory parameter " + param + " not provided.")
+			self.set("_" + param,defaultParamFuncs[param].call_func(configInfo))
 		
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	deathTime = calc_death_time()
 	give_up_coroutine()
-	position = get_position_at_time(0)*worldScale
+	position = get_position_at_time(0)*_worldScale
 
 func _process(delta):
 	timeAlive += delta
-	position = get_position_at_time(timeAlive)*worldScale
+	position = get_position_at_time(timeAlive)*_worldScale
 	
 func get_position_at_time(time):
 	var periodTime = time*_period #Default period takes 1 second

@@ -243,7 +243,7 @@ _global_script_class_icons={
 [application]
 
 config/name="fuck"
-run/main_scene="res://tests/asteroids.tscn"
+run/main_scene="res://Main.tscn"
 boot_splash/image="res://SpacemanPortrait.png"
 config/icon="res://SpacemanPortraitIcon.png"
 

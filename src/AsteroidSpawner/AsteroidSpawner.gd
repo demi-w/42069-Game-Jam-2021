@@ -10,7 +10,10 @@ const asteroidPrefab = preload("res://src/Asteroid/Asteroid.tscn")
 
 export var spawnInterval : float = 3
 export var asteroidsOnStart : float = 0
+export var planetPath : NodePath
 
+
+onready var _planet = get_node(planetPath)
 var _spawnerRunning := false
 var _asteroids := []
 var _queuedAsteroids := 0
@@ -20,6 +23,11 @@ func _ready():
 	_rng = RandomNumberGenerator.new()
 	_rng.randomize()
 	queueAsteroids(50000)
+	spawner_coroutine()
+	spawner_coroutine()
+	spawner_coroutine()
+	spawner_coroutine()
+	spawner_coroutine()
 
 func queueAsteroids(newAsteroids:int):
 	_queuedAsteroids += newAsteroids
@@ -35,8 +43,13 @@ func spawner_coroutine():
 		var newAsteroid := asteroidPrefab.instance()
 		_asteroids.append(newAsteroid)
 		newAsteroid.setupParameters(
-			{"period":1/(76+_rng.randf_range(0,4)),
-			"initDist":2+_rng.randf_range(-0.6,0.6)},_rng)
+			#{"period":1/(76+_rng.randf_range(0,4)),
+			#"initDist":1.4+_rng.randf_range(-0.01,0.01),
+			#"giveUpDist":1.1,
+			{"worldScale":_planet.planetRadius},
+			{
+			"rng":_rng
+			})
 		add_child(newAsteroid)
 		#print("Added asteroid")
 		_queuedAsteroids -= 1
