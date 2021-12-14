@@ -44,6 +44,7 @@ func fire(direction):
 func on_button_pressed(TowerType):
 	spawn_tower(TowerType)
 
+
 func aim_reticle():
 	tween.interpolate_property(launchDir, 'position', 
 			launchDir.get_position(), to_local(get_global_mouse_position()),
@@ -52,17 +53,20 @@ func aim_reticle():
 	tween.start()
 	
 
+
 func predict_path(direction):
 	currentTower.predict(direction)
+
 
 func launch_button(value):
 	launchMats.set_visible(value)
 	if value:
 		launchMats.set_position(-launchDir.get_position())
 
+
 func end_predict():
-	print(get_tree().get_nodes_in_group("Paths").size())
 	get_tree().call_group("Paths", "queue_free")
+
 
 func build_menu(value):
 	if value:
@@ -74,10 +78,10 @@ func build_menu(value):
 		tween.start()
 	else:
 		tween.stop(towerMenu)
-		#tween.interpolate_property(towerMenu, 'modulate:a',
-		#		towerMenu.get_modulate().a, 0.0, 
-		#		abs(0 - towerMenu.get_modulate().a) / .5)
-		#tween.start()
+		tween.interpolate_property(towerMenu, 'modulate:a',
+				towerMenu.get_modulate().a, 0.0, 
+				abs(0 - towerMenu.get_modulate().a) / .5)
+		tween.start()
 
 
 

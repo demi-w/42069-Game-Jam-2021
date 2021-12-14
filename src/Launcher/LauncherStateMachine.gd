@@ -19,7 +19,6 @@ func _input(event):
 					pass
 
 func _state_logic(delta):
-	print(parent.towerMenu.get_modulate().a)
 	if parent.currentTower != null:
 		if parent.cursorInZone:
 			if state != states.Predict:
@@ -76,9 +75,9 @@ func _on_Back_pressed():
 	set_state(states.Aim)
 
 
-func _on_Player_Detection_body_entered(body):
+func _on_Player_Detection_body_entered(_body):
 	parent.build_menu(true)
 
 
-func _on_Player_Detection_body_exited(body):
+func _on_Player_Detection_body_exited(_body):
 	parent.build_menu(false)
