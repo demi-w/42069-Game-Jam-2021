@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/Character/PlayerStateMachine.gd" type="Script" id=1]
 [ext_resource path="res://src/Character/TEMP/Spaceman1.png" type="Texture" id=2]
 [ext_resource path="res://src/Character/Player.gd" type="Script" id=3]
+[ext_resource path="res://src/Fonts/Kapel.tres" type="DynamicFont" id=4]
+[ext_resource path="res://src/Character/CameraController.gd" type="Script" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 6 )
@@ -14,9 +16,11 @@ mode = 2
 script = ExtResource( 3 )
 
 [node name="Camera" type="Camera2D" parent="."]
+position = Vector2( 0, -40 )
 rotating = true
 current = true
-zoom = Vector2( 0.5, 0.5 )
+zoom = Vector2( 0.25, 0.25 )
+script = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )
@@ -42,3 +46,26 @@ position = Vector2( 0, 4 )
 enabled = true
 cast_to = Vector2( 0, 6 )
 collision_mask = 16
+
+[node name="Control" type="Control" parent="."]
+margin_left = 4.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = -8.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="Control"]
+margin_right = 19.0
+margin_bottom = 21.0
+custom_fonts/font = ExtResource( 4 )
+text = "E"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Interaction Area" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Interaction Area"]

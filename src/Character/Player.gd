@@ -19,7 +19,7 @@ var is_grounded
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	friction = 20
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,7 +45,6 @@ func _handle_movement():
 			body.scale.x = movDir
 			lastmovDir = movDir
 			apply_central_impulse(-get_position().tangent().normalized() * movDir * movSpeed)
-	
 	is_grounded = groundcast.is_colliding()
 
 
