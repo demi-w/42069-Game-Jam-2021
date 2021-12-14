@@ -66,7 +66,7 @@ func _ready():
 	rng.randomize()
 	setupParameters(
 		{"worldScale" : parent.planetRadius,
-		"posRotation" : 0},
+		"posRotation" : -PI/2},
 		{"rng": rng}
 	)
 	pass
@@ -74,17 +74,13 @@ func _ready():
 
 func _process(delta):
 	timeAlive += delta
-	if not landed:
-		if not falling:
-			position = get_position_at_time(timeAlive)*_worldScale
-			global_rotation = get_position().angle()
-		else:
-#			print(get_linear_velocity().project(get_linear_velocity().tangent()).length())
-			if get_position().length() > 600:
-				global_rotation = get_linear_velocity().angle() - PI / 2
-			pass
+	if not falling:
+		position = get_position_at_time(timeAlive)*_worldScale
+		global_rotation = get_position().angle()
 	else:
-		pass
+#		print(get_linear_velocity().project(get_linear_velocity().tangent()).length())
+		global_rotation = get_linear_velocity().angle() - PI / 2
+
 
 func get_position_at_time(time):
 	var periodTime = time*_period #Default period takes 1 second
@@ -96,21 +92,22 @@ func start_fall():
 	falling = true
 	set_linear_velocity(-get_position().tangent().normalized())
 
-func switch_to_planet():
-	set_linear_velocity(Vector2(0,0))
-	set_angular_velocity(0)
-	set_mode(MODE_STATIC)
-	set_collision_layer(16)
-	set_collision_mask(0)
-	set_rotation(get_position().angle() + PI / 2)
-	set_position(get_position().normalized() * 520)
-	print(get_collision_mask_bit(0))
-
+#This was developed back when I was young and dreamy and wanted to use 
+#	only one scene for the pod but god said no
+#func switch_to_planet():
+#	set_linear_velocity(Vector2(0,0))
+#	set_angular_velocity(0)
+#	set_mode(MODE_STATIC)
+#	set_collision_layer(16)
+#	set_collision_mask(0)
+#	set_rotation(get_position().angle() + PI / 2)
+#	set_position(get_position().normalized() * 520)
+#	print(get_collision_mask_bit(0))
 
 
 func _on_landed(body):
 	var staticPod = StaticPod.instance()
-	parent.add_child(staticPod)
-	staticPod.set_position(get_position())
+	parent.call_deferred("add_child",staticPod)
+	staticPod.set_position(get_position().normalized()*520)
 	staticPod.set_rotation(get_position().angle() + PI/2)
 	queue_free()

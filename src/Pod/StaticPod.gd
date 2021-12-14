@@ -1,14 +1,13 @@
 extends StaticBody2D
 
 
-var scrap_force = Vector2(-60,-60)
+var scrap_force = Vector2(-40,-40)
 var scrap_force_offset = Vector2(0,-10)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	yield(get_tree().create_timer(3),"timeout")
 	throw_scrap()
-	print("yeet")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -25,8 +24,9 @@ func throw_scrap():
 	right_door.apply_impulse(scrap_force_offset.rotated(rotPosition),Vector2(-scrap_force.x,scrap_force.y).rotated(rotPosition))
 
 func change_parent(changed = null):
-	var temp = changed.global_transform
-	var parent = get_parent()
-	remove_child(changed)
-	parent.add_child(changed)
-	changed.global_transform = temp
+	if changed != null:
+		var temp = changed.global_transform
+		var parent = get_parent()
+		remove_child(changed)
+		parent.add_child(changed)
+		changed.global_transform = temp
