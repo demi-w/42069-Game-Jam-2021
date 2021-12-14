@@ -1,7 +1,6 @@
 extends RigidBody2D
 
 const tower = preload("res://src/Tower/Tower.tscn")
-const projectilePhantom = preload("res://src/Launcher/Projectile/ProjectilePhantom.tscn")
 
 onready var parent = get_parent()
 onready var sprite = $Sprite
@@ -44,12 +43,12 @@ func launch(velocity):
 		particle.set_emitting(true)
 
 
-func predict(direction):
-	var phantom = projectilePhantom.instance()
-	parent.add_child(phantom)
-	phantom.add_to_group("Paths")
-	phantom.set_position(get_position())
-	phantom.launch(direction)
+#func predict(direction):
+#	var phantom = projectilePhantom.instance()
+#	parent.add_child(phantom)
+#	phantom.add_to_group("Paths")
+#	phantom.set_position(get_position())
+#	phantom.launch(direction)
 
 #	if currentTower == null:
 #		currentTower = projectile.instance()
