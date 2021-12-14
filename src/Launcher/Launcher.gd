@@ -10,6 +10,8 @@ onready var launchDir = $Launch_Direction
 onready var tween = $Tween
 onready var launchMats = $Control/Launch_Mats
 onready var towerMenu = $Control/Tower_Menu
+onready var predictor = $Predictor
+
 
 var currentTower
 var cursorInZone = false
@@ -55,7 +57,14 @@ func aim_reticle():
 
 
 func predict_path(direction):
-	currentTower.predict(direction)
+#	currentTower.predict(direction)
+	predictor.predict({
+#		"gravity_force"
+		"texture" : currentTower.get_node(@"Sprite").get_texture(),
+		"collision" : currentTower.shape_owner_get_owner(currentTower.get_shape_owners()[0]).get_shape(),
+		"launch_position" : currentTower.get_position(),
+		"velocity" : direction
+	})
 
 
 func launch_button(value):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/Launcher/TEMP/Tower3.png" type="Texture" id=1]
 [ext_resource path="res://src/Launcher/TEMP/Slingslot.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://src/Launcher/TEMP/pointer.png" type="Texture" id=7]
 [ext_resource path="res://src/Launcher/LauncherStateMachine.gd" type="Script" id=8]
 [ext_resource path="res://src/Fonts/DigitalDisco.tres" type="DynamicFont" id=9]
+[ext_resource path="res://src/Predictor/Predictor.tscn" type="PackedScene" id=10]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 56.0
@@ -140,6 +141,8 @@ collision_layer = 0
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Detection"]
 position = Vector2( 0, -7 )
 shape = SubResource( 2 )
+
+[node name="Predictor" parent="." instance=ExtResource( 10 )]
 
 [connection signal="pressed" from="Control/Tower_Menu/Tower1" to="." method="on_button_pressed" binds= [ "Tower1" ]]
 [connection signal="pressed" from="Control/Tower_Menu/Tower2" to="." method="on_button_pressed" binds= [ "Tower2" ]]
