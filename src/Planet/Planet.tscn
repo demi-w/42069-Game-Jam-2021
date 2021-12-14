@@ -16,7 +16,7 @@ script = ExtResource( 2 )
 
 [node name="Non-Orbit" type="Area2D" parent="."]
 collision_layer = 0
-collision_mask = 13
+collision_mask = 45
 space_override = 3
 gravity_point = true
 gravity = 96.0
@@ -25,8 +25,10 @@ gravity = 96.0
 shape = SubResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 624, 416 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 1 )
+offset = Vector2( -312, -208 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
