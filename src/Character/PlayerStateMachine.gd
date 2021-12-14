@@ -9,19 +9,28 @@ func _ready():
 	add_state("Run")
 	call_deferred("set_state", states.Idle)
 
-func _input(event):
+func _input(_event):
 	if [states.Idle, states.Walk, states.Run].has(state):
 		if Input.is_action_pressed("jump"):
-			parent.apply_central_impulse(parent.get_position().normalized() * 100)
+			#parent.apply_central_impulse(parent.get_position().normalized() * 100)
+			#print(parent.get_linear_velocity().project(parent.get_position()))
+			parent.linear_velocity += parent.get_position().normalized()*80
 		elif Input.is_action_pressed("run"):
 			parent.maxSpeed = 150
 		if Input.is_action_just_released("run"):
 			parent.maxSpeed = 100
+	
+	if Input.is_action_pressed("interact"):
+			if parent.held_item == null:
+				if parent.interaction_list.size() > 0:
+					parent.pickup_item(parent.interaction_list[0])
+			elif parent.held_item != null:
+				parent.drop_item()
 
-func _process(delta):
+func _process(_delta):
 	parent.lastPosition = parent.get_position()
 
-func _state_logic(delta):
+func _state_logic(_delta):
 	
 	parent._update_rotation()
 	parent._update_movDir()
@@ -93,3 +102,16 @@ func _exit_state(new_state, old_state):
 			pass
 		states.Run:
 			pass
+
+
+func _on_scrap_entered(body):
+	parent.interaction_list.append(body)
+	parent.get_node("Control/Button").set_visible(true)
+	print(parent.interaction_list)
+
+
+func _on_scrap_body_exited(body):
+	if parent.interaction_list.size() == 0:
+		parent.get_node("Control/Button").visible = false
+	parent.interaction_list.remove(parent.interaction_list.find(body))
+	print(parent.interaction_list)
