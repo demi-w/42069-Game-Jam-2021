@@ -7,19 +7,27 @@ onready var parent = get_parent()
 onready var sprite = $Sprite
 onready var particles = $Particles
 
-var is_grounded = false
 var followCursor = false
 var launched = false
+var lastPosition
 #func _ready():
 #	set_physics_process(false)
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if launched:
 		global_rotation = linear_velocity.angle() + PI / 2
 		for particle in particles.get_children():
 			particle.get_process_material().set_gravity(96 * Vector3((get_position().normalized()).x, -(get_position().normalized()).y, 0))
+		if get_vertical_direction() < 0:
+			pass
+		else:
+			for particle in particles.get_children():
+				particle.set_emitting(false)
 	else:
 		rotation = (get_parent().launchDir.get_position() - get_position()).angle() + PI / 2
+
+func _process(_delta):
+	lastPosition = get_position()
 
 func launch(velocity):
 	set_mode(0)
@@ -67,3 +75,6 @@ func _on_RigidBody2D_body_entered(body):
 		newTower.set_position(Vector2(0,-16))
 		newTower.get_node(@"Sprite").set_texture(texture)
 		queue_free()
+
+func get_vertical_direction():
+	return lastPosition.length() - get_position().length()
