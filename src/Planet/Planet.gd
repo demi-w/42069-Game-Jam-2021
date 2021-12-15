@@ -3,8 +3,7 @@ extends Node2D
 class_name Planet
 
 export var planetScale = 1.0 setget set_scale
-onready var planetRadius = $Sprite.get_texture().get_height() * $Sprite.get_scale().x * get_scale().x * 0.5 * planetScale #IDK why, needs to be 0.5 for radius and 0.5 for some scaling shit
-
+onready var planetRadius = $Planet_Radius.get_shape().get_radius()
 
 
 func _draw():
@@ -13,7 +12,7 @@ func _draw():
 	
 
 func set_scale(new_scale):
-	planetScale = new_scale
-	planetRadius = $Sprite.get_texture().get_height() * $Sprite.get_scale().x * get_scale().x * 0.5 * planetScale
+	planetRadius = $Planet_Radius.get_shape().get_radius()
+	print(planetRadius)
 	if Engine.is_editor_hint():
 		update()
