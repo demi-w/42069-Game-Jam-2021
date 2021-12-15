@@ -7,7 +7,6 @@ export var planetPath : NodePath
 onready var parent = get_parent()
 onready var planet = get_parent().get_parent().get_parent()
 onready var sprite = $Sprite
-onready var pathTimer = $Spawner
 
 var last_path_pos = Vector2(0,0)
 var is_grounded = false
@@ -68,4 +67,3 @@ func spawn_path():
 	newPath.set_position(position)
 	newPath.set_rotation(rotation - PI / 2)
 	last_path_pos = position
-

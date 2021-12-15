@@ -10,7 +10,7 @@ func _ready():
 	call_deferred("set_state", states.Idle)
 
 func _input(event):
-	if parent.currentTower != null:
+	if parent.current_projectile != null:
 		if [states.Aim].has(state):
 			if parent.cursorInZone:
 				if Input.is_action_pressed("ui_select"):
@@ -20,7 +20,7 @@ func _input(event):
 
 func _state_logic(delta):
 	if parent.manned:
-		if parent.currentTower != null:
+		if parent.current_projectile != null:
 			if parent.cursorInZone:
 				if state != states.Predict:
 					parent.aim_reticle()
@@ -29,13 +29,13 @@ func _state_logic(delta):
 func _get_transition(delta):
 	match state:
 		states.Idle:
-			if parent.currentTower != null:
+			if parent.current_projectile != null:
 				return states.Aim
 		states.Aim:
-			if parent.currentTower == null:
+			if parent.current_projectile == null:
 				return states.Idle
 		states.Launch:
-			if parent.currentTower == null:
+			if parent.current_projectile == null:
 				return states.Idle
 
 func _enter_state(new_state, old_state):
@@ -45,10 +45,10 @@ func _enter_state(new_state, old_state):
 		states.Aim:
 			parent.launchDir.set_visible(true)
 		states.Predict:
-			parent.predict_path(8*(parent.launchDir.get_global_position()-parent.towerSpawn.get_global_position()))
+			parent.predict_path(8*(parent.launchDir.get_global_position()-parent.projectile_spawn.get_global_position()))
 			parent.launch_button(true)
 		states.Launch:
-			parent.fire(8*(parent.launchDir.get_global_position()-parent.towerSpawn.get_global_position()))
+			parent.fire(8*(parent.launchDir.get_global_position()-parent.projectile_spawn.get_global_position()))
 			parent.launch_button(false)
 
 func _exit_state(new_state, old_state):

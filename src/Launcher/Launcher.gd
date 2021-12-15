@@ -4,7 +4,7 @@ class_name Launcher
 const projectile = preload("res://src/Launcher/Projectile/ProjectileRigid.tscn")
 
 onready var towerList = $TowerList
-onready var towerSpawn = $Tower_Spawn
+onready var projectile_spawn = $Tower_Spawn
 onready var launchDir = $Launch_Direction
 onready var tween = $Tween
 onready var launchMats = $Control/Launch_Mats
@@ -13,24 +13,24 @@ onready var predictor = $Predictor
 onready var chair = $Manning_Position
 
 
-var currentTower
+var current_projectile = null
 var cursorInZone = false
 var manned = false
 
 func _ready():
 	rotation = get_position().angle() + PI / 2
 
-func spawn_tower(TowerType):
-	if currentTower == null:
-		currentTower = projectile.instance()
-		currentTower.get_node(@"Sprite").set_texture(load(towerList.get_tower(TowerType)))
-		add_child(currentTower)
-		currentTower.set_position(towerSpawn.get_position())
+#func spawn_tower(TowerType):
+#	if current_projectile == null:
+#		current_projectile = projectile.instance()
+#		current_projectile.get_node(@"Sprite").set_texture(load(towerList.get_tower(TowerType)))
+#		add_child(current_projectile)
+#		current_projectile.set_position(towerSpawn.get_position())
 
 
 func fire(direction):
-	currentTower.launch(direction)
-	currentTower = null
+	current_projectile.launch(direction)
+	current_projectile = null
 
 
 #	var temp = global_transform
@@ -41,8 +41,8 @@ func fire(direction):
 #	set_physics_process(true)
 
 
-func on_button_pressed(TowerType):
-	spawn_tower(TowerType)
+#func on_button_pressed(TowerType):
+#	spawn_tower(TowerType)
 
 
 func aim_reticle():
@@ -55,12 +55,14 @@ func aim_reticle():
 
 
 func predict_path(direction):
+	print(current_projectile.get_position())
+	print(current_projectile.get_parent())
 	predictor.predict({
 #		"gravity_force" : 1
-		"texture" : currentTower.get_node(@"Sprite").get_texture(),
-		"collision" : currentTower.shape_owner_get_owner(currentTower.get_shape_owners()[0]).get_shape(),
+#		"texture" : current_projectile.get_node(@"Sprite").get_texture(),
+#		"collision" : current_projectile.shape_owner_get_owner(currentTower.get_shape_owners()[0]).get_shape(),
 		"sim_speed" : 2,
-		"launch_position" : currentTower.get_position(),
+		"launch_position" : current_projectile.get_position(),
 		"velocity" : direction
 	})
 
@@ -75,8 +77,20 @@ func end_predict():
 	predictor.end_predict()
 
 
+func change_parent(changed = null, new_owner = null, old_owner = null):
+	if changed != null:
+		var temp = changed.global_transform
+		old_owner.remove_child(changed)
+		new_owner.add_child(changed)
+		changed.global_transform = temp
 
-func turnoff(object, key):
-	print(object.get_modulate().a)
-	print("FUCK")
-	tween.stop(towerMenu)
+
+func store_projectile(body):
+	current_projectile = body
+	current_projectile.arm()
+	position_projectile()
+
+
+func position_projectile():
+	if current_projectile != null:
+		current_projectile.set_position(projectile_spawn.get_position()) 
