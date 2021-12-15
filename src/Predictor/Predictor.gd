@@ -4,16 +4,17 @@ const projectilePhantom = preload("res://src/Predictor/ProjectilePhantom.tscn")
 
 export var planetPath : NodePath
 
+onready var phantom_base = $Phantom
 onready var _planet = get_parent().get_parent()
 
 func _default_gravity_force():
 	return 1
 
 func _default_texture():
-	return "res://src/Predictor/Defaults/DefaultPredict.png"
+	return phantom_base.get_node("Sprite").get_texture()
 
 func _default_collision():
-	return "res://src/Predictor/Defaults/DefaultPredict.tres"
+	return phantom_base.shape_owner_get_owner(phantom_base.get_shape_owners()[0]).get_shape()
 
 func _default_sim_speed():
 	return 1
@@ -53,6 +54,8 @@ func launch():
 	add_child(phantom)
 	phantom.set_gravity_scale(_gravity_force*_sim_speed*_sim_speed)
 	phantom.set_texture(_texture)
+	if _texture.get_path() != _default_texture().get_path():
+		phantom.get_node("Sprite").set_scale(Vector2(1,1))
 	phantom.set_collision(_collision)
 	phantom.add_to_group("Paths")
 	phantom.set_position(_launch_position)
