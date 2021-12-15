@@ -1,10 +1,11 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/Character/PlayerStateMachine.gd" type="Script" id=1]
 [ext_resource path="res://src/Character/TEMP/Spaceman1.png" type="Texture" id=2]
 [ext_resource path="res://src/Character/Player.gd" type="Script" id=3]
 [ext_resource path="res://src/Fonts/Kapel.tres" type="DynamicFont" id=4]
 [ext_resource path="res://src/Character/CameraController.gd" type="Script" id=5]
+[ext_resource path="res://src/Launcher/TEMP/pointer.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 6 )
@@ -84,6 +85,10 @@ position = Vector2( 0, -16 )
 [node name="Interaction_Timer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Launch_Direction" type="Sprite" parent="."]
+position = Vector2( 0, -28 )
+texture = ExtResource( 6 )
 
 [connection signal="area_entered" from="Interaction_Area" to="StateMachine" method="_on_Interaction_Area_area_entered"]
 [connection signal="area_exited" from="Interaction_Area" to="StateMachine" method="_on_Interaction_Area_area_exited"]

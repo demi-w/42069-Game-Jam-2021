@@ -22,6 +22,15 @@ var lastPosition = Vector2()
 var is_grounded
 var held_item = null
 
+#For throwing
+var launch_pos = Vector2(0,10).rotated(PI/2)
+var min_strength = 10
+var max_strength = 50
+var strength_scroll = 1
+var min_angle = -7 * PI / 8
+var max_angle = -PI / 8
+var angle_scroll = 2*PI / 180
+var angle_dir = 1
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -48,26 +57,75 @@ func _handle_movement():
 	is_grounded = groundcast.is_colliding()
 
 
+func _handle_throw():
+	launch_pos = launch_pos.normalized()*(launch_pos.length()+_set_strength())
+	launch_pos = launch_pos.rotated(_set_angle())
+	$Launch_Direction.set_position(launch_pos)
+
+
+func _update_angleDir():
+	angle_dir = Input.get_action_strength("up") - Input.get_action_strength("down")
+
+
+func _set_strength():
+	if angle_dir != 0:
+		if angle_dir > 0:
+			if launch_pos.length() < max_strength:
+				return strength_scroll
+		elif angle_dir < 0:
+			if launch_pos.length() > min_strength:
+				return -strength_scroll
+	return 0
+
+
+func _set_angle():
+	if movDir != 0:
+		if movDir > 0:
+			if launch_pos.angle() < max_angle:
+				return angle_scroll
+		elif movDir < 0:
+			if launch_pos.angle() > min_angle:
+				return -angle_scroll
+	return 0
+
+
+func _throw():
+	if held_item != null:
+		if held_item.get_collision_layer_bit(3) == true:
+			held_item.armed = true
+			held_item.launch(launch_pos*4)
+			held_item = null
+		elif held_item is Scrap:
+			held_item.set_linear_velocity(launch_pos*4)
+			drop_item()
+
+#		if event.is_pressed():
+#			if event.button_index == BUTTON_WHEEL_UP:
+#				if zoom > zoomMin:
+#					zoom -= zoomSpeed
+#			if event.button_index == BUTTON_WHEEL_DOWN:
+#				if zoom < zoomMax:
+#					zoom += zoomSpeed
+
+
 func get_vertical_direction():
 	return lastPosition.length() - get_position().length()
 
 
 func pickup_item(body):
-	print("Pickup")
 	change_parent(body, self, body.get_parent())
 	body.set_position(carry_position.get_position())
 	if body is RigidBody2D:
 		body.set_mode(MODE_STATIC)
-	interaction_list.remove(interaction_list.find(body))
 	held_item = body
-	print(interaction_list)
+#	interaction_list.remove(interaction_list.find(body))
 
 
 func drop_item():
 	change_parent(held_item, get_parent(), self)
 	if held_item is RigidBody2D:
 		held_item.set_mode(MODE_RIGID)
-	held_item.set_linear_velocity(get_linear_velocity())
+	held_item.set_linear_velocity(get_linear_velocity()+held_item.get_linear_velocity())
 	held_item.apply_central_impulse(Vector2(0,20).rotated(get_position().angle()+PI/2))
 	held_item = null
 
@@ -79,6 +137,7 @@ func change_parent(changed = null, new_owner = null, old_owner = null):
 		new_owner.add_child(changed)
 		changed.global_transform = temp
 #	print(changed, " / ", new_owner, " / ", old_owner)
+
 
 func enter_building(building):
 	change_parent(self, building.get_parent(), get_parent())
@@ -98,4 +157,4 @@ func leave_building():
 	get_parent().manned = false
 	change_parent(self, get_parent().get_parent(), get_parent())
 	set_mode(0)
-	
+

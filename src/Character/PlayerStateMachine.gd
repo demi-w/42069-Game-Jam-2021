@@ -8,6 +8,7 @@ func _ready():
 	add_state("Jump")
 	add_state("Fall")
 	add_state("Run")
+	add_state("Throw")
 	call_deferred("set_state", states.Idle)
 
 func _input(_event):
@@ -20,14 +21,17 @@ func _input(_event):
 			parent.maxSpeed = 150
 		if Input.is_action_just_released("run"):
 			parent.maxSpeed = 100
-			
+		if Input.is_action_pressed("throw"):
+			set_state(states.Throw)
+	elif state == states.Throw:
+		if Input.is_action_pressed("throw"):
+			parent._throw()
+
 	if Input.is_action_pressed("interact") && parent.interaction_timer.is_stopped():
 		if [states.Manning].has(state):
 			parent.leave_building()
 			set_state(states.Idle)
 		elif parent.held_item != null:
-			print("yeahoh")
-			print(parent.interaction_list)
 			if parent.interaction_list.size() > 0:
 				if parent.interaction_list[-1] is Area2D && parent.held_item.get_collision_layer() == 8:
 					parent.store_item(parent.interaction_list[-1])
@@ -41,6 +45,8 @@ func _input(_event):
 				set_state(states.Manning)
 		parent.interaction_timer.start()
 	
+	
+	
 #	if Input.is_action_pressed("interact"):
 #			if parent.held_item == null:
 #				if parent.interaction_list.size() > 0:
@@ -52,10 +58,14 @@ func _process(_delta):
 	parent.lastPosition = parent.get_position()
 
 func _state_logic(_delta):
-	if ![states.Manning].has(state):
+	if ![states.Manning, states.Throw].has(state):
 		parent._update_rotation()
 		parent._update_movDir()
 		parent._handle_movement()
+	if state == states.Throw:
+		parent._update_movDir()
+		parent._update_angleDir()
+		parent._handle_throw()
 
 func _get_transition(delta):
 	match state:
@@ -97,6 +107,9 @@ func _get_transition(delta):
 				return states.Idle
 			elif parent.get_linear_velocity().tangent().length() <= 120:
 				return states.Walk
+		states.Throw:
+			if parent.held_item == null:
+				return states.Idle
 
 func _enter_state(new_state, old_state):
 	match new_state:
@@ -110,6 +123,8 @@ func _enter_state(new_state, old_state):
 			pass
 		states.Run:
 			pass
+		states.Throw:
+			parent.get_node("Launch_Direction").visible = true
 
 func _exit_state(new_state, old_state):
 	match old_state:
@@ -123,6 +138,8 @@ func _exit_state(new_state, old_state):
 			pass
 		states.Run:
 			pass
+		states.Throw:
+			parent.get_node("Launch_Direction").visible = false
 
 
 func _on_scrap_entered(body):
@@ -133,10 +150,13 @@ func _on_scrap_entered(body):
 
 
 func _on_scrap_body_exited(body):
+#	print(body, " exited")
 	if parent.interaction_list.size() == 0:
 		parent.get_node("Control/Button").visible = false
+#	print(parent.interaction_list.find(body))
 	parent.interaction_list.remove(parent.interaction_list.find(body))
 #	print(parent.interaction_list)
+#	print("end")
 
 
 func _on_Interaction_Area_area_entered(area):
