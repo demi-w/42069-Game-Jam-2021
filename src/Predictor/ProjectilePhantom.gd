@@ -7,6 +7,7 @@ export var planetPath : NodePath
 onready var parent = get_parent()
 onready var planet = get_parent().get_parent().get_parent()
 onready var sprite = $Sprite
+onready var planet_mask = $Planet_Mask
 
 var last_path_pos = Vector2(0,0)
 var is_grounded = false
@@ -48,8 +49,19 @@ func launch(velocity):
 #			pass
 
 
+func set_from_planet(value):
+	if value:
+		set_collision_mask(0)
+		planet_mask.connect("body_exited",self,"reset_collisions",[],CONNECT_ONESHOT)
+
+
 func set_texture(texture):
 	$Sprite.set_texture(texture)
+
+
+func reset_collisions(body):
+	print("reset_collision")
+	set_collision_mask(18)
 
 
 func set_collision(collision):
@@ -59,6 +71,7 @@ func set_collision(collision):
 func _on_RigidBody2D_body_entered(body):
 	queue_free()
 
+
 func spawn_path():
 	var newPath = pathRes.instance()
 	newPath.set_visible(true)
@@ -67,3 +80,5 @@ func spawn_path():
 	newPath.set_position(position)
 	newPath.set_rotation(rotation - PI / 2)
 	last_path_pos = position
+
+

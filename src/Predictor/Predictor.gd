@@ -19,11 +19,15 @@ func _default_collision():
 func _default_sim_speed():
 	return 1
 
+func _default_from_planet():
+	return false
+
 var defaultPredictParameters = {
 	"gravity_force" : funcref(self, "_default_gravity_force"),
 	"texture" : funcref(self, "_default_texture"),
 	"collision" : funcref(self, "_default_collision"),
 	"sim_speed" : funcref(self, "_default_sim_speed"),
+	"from_planet" : funcref(self, "_default_from_planet"),
 	"launch_position" : null,
 	"velocity" : null
 }
@@ -33,6 +37,7 @@ var _gravity_force = 1
 var _texture = null
 var _collision = null
 var _sim_speed = 1
+var _from_planet = false
 var _velocity = Vector2(0,0)
 var _launch_position = Vector2(0,0)
 
@@ -54,6 +59,7 @@ func launch():
 	add_child(phantom)
 	phantom.set_gravity_scale(_gravity_force*_sim_speed*_sim_speed)
 	phantom.set_texture(_texture)
+	phantom.set_from_planet(_from_planet)
 	if _texture.get_path() != _default_texture().get_path():
 		phantom.get_node("Sprite").set_scale(Vector2(1,1))
 	phantom.set_collision(_collision)
