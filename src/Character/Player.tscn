@@ -82,6 +82,7 @@ shape = SubResource( 2 )
 position = Vector2( 0, -16 )
 
 [node name="Interaction_Timer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [connection signal="area_entered" from="Interaction_Area" to="StateMachine" method="_on_Interaction_Area_area_entered"]

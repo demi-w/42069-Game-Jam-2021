@@ -53,6 +53,7 @@ func get_vertical_direction():
 
 
 func pickup_item(body):
+	print("Pickup")
 	change_parent(body, self, body.get_parent())
 	body.set_position(carry_position.get_position())
 	if body is RigidBody2D:
@@ -67,6 +68,7 @@ func drop_item():
 	if held_item is RigidBody2D:
 		held_item.set_mode(MODE_RIGID)
 	held_item.set_linear_velocity(get_linear_velocity())
+	held_item.apply_central_impulse(Vector2(0,20).rotated(get_position().angle()+PI/2))
 	held_item = null
 
 
@@ -82,10 +84,7 @@ func enter_building(building):
 	change_parent(self, building.get_parent(), get_parent())
 	set_mode(1)
 	set_position(get_parent().chair.position)
-	print(get_global_rotation())
-	print(get_position().angle()+PI/2)
 	set_rotation(to_local(get_position()).angle()-PI/2)
-	print(get_position())
 	get_parent().manned = true
 
 

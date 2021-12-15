@@ -129,13 +129,12 @@ func _on_scrap_entered(body):
 	if parent.held_item != body:
 		parent.interaction_list.push_front(body)
 	parent.get_node("Control/Button").set_visible(true)
-	print(parent.interaction_list)
+#	print(parent.interaction_list)
 
 
 func _on_scrap_body_exited(body):
 	if parent.interaction_list.size() == 0:
 		parent.get_node("Control/Button").visible = false
-	print(parent.interaction_list.find(body))
 	parent.interaction_list.remove(parent.interaction_list.find(body))
 #	print(parent.interaction_list)
 
