@@ -65,8 +65,9 @@ func _ready():
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
 	setupParameters(
-		{"worldScale" : parent.planetRadius,
-		"posRotation" : -PI/2},
+		{"worldScale" : parent.get_radius(),
+		"posRotation" : -PI/2,
+		"initDist" : (parent.get_radius() + 150) / parent.get_radius()},
 		{"rng": rng}
 	)
 	pass
@@ -87,10 +88,17 @@ func get_position_at_time(time):
 	return Vector2(_initDist*cos(2*PI*periodTime),
 					_initDist*sin(2*PI*periodTime)).rotated(_posRotation)
 
+#Possible fall equation
+#will have to set time to 0 and change _posRotation
+#	var periodTime = time*_period
+#	return Vector2(2*_initDist*sin((2 * PI * periodTime)/ 2)-_initDist*sin(t),
+#					2*_initDist*cos((2 * PI * periodTime)/ 2)-_initDist*cos(t)).rotated(_posRotation) 
+
 func start_fall():
 	set_mode(0)
 	falling = true
 	set_linear_velocity(-get_position().tangent().normalized())
+
 
 #This was developed back when I was young and dreamy and wanted to use 
 #	only one scene for the pod but god said no
@@ -103,6 +111,7 @@ func start_fall():
 #	set_rotation(get_position().angle() + PI / 2)
 #	set_position(get_position().normalized() * 520)
 #	print(get_collision_mask_bit(0))
+
 
 
 func _on_landed(body):

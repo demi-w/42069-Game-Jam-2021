@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Pod/StaticPod.gd" type="Script" id=1]
 [ext_resource path="res://src/Pod/TEMP/Pod background.png" type="Texture" id=2]
 [ext_resource path="res://src/Pod/TEMP/Pod base.png" type="Texture" id=3]
 [ext_resource path="res://src/Pod/TEMP/pod foreground.png" type="Texture" id=4]
+[ext_resource path="res://src/Singletons/Scrap.gd" type="Script" id=5]
 
 [node name="Static Pod" type="StaticBody2D"]
 collision_layer = 16
@@ -26,6 +27,7 @@ polygon = PoolVector2Array( -16, 0, 16, 0, 12, 8, -12, 8 )
 position = Vector2( -8, -23 )
 collision_layer = 32
 collision_mask = 16
+script = ExtResource( 5 )
 
 [node name="Door" type="Sprite" parent="Left_Door"]
 scale = Vector2( -1, 1 )
@@ -39,6 +41,7 @@ polygon = PoolVector2Array( -8, -32, 2, -21, 8, 8, 8, 23, -8, 23 )
 position = Vector2( 8, -23 )
 collision_layer = 32
 collision_mask = 16
+script = ExtResource( 5 )
 __meta__ = {
 "_edit_group_": true
 }

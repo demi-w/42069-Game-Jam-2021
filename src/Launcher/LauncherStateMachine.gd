@@ -19,11 +19,12 @@ func _input(event):
 					pass
 
 func _state_logic(delta):
-	if parent.currentTower != null:
-		if parent.cursorInZone:
-			if state != states.Predict:
-				parent.aim_reticle()
-#			parent.currentTower.rotation = (parent.get_global_mouse_position()-parent.towerSpawn.get_global_position()).angle() + PI/2
+	if parent.manned:
+		if parent.currentTower != null:
+			if parent.cursorInZone:
+				if state != states.Predict:
+					parent.aim_reticle()
+#				parent.currentTower.rotation = (parent.get_global_mouse_position()-parent.towerSpawn.get_global_position()).angle() + PI/2
 
 func _get_transition(delta):
 	match state:
@@ -55,7 +56,6 @@ func _exit_state(new_state, old_state):
 		states.Aim:
 			parent.tween.stop(parent.launchDir)
 		states.Predict:
-
 			parent.end_predict()
 
 
@@ -74,10 +74,3 @@ func _on_Launch_Button_pressed():
 func _on_Back_pressed():
 	set_state(states.Aim)
 
-
-func _on_Player_Detection_body_entered(_body):
-	parent.build_menu(true)
-
-
-func _on_Player_Detection_body_exited(_body):
-	parent.build_menu(false)

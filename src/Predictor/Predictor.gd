@@ -45,6 +45,8 @@ func predict(params : Dictionary):
 			self.set("_" + param, defaultPredictParameters[param].call_func())
 	launch()
 
+func end_predict():
+	get_tree().call_group("Paths", "queue_free")
 
 func launch():
 	var phantom = projectilePhantom.instance()

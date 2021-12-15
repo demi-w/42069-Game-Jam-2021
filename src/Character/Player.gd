@@ -4,6 +4,7 @@ class_name Player
 onready var sprite = $Sprite
 onready var groundcast = $Groundcast
 onready var carry_position = $Carry_Position
+onready var interaction_timer = $Interaction_Timer
 
 var interaction_list = []
 
@@ -53,6 +54,7 @@ func get_vertical_direction():
 func pickup_item(body):
 	change_parent(body, self, body.get_parent())
 	body.set_position(carry_position.get_position())
+	body.set_collision_layer(0)
 	if body is RigidBody2D:
 		body.set_mode(MODE_STATIC)
 	held_item = body
@@ -61,7 +63,7 @@ func drop_item():
 	change_parent(held_item, get_parent(), self)
 	if held_item is RigidBody2D:
 		held_item.set_mode(MODE_RIGID)
-	print(held_item.mode)
+	held_item.set_collision_layer(32)
 	held_item = null
 
 func change_parent(changed = null, new_owner = null, old_owner = null):
@@ -70,4 +72,20 @@ func change_parent(changed = null, new_owner = null, old_owner = null):
 		old_owner.remove_child(changed)
 		new_owner.add_child(changed)
 		changed.global_transform = temp
-	print(changed, " / ", new_owner, " / ", old_owner)
+#	print(changed, " / ", new_owner, " / ", old_owner)
+
+func enter_building(building):
+	change_parent(self, building.get_parent(), get_parent())
+	set_mode(1)
+	set_position(get_parent().chair.position)
+	print(get_global_rotation())
+	print(get_position().angle()+PI/2)
+	set_rotation(to_local(get_position()).angle()-PI/2)
+	print(get_position())
+	get_parent().manned = true
+
+func leave_building():
+	get_parent().manned = false
+	change_parent(self, get_parent().get_parent(), get_parent())
+	set_mode(0)
+	

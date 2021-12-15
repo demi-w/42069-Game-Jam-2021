@@ -5,17 +5,17 @@ const projectile = preload("res://src/Launcher/Projectile/ProjectileRigid.tscn")
 
 onready var towerList = $TowerList
 onready var towerSpawn = $Tower_Spawn
-onready var camera = $Camera
 onready var launchDir = $Launch_Direction
 onready var tween = $Tween
 onready var launchMats = $Control/Launch_Mats
 onready var towerMenu = $Control/Tower_Menu
 onready var predictor = $Predictor
+onready var chair = $Manning_Position
 
 
 var currentTower
 var cursorInZone = false
-
+var manned = false
 
 func _ready():
 	rotation = get_position().angle() + PI / 2
@@ -29,8 +29,6 @@ func spawn_tower(TowerType):
 
 
 func fire(direction):
-	remove_child(camera)			#camera stuff is temporary, for testing
-	currentTower.add_child(camera)
 	currentTower.launch(direction)
 	currentTower = null
 
@@ -57,11 +55,11 @@ func aim_reticle():
 
 
 func predict_path(direction):
-#	currentTower.predict(direction)
 	predictor.predict({
-#		"gravity_force"
+#		"gravity_force" : 1
 		"texture" : currentTower.get_node(@"Sprite").get_texture(),
 		"collision" : currentTower.shape_owner_get_owner(currentTower.get_shape_owners()[0]).get_shape(),
+		"sim_speed" : 2,
 		"launch_position" : currentTower.get_position(),
 		"velocity" : direction
 	})
@@ -74,27 +72,11 @@ func launch_button(value):
 
 
 func end_predict():
-	get_tree().call_group("Paths", "queue_free")
-
-
-func build_menu(value):
-	if value:
-		towerMenu.set_visible(value)
-		tween.stop(towerMenu)
-		tween.interpolate_property(towerMenu, 'modulate:a',
-				towerMenu.get_modulate().a, 1.0, 
-				(1.0 - towerMenu.get_modulate().a) / .5)
-		tween.start()
-	else:
-		tween.stop(towerMenu)
-		tween.interpolate_property(towerMenu, 'modulate:a',
-				towerMenu.get_modulate().a, 0.0, 
-				abs(0 - towerMenu.get_modulate().a) / .5)
-		tween.start()
+	predictor.end_predict()
 
 
 
 func turnoff(object, key):
 	print(object.get_modulate().a)
 	print("FUCK")
-	#tween.stop(towerMenu)
+	tween.stop(towerMenu)

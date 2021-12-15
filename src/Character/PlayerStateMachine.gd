@@ -2,6 +2,7 @@ extends StateMachine
 
 
 func _ready():
+	add_state("Manning")
 	add_state("Idle")
 	add_state("Walk")
 	add_state("Jump")
@@ -19,22 +20,40 @@ func _input(_event):
 			parent.maxSpeed = 150
 		if Input.is_action_just_released("run"):
 			parent.maxSpeed = 100
+			
+	if Input.is_action_pressed("interact") && parent.interaction_timer.is_stopped():
+		if [states.Manning].has(state):
+			parent.leave_building()
+			set_state(states.Idle)
+		elif parent.held_item != null:
+			if parent.interaction_list.size() > 0:
+				if parent.interaction_list.has(Area2D):
+					print("ohyeah")
+				else:
+					parent.drop_item()
+		elif parent.interaction_list.size() > 0:
+			if parent.interaction_list[0] is Scrap:
+				parent.pickup_item(parent.interaction_list[0])
+			elif parent.interaction_list[0].get_parent() is Launcher:
+				parent.enter_building(parent.interaction_list[0])
+				set_state(states.Manning)
+		parent.interaction_timer.start()
 	
-	if Input.is_action_pressed("interact"):
-			if parent.held_item == null:
-				if parent.interaction_list.size() > 0:
-					parent.pickup_item(parent.interaction_list[0])
-			elif parent.held_item != null:
-				parent.drop_item()
+#	if Input.is_action_pressed("interact"):
+#			if parent.held_item == null:
+#				if parent.interaction_list.size() > 0:
+#					parent.pickup_item(parent.interaction_list[0])
+#			elif parent.held_item != null:
+#				parent.drop_item()
 
 func _process(_delta):
 	parent.lastPosition = parent.get_position()
 
 func _state_logic(_delta):
-	
-	parent._update_rotation()
-	parent._update_movDir()
-	parent._handle_movement()
+	if ![states.Manning].has(state):
+		parent._update_rotation()
+		parent._update_movDir()
+		parent._handle_movement()
 
 func _get_transition(delta):
 	match state:
@@ -105,7 +124,7 @@ func _exit_state(new_state, old_state):
 
 
 func _on_scrap_entered(body):
-	parent.interaction_list.append(body)
+	parent.interaction_list.push_front(body)
 	parent.get_node("Control/Button").set_visible(true)
 	print(parent.interaction_list)
 
@@ -114,4 +133,17 @@ func _on_scrap_body_exited(body):
 	if parent.interaction_list.size() == 0:
 		parent.get_node("Control/Button").visible = false
 	parent.interaction_list.remove(parent.interaction_list.find(body))
+	print(parent.interaction_list)
+
+
+func _on_Interaction_Area_area_entered(area):
+	parent.interaction_list.append(area)
+	parent.get_node("Control/Button").set_visible(true)
+	print(parent.interaction_list)
+
+
+func _on_Interaction_Area_area_exited(area):
+	if parent.interaction_list.size() == 0:
+		parent.get_node("Control/Button").visible = false
+	parent.interaction_list.remove(parent.interaction_list.find(area))
 	print(parent.interaction_list)

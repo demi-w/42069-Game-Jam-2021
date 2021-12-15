@@ -9,6 +9,7 @@ onready var planet = get_parent().get_parent().get_parent()
 onready var sprite = $Sprite
 onready var pathTimer = $Spawner
 
+var last_path_pos = Vector2(0,0)
 var is_grounded = false
 var followCursor = false
 var launched = false
@@ -16,6 +17,9 @@ var launched = false
 func _physics_process(delta):
 	if launched:
 		global_rotation = linear_velocity.angle() + PI / 2
+		if (get_position() - last_path_pos).length() > 60:
+			spawn_path()
+		
 
 
 func launch(velocity):
@@ -28,7 +32,7 @@ func launch(velocity):
 	set_linear_velocity(velocity)
 	launched = true
 	parent = get_parent()
-	pathTimer.start()
+	last_path_pos = position
 
 
 #damage player
@@ -63,4 +67,5 @@ func spawn_path():
 	parent.add_child(newPath)
 	newPath.set_position(position)
 	newPath.set_rotation(rotation - PI / 2)
-	pathTimer.start()
+	last_path_pos = position
+

@@ -12,6 +12,8 @@ collision_mask = 18
 mode = 1
 contacts_reported = 1
 contact_monitor = true
+linear_damp = 0.0
+angular_damp = 0.0
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
