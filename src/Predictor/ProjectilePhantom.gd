@@ -4,7 +4,7 @@ const tower = preload("res://src/Tower/Tower.tscn")
 const pathRes = preload("res://src/Predictor/Path.tscn")
 export var planetPath : NodePath
 
-onready var parent = get_parent().get_parent()
+onready var parent = get_parent()
 onready var planet = get_parent().get_parent().get_parent()
 onready var sprite = $Sprite
 onready var pathTimer = $Spawner
