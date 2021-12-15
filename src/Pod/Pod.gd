@@ -79,8 +79,10 @@ func _process(delta):
 		position = get_position_at_time(timeAlive)*_worldScale
 		global_rotation = get_position().angle()
 	else:
-#		print(get_linear_velocity().project(get_linear_velocity().tangent()).length())
 		global_rotation = get_linear_velocity().angle() - PI / 2
+#		position = get_fall_at_time(timeAlive)*_worldScale
+#		print(position)
+#		global_rotation = get_position().angle()
 
 
 func get_position_at_time(time):
@@ -88,16 +90,23 @@ func get_position_at_time(time):
 	return Vector2(_initDist*cos(2*PI*periodTime),
 					_initDist*sin(2*PI*periodTime)).rotated(_posRotation)
 
-#Possible fall equation
-#will have to set time to 0 and change _posRotation
+##Possible fall equation
+##will have to set time to 0 and change _posRotation
+#func get_fall_at_time(time):
 #	var periodTime = time*_period
-#	return Vector2(2*_initDist*sin((2 * PI * periodTime)/ 2)-_initDist*sin(t),
-#					2*_initDist*cos((2 * PI * periodTime)/ 2)-_initDist*cos(t)).rotated(_posRotation) 
+#	return Vector2(2*_initDist*sin((2 * PI * periodTime)/ 2)-_initDist*sin(2*PI*periodTime),
+#					2*_initDist*cos((2 * PI * periodTime)/ 2)-_initDist*cos(2*PI*periodTime)).rotated(_posRotation) 
+
+#In the start
+#	timeAlive = 1
+#	_posRotation = get_position().angle()
 
 func start_fall():
 	set_mode(0)
 	falling = true
 	set_linear_velocity(-get_position().tangent().normalized())
+#	timeAlive = 1
+#	_posRotation = get_position().angle() - PI/2
 
 
 #This was developed back when I was young and dreamy and wanted to use 
