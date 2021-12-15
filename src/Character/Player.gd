@@ -51,20 +51,24 @@ func _handle_movement():
 func get_vertical_direction():
 	return lastPosition.length() - get_position().length()
 
+
 func pickup_item(body):
 	change_parent(body, self, body.get_parent())
 	body.set_position(carry_position.get_position())
-	body.set_collision_layer(0)
 	if body is RigidBody2D:
 		body.set_mode(MODE_STATIC)
+	interaction_list.remove(interaction_list.find(body))
 	held_item = body
+	print(interaction_list)
+
 
 func drop_item():
 	change_parent(held_item, get_parent(), self)
 	if held_item is RigidBody2D:
 		held_item.set_mode(MODE_RIGID)
-	held_item.set_collision_layer(32)
+	held_item.set_linear_velocity(get_linear_velocity())
 	held_item = null
+
 
 func change_parent(changed = null, new_owner = null, old_owner = null):
 	if changed != null:
@@ -83,6 +87,13 @@ func enter_building(building):
 	set_rotation(to_local(get_position()).angle()-PI/2)
 	print(get_position())
 	get_parent().manned = true
+
+
+func store_item(building):
+	change_parent(held_item, building.get_parent(), self)
+	building.get_parent().store_projectile(held_item)
+	held_item = null
+
 
 func leave_building():
 	get_parent().manned = false
