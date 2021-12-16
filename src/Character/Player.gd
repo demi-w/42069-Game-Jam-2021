@@ -1,6 +1,9 @@
 extends RigidBody2D
 class_name Player
 
+signal entered_building(player, building)
+signal exited_building(player, building)
+
 onready var sprite = $Sprite
 onready var groundcast = $Groundcast
 onready var carry_position = $Carry_Position
@@ -60,7 +63,7 @@ func _handle_movement():
 func _handle_throw():
 	launch_pos = launch_pos.normalized()*(launch_pos.length()+_set_strength())
 	launch_pos = launch_pos.rotated(_set_angle())
-	$Launch_Direction.set_position(launch_pos)
+	$Launch_Direction.set_position(launch_pos+Vector2(0,-16))
 
 
 func _update_angleDir():
@@ -93,19 +96,14 @@ func _throw():
 	if held_item != null:
 		if held_item.get_collision_layer_bit(3) == true:
 			held_item.armed = true
-			held_item.launch(launch_pos*4)
+#			print($Launch_Direction.get_global_position())
+			held_item.launch(4*($Launch_Direction.get_global_position()-held_item.get_global_position()))
 			held_item = null
 		elif held_item is Scrap:
-			held_item.set_linear_velocity(launch_pos*4)
+			held_item.set_linear_velocity(4*($Launch_Direction.get_global_position()-held_item.get_global_position()))
 			drop_item()
 
-#		if event.is_pressed():
-#			if event.button_index == BUTTON_WHEEL_UP:
-#				if zoom > zoomMin:
-#					zoom -= zoomSpeed
-#			if event.button_index == BUTTON_WHEEL_DOWN:
-#				if zoom < zoomMax:
-#					zoom += zoomSpeed
+#parent.launchDir.get_global_position()-parent.projectile_spawn.get_global_position()
 
 
 func get_vertical_direction():
@@ -114,11 +112,11 @@ func get_vertical_direction():
 
 func pickup_item(body):
 	change_parent(body, self, body.get_parent())
+	held_item = body
 	body.set_position(carry_position.get_position())
 	if body is RigidBody2D:
 		body.set_mode(MODE_STATIC)
-	held_item = body
-#	interaction_list.remove(interaction_list.find(body))
+	interaction_list.remove(interaction_list.find(body))
 
 
 func drop_item():
@@ -145,6 +143,7 @@ func enter_building(building):
 	set_position(get_parent().chair.position)
 	set_rotation(to_local(get_position()).angle()-PI/2)
 	get_parent().manned = true
+	emit_signal("entered_building", self, building.get_parent())
 
 
 func store_item(building):
@@ -154,7 +153,9 @@ func store_item(building):
 
 
 func leave_building():
+	var building = get_parent()
 	get_parent().manned = false
-	change_parent(self, get_parent().get_parent(), get_parent())
+	change_parent(self, building.get_parent(), building)
 	set_mode(0)
+	emit_signal("exited_building", self, building)
 

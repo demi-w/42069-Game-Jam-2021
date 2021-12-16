@@ -19,7 +19,6 @@ func _unhandled_input(event):
 
 
 func switch_to_building(player, building):
-	print(position)
 	player.remove_child(self)
 	building.add_child(self)
 	set_position(get_position()+building.camera_pos.get_position())
