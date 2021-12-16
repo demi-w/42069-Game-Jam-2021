@@ -31,19 +31,20 @@ func _process(_delta):
 func launch(velocity):
 	set_mode(0)
 	var temp = global_transform
-	var scene = parent
+	parent = get_parent()
 	parent.remove_child(self)
-	scene.get_parent().add_child(self)
+	parent.get_parent().add_child(self)
 	global_transform = temp
 #	apply_central_impulse(velocity)
 	set_linear_velocity(velocity)
-	parent = parent.get_parent()
+	parent = get_parent()
 	launched = true
 	for particle in particles.get_children():
 		particle.set_emitting(true)
+#	connect("body_entered",self,"_on_landed") #connect when the code is figured out, right now this is more fun to watch
 
 
-func _on_RigidBody2D_body_entered(body):
+func _on_landed(body):
 	if body is Planet:
 		var newTower = tower.instance()
 		var texture = get_node(@"Sprite").get_texture()
@@ -70,4 +71,7 @@ func arm():
 
 func get_vertical_direction():
 	return lastPosition.length() - get_position().length()
+
+
+
 
