@@ -46,11 +46,13 @@ texture = ExtResource( 3 )
 
 [node name="Left" type="Particles2D" parent="Particles"]
 position = Vector2( 13, 6 )
+emitting = false
 local_coords = false
 process_material = SubResource( 1 )
 
 [node name="Right" type="Particles2D" parent="Particles"]
 position = Vector2( -16, 8 )
+emitting = false
 local_coords = false
 process_material = SubResource( 1 )
 
