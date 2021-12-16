@@ -13,15 +13,15 @@ func _ready():
 
 func _input(_event):
 	if [states.Idle, states.Walk, states.Run].has(state):
-		if Input.is_action_pressed("jump"):
-			#parent.apply_central_impulse(parent.get_position().normalized() * 100)
+		if Input.is_action_just_pressed("jump"):
+			parent.apply_central_impulse(parent.get_position().normalized() * 100)
 			#print(parent.get_linear_velocity().project(parent.get_position()))
-			parent.linear_velocity += parent.get_position().normalized()*80
+			#parent.linear_velocity += parent.get_position().normalized()*80
 		elif Input.is_action_pressed("run"):
 			parent.maxSpeed = 150
 		if Input.is_action_just_released("run"):
 			parent.maxSpeed = 100
-		if Input.is_action_pressed("throw"):
+		if Input.is_action_pressed("throw") && parent.held_item != null:
 			set_state(states.Throw)
 	elif state == states.Throw:
 		if Input.is_action_pressed("throw"):
@@ -46,7 +46,6 @@ func _input(_event):
 		parent.interaction_timer.start()
 	
 	
-	
 #	if Input.is_action_pressed("interact"):
 #			if parent.held_item == null:
 #				if parent.interaction_list.size() > 0:
@@ -58,8 +57,8 @@ func _process(_delta):
 	parent.lastPosition = parent.get_position()
 
 func _state_logic(_delta):
+	parent._update_rotation()
 	if ![states.Manning, states.Throw].has(state):
-		parent._update_rotation()
 		parent._update_movDir()
 		parent._handle_movement()
 	if state == states.Throw:
@@ -111,6 +110,7 @@ func _get_transition(delta):
 			if parent.held_item == null:
 				return states.Idle
 
+
 func _enter_state(new_state, old_state):
 	match new_state:
 		states.Idle:
@@ -124,7 +124,9 @@ func _enter_state(new_state, old_state):
 		states.Run:
 			pass
 		states.Throw:
+			parent.set_mode(1)
 			parent.get_node("Launch_Direction").visible = true
+
 
 func _exit_state(new_state, old_state):
 	match old_state:
@@ -139,6 +141,7 @@ func _exit_state(new_state, old_state):
 		states.Run:
 			pass
 		states.Throw:
+			parent.set_mode(0)
 			parent.get_node("Launch_Direction").visible = false
 
 
@@ -150,13 +153,11 @@ func _on_scrap_entered(body):
 
 
 func _on_scrap_body_exited(body):
-#	print(body, " exited")
+	if parent.interaction_list.find(body) != -1:
+		parent.interaction_list.remove(parent.interaction_list.find(body))
 	if parent.interaction_list.size() == 0:
 		parent.get_node("Control/Button").visible = false
-#	print(parent.interaction_list.find(body))
-	parent.interaction_list.remove(parent.interaction_list.find(body))
 #	print(parent.interaction_list)
-#	print("end")
 
 
 func _on_Interaction_Area_area_entered(area):
@@ -166,7 +167,7 @@ func _on_Interaction_Area_area_entered(area):
 
 
 func _on_Interaction_Area_area_exited(area):
+	parent.interaction_list.remove(parent.interaction_list.find(area))
 	if parent.interaction_list.size() == 0:
 		parent.get_node("Control/Button").visible = false
-	parent.interaction_list.remove(parent.interaction_list.find(area))
 #	print(parent.interaction_list)
