@@ -56,6 +56,7 @@ func setupParameters(params : Dictionary, configInfo : Dictionary):
 			assert(defaultParamFuncs[param] != null, "Mandatory parameter " + param + " not provided.")
 			self.set("_" + param,defaultParamFuncs[param].call_func(configInfo))
 
+
 func _input(event):
 	if Input.is_action_pressed("ui_accept"):
 		start_fall()
@@ -67,7 +68,8 @@ func _ready():
 	setupParameters(
 		{"worldScale" : parent.get_radius(),
 		"posRotation" : -PI/2,
-		"initDist" : (parent.get_radius() + 150) / parent.get_radius()},
+		"initDist" : (3*parent.get_radius()) / parent.get_radius(),
+		"period" : 1.0/10.0},
 		{"rng": rng}
 	)
 	pass
@@ -79,10 +81,9 @@ func _process(delta):
 		position = get_position_at_time(timeAlive)*_worldScale
 		global_rotation = get_position().angle()
 	else:
-		global_rotation = get_linear_velocity().angle() - PI / 2
-#		position = get_fall_at_time(timeAlive)*_worldScale
-#		print(position)
-#		global_rotation = get_position().angle()
+#		global_rotation = get_linear_velocity().angle() - PI / 2
+		position = get_fall_at_time(timeAlive)*_worldScale
+		global_rotation = (get_fall_at_time(timeAlive)-get_fall_at_time_delta(timeAlive, delta)).angle() + PI/2
 
 
 func get_position_at_time(time):
@@ -90,23 +91,24 @@ func get_position_at_time(time):
 	return Vector2(_initDist*cos(2*PI*periodTime),
 					_initDist*sin(2*PI*periodTime)).rotated(_posRotation)
 
-##Possible fall equation
-##will have to set time to 0 and change _posRotation
-#func get_fall_at_time(time):
-#	var periodTime = time*_period
-#	return Vector2(2*_initDist*sin((2 * PI * periodTime)/ 2)-_initDist*sin(2*PI*periodTime),
-#					2*_initDist*cos((2 * PI * periodTime)/ 2)-_initDist*cos(2*PI*periodTime)).rotated(_posRotation) 
 
-#In the start
-#	timeAlive = 1
-#	_posRotation = get_position().angle()
+func get_fall_at_time(time):
+	var periodTime = time*_period
+	return Vector2(2*_initDist*cos((PI * periodTime))-_initDist*cos(2*PI*periodTime),
+					2*_initDist*sin((PI * periodTime))-_initDist*sin(2*PI*periodTime)).rotated(_posRotation) 
+
+
+func get_fall_at_time_delta(time,delta):
+	var periodTime = time*_period+delta
+	return Vector2(2*_initDist*cos((PI * periodTime))-_initDist*cos(2*PI*periodTime),
+					2*_initDist*sin((PI * periodTime))-_initDist*sin(2*PI*periodTime)).rotated(_posRotation) 
+
 
 func start_fall():
-	set_mode(0)
 	falling = true
-	set_linear_velocity(-get_position().tangent().normalized())
-#	timeAlive = 1
-#	_posRotation = get_position().angle() - PI/2
+	timeAlive = 1/_period
+	_initDist = _initDist/3
+	_posRotation = get_position().angle() + PI
 
 
 #This was developed back when I was young and dreamy and wanted to use 
@@ -120,7 +122,6 @@ func start_fall():
 #	set_rotation(get_position().angle() + PI / 2)
 #	set_position(get_position().normalized() * 520)
 #	print(get_collision_mask_bit(0))
-
 
 
 func _on_landed(body):
