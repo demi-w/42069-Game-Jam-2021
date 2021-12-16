@@ -3,15 +3,14 @@ class_name Launcher
 
 const projectile = preload("res://src/Launcher/Projectile/ProjectileRigid.tscn")
 
-onready var towerList = $TowerList
-onready var projectile_spawn = $Tower_Spawn
+
+onready var projectile_spawn = $Projectile_Spawn
 onready var launchDir = $Launch_Direction
 onready var tween = $Tween
 onready var launchMats = $Control/Launch_Mats
-onready var towerMenu = $Control/Tower_Menu
 onready var predictor = $Predictor
 onready var chair = $Manning_Position
-
+onready var camera_pos = $Camera_Position
 
 var current_projectile = null
 var cursorInZone = false
@@ -19,13 +18,6 @@ var manned = false
 
 func _ready():
 	rotation = get_position().angle() + PI / 2
-
-#func spawn_tower(TowerType):
-#	if current_projectile == null:
-#		current_projectile = projectile.instance()
-#		current_projectile.get_node(@"Sprite").set_texture(load(towerList.get_tower(TowerType)))
-#		add_child(current_projectile)
-#		current_projectile.set_position(towerSpawn.get_position())
 
 
 func fire(direction):
@@ -55,13 +47,12 @@ func aim_reticle():
 
 
 func predict_path(direction):
-	print(current_projectile.get_position())
-	print(current_projectile.get_parent())
 	predictor.predict({
 #		"gravity_force" : 1
 #		"texture" : current_projectile.get_node(@"Sprite").get_texture(),
 #		"collision" : current_projectile.shape_owner_get_owner(currentTower.get_shape_owners()[0]).get_shape(),
 		"sim_speed" : 2,
+		"from_planet" : false,
 		"launch_position" : current_projectile.get_position(),
 		"velocity" : direction
 	})

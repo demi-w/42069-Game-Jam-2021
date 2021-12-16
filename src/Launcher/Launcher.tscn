@@ -1,11 +1,7 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://src/Launcher/TEMP/Tower3.png" type="Texture" id=1]
 [ext_resource path="res://src/Launcher/TEMP/Slingslot.png" type="Texture" id=2]
-[ext_resource path="res://src/Launcher/TEMP/Tower1.png" type="Texture" id=3]
-[ext_resource path="res://src/Launcher/TEMP/Tower2.png" type="Texture" id=4]
 [ext_resource path="res://src/Launcher/Launcher.gd" type="Script" id=5]
-[ext_resource path="res://src/Launcher/TowerList.gd" type="Script" id=6]
 [ext_resource path="res://src/Launcher/TEMP/pointer.png" type="Texture" id=7]
 [ext_resource path="res://src/Launcher/LauncherStateMachine.gd" type="Script" id=8]
 [ext_resource path="res://src/Fonts/DigitalDisco.tres" type="DynamicFont" id=9]
@@ -27,46 +23,6 @@ texture = ExtResource( 2 )
 [node name="Control" type="Control" parent="."]
 margin_left = -48.0
 margin_bottom = 16.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Tower_Menu" type="HBoxContainer" parent="Control"]
-visible = false
-margin_left = 8.0
-margin_right = 88.0
-margin_bottom = 22.0
-alignment = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Tower1" type="Button" parent="Control/Tower_Menu"]
-margin_left = 6.0
-margin_right = 26.0
-margin_bottom = 22.0
-icon = ExtResource( 3 )
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Tower2" type="Button" parent="Control/Tower_Menu"]
-margin_left = 30.0
-margin_right = 50.0
-margin_bottom = 22.0
-icon = ExtResource( 4 )
-flat = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Tower3" type="Button" parent="Control/Tower_Menu"]
-margin_left = 54.0
-margin_right = 74.0
-margin_bottom = 22.0
-icon = ExtResource( 1 )
-flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -98,24 +54,33 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Tower_Spawn" type="Position2D" parent="."]
-position = Vector2( 0, -28 )
+[node name="Camera_Position" type="Position2D" parent="."]
+position = Vector2( 0, -24 )
+
+[node name="Projectile_Spawn" type="Position2D" parent="."]
+position = Vector2( 0, -8 )
+
+[node name="Manning_Position" type="Position2D" parent="."]
+position = Vector2( 36, -20 )
 
 [node name="Mouse_Area" type="Area2D" parent="."]
+position = Vector2( 0, -8 )
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Mouse_Area"]
-position = Vector2( 0, -28 )
 shape = SubResource( 1 )
 
-[node name="TowerList" type="Node" parent="."]
-script = ExtResource( 6 )
-
 [node name="Launch_Direction" type="Sprite" parent="."]
+visible = false
 position = Vector2( 0, -28 )
 texture = ExtResource( 7 )
 
 [node name="State_Machine" type="Node" parent="."]
 script = ExtResource( 8 )
+
+[node name="Predictor" parent="." instance=ExtResource( 10 )]
 
 [node name="Label" type="Label" parent="."]
 margin_left = -20.0
@@ -131,19 +96,14 @@ __meta__ = {
 
 [node name="Player_Detection" type="Area2D" parent="."]
 collision_layer = 2
+__meta__ = {
+"_edit_group_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player_Detection"]
 position = Vector2( 0, -7 )
 shape = SubResource( 2 )
 
-[node name="Predictor" parent="." instance=ExtResource( 10 )]
-
-[node name="Manning_Position" type="Position2D" parent="."]
-position = Vector2( 36, -20 )
-
-[connection signal="pressed" from="Control/Tower_Menu/Tower1" to="." method="on_button_pressed" binds= [ "Tower1" ]]
-[connection signal="pressed" from="Control/Tower_Menu/Tower2" to="." method="on_button_pressed" binds= [ "Tower2" ]]
-[connection signal="pressed" from="Control/Tower_Menu/Tower3" to="." method="on_button_pressed" binds= [ "Tower3" ]]
 [connection signal="pressed" from="Control/Launch_Mats/Launch" to="State_Machine" method="_on_Launch_Button_pressed"]
 [connection signal="pressed" from="Control/Launch_Mats/Back" to="State_Machine" method="_on_Back_pressed"]
 [connection signal="mouse_entered" from="Mouse_Area" to="State_Machine" method="_on_Mouse_Area_mouse_entered"]

@@ -12,11 +12,9 @@ func _ready():
 func _input(event):
 	if parent.current_projectile != null:
 		if [states.Aim].has(state):
-			if parent.cursorInZone:
+			if parent.manned:
 				if Input.is_action_pressed("ui_select"):
 					set_state(states.Predict)
-#					parent.fire(8*(parent.launchDir.get_global_position()-parent.towerSpawn.get_global_position()))
-					pass
 
 func _state_logic(delta):
 	if parent.manned:
