@@ -60,7 +60,6 @@ func set_texture(texture):
 
 
 func reset_collisions(body):
-	print("reset_collision")
 	set_collision_mask(18)
 
 
