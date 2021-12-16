@@ -40,6 +40,7 @@ var _giveUpDist : float = 1.2
 var _period : float = 1.0/30.0
 var _posRotation: float = 0 # >= 0 && < 2*PI, determines offset for start above planet
 
+onready var particles = $Particles
 onready var parent = get_parent()
 
 var landed = false
@@ -66,7 +67,7 @@ func _ready():
 	rng = RandomNumberGenerator.new()
 	rng.randomize()
 	setupParameters(
-		{"worldScale" : parent.get_radius(),
+		{"worldScale" : get_parent().get_radius(),
 		"posRotation" : -PI/2,
 		"initDist" : (3*parent.get_radius()) / parent.get_radius(),
 		"period" : 1.0/10.0},
@@ -84,6 +85,10 @@ func _process(delta):
 #		global_rotation = get_linear_velocity().angle() - PI / 2
 		position = get_fall_at_time(timeAlive)*_worldScale
 		global_rotation = (get_fall_at_time(timeAlive)-get_fall_at_time_delta(timeAlive, delta)).angle() + PI/2
+		for particle in particles.get_children():
+			particle.get_process_material().set_gravity(-96 * Vector3((get_position().normalized()).x, 
+																	(get_position().normalized()).y, 
+																	0))
 
 
 func get_position_at_time(time):
@@ -109,6 +114,8 @@ func start_fall():
 	timeAlive = 1/_period
 	_initDist = _initDist/3
 	_posRotation = get_position().angle() + PI
+	for particle in particles.get_children():
+		particle.set_emitting(true)
 
 
 #This was developed back when I was young and dreamy and wanted to use 

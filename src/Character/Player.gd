@@ -8,6 +8,7 @@ onready var sprite = $Sprite
 onready var groundcast = $Groundcast
 onready var carry_position = $Carry_Position
 onready var interaction_timer = $Interaction_Timer
+onready var e_button = $Control/Button
 
 var interaction_list = []
 
@@ -26,7 +27,7 @@ var is_grounded
 var held_item = null
 
 #For throwing
-var launch_pos = Vector2(0,10).rotated(PI/2)
+var launch_pos = Vector2(0,-10)
 var min_strength = 10
 var max_strength = 50
 var strength_scroll = 1
@@ -103,24 +104,23 @@ func _throw():
 			held_item.set_linear_velocity(4*($Launch_Direction.get_global_position()-held_item.get_global_position()))
 			drop_item()
 
-#parent.launchDir.get_global_position()-parent.projectile_spawn.get_global_position()
-
 
 func get_vertical_direction():
 	return lastPosition.length() - get_position().length()
 
 
 func pickup_item(body):
-	change_parent(body, self, body.get_parent())
+	change_parent(body, self)
 	held_item = body
 	body.set_position(carry_position.get_position())
 	if body is RigidBody2D:
 		body.set_mode(MODE_STATIC)
 	interaction_list.remove(interaction_list.find(body))
+	e_button.set_visible(false)
 
 
 func drop_item():
-	change_parent(held_item, get_parent(), self)
+	change_parent(held_item, get_parent())
 	if held_item is RigidBody2D:
 		held_item.set_mode(MODE_RIGID)
 	held_item.set_linear_velocity(get_linear_velocity()+held_item.get_linear_velocity())
@@ -128,26 +128,28 @@ func drop_item():
 	held_item = null
 
 
-func change_parent(changed = null, new_owner = null, old_owner = null):
+func change_parent(changed = null, new_owner = null):
 	if changed != null:
-		var temp = changed.global_transform
-		old_owner.remove_child(changed)
-		new_owner.add_child(changed)
-		changed.global_transform = temp
+		var old_owner = changed.get_parent()
+		if new_owner != old_owner:
+			var temp = changed.global_transform
+			old_owner.remove_child(changed)
+			new_owner.add_child(changed)
+			changed.global_transform = temp
 #	print(changed, " / ", new_owner, " / ", old_owner)
 
 
 func enter_building(building):
-	change_parent(self, building.get_parent(), get_parent())
+	change_parent(self, building.get_parent())
 	set_mode(1)
 	set_position(get_parent().chair.position)
-	set_rotation(to_local(get_position()).angle()-PI/2)
+	set_rotation(0)
 	get_parent().manned = true
+	interaction_list.remove(interaction_list.find(building))
 	emit_signal("entered_building", self, building.get_parent())
 
 
 func store_item(building):
-	change_parent(held_item, building.get_parent(), self)
 	building.get_parent().store_projectile(held_item)
 	held_item = null
 
@@ -155,7 +157,7 @@ func store_item(building):
 func leave_building():
 	var building = get_parent()
 	get_parent().manned = false
-	change_parent(self, building.get_parent(), building)
+	change_parent(self, building.get_parent())
 	set_mode(0)
 	emit_signal("exited_building", self, building)
 

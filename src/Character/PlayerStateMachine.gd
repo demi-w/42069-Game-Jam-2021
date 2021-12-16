@@ -57,11 +57,12 @@ func _process(_delta):
 	parent.lastPosition = parent.get_position()
 
 func _state_logic(_delta):
-	parent._update_rotation()
 	if ![states.Manning, states.Throw].has(state):
+		parent._update_rotation()
 		parent._update_movDir()
 		parent._handle_movement()
-	if state == states.Throw:
+	elif state == states.Throw:
+		parent._update_rotation()
 		parent._update_movDir()
 		parent._update_angleDir()
 		parent._handle_throw()
@@ -126,6 +127,9 @@ func _enter_state(new_state, old_state):
 		states.Throw:
 			parent.set_mode(1)
 			parent.get_node("Launch_Direction").visible = true
+		states.Manning:
+			parent.show_behind_parent = true
+			parent.z_index = 0
 
 
 func _exit_state(new_state, old_state):
@@ -143,20 +147,25 @@ func _exit_state(new_state, old_state):
 		states.Throw:
 			parent.set_mode(0)
 			parent.get_node("Launch_Direction").visible = false
+		states.Manning:
+			parent.show_behind_parent = false
+			parent.z_index = 1
 
 
 func _on_scrap_entered(body):
 	if parent.held_item != body:
 		parent.interaction_list.push_front(body)
-	parent.get_node("Control/Button").set_visible(true)
+	if parent.held_item == null:
+		parent.get_node("Control/Button").set_visible(true)
 #	print(parent.interaction_list)
 
 
 func _on_scrap_body_exited(body):
-	if parent.interaction_list.find(body) != -1:
-		parent.interaction_list.remove(parent.interaction_list.find(body))
-	if parent.interaction_list.size() == 0:
-		parent.get_node("Control/Button").visible = false
+	if body != parent.held_item:
+		if parent.interaction_list.find(body) != -1:
+			parent.interaction_list.remove(parent.interaction_list.find(body))
+		if parent.interaction_list.size() == 0:
+			parent.get_node("Control/Button").visible = false
 #	print(parent.interaction_list)
 
 
@@ -167,7 +176,8 @@ func _on_Interaction_Area_area_entered(area):
 
 
 func _on_Interaction_Area_area_exited(area):
-	parent.interaction_list.remove(parent.interaction_list.find(area))
-	if parent.interaction_list.size() == 0:
-		parent.get_node("Control/Button").visible = false
+	if area != get_parent():
+		parent.interaction_list.remove(parent.interaction_list.find(area))
+		if parent.interaction_list.size() == 0:
+			parent.get_node("Control/Button").visible = false
 #	print(parent.interaction_list)

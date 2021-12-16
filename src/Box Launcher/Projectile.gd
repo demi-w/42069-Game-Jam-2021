@@ -2,7 +2,6 @@ extends RigidBody2D
 
 const tower = preload("res://src/Tower/Tower.tscn")
 
-onready var parent = get_parent()
 onready var sprite = $Sprite
 onready var particles = $Particles
 
@@ -16,12 +15,12 @@ func _physics_process(_delta):
 	if launched:
 		global_rotation = linear_velocity.angle() + PI / 2
 		for particle in particles.get_children():
-			particle.get_process_material().set_gravity(96 * Vector3((get_position().normalized()).x, -(get_position().normalized()).y, 0))
+			particle.get_process_material().set_gravity(-96 * Vector3((get_position().normalized()).x, 
+																	(get_position().normalized()).y, 
+																	0))
 		if get_vertical_direction() >= 0:
 			for particle in particles.get_children():
 				particle.set_emitting(false)
-	elif armed:
-		rotation = (get_parent().launchDir.get_position() - get_position()).angle() + PI / 2
 
 
 func _process(_delta):
@@ -31,13 +30,12 @@ func _process(_delta):
 func launch(velocity):
 	set_mode(0)
 	var temp = global_transform
-	parent = get_parent()
+	var parent = get_parent()
 	parent.remove_child(self)
 	parent.get_parent().add_child(self)
 	global_transform = temp
 #	apply_central_impulse(velocity)
 	set_linear_velocity(velocity)
-	parent = get_parent()
 	launched = true
 	for particle in particles.get_children():
 		particle.set_emitting(true)
@@ -71,7 +69,4 @@ func arm():
 
 func get_vertical_direction():
 	return lastPosition.length() - get_position().length()
-
-
-
 
