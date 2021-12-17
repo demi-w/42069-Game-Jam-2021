@@ -70,7 +70,7 @@ func _ready():
 		{"worldScale" : get_parent().get_radius(),
 		"posRotation" : -PI/2,
 		"initDist" : (3*parent.get_radius()) / parent.get_radius(),
-		"period" : 1.0/10.0},
+		"period" : 1.0/30.0},
 		{"rng": rng}
 	)
 	pass

@@ -1,0 +1,69 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/Fonts/DigitalDisco.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Launcher/Launcher UI.gd" type="Script" id=2]
+
+[node name="LauncherUI" type="HBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 12.0
+margin_top = 4.0
+margin_right = -923.0
+margin_bottom = -212.0
+alignment = 1
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+margin_right = 73.0
+margin_bottom = 384.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Launch" type="Button" parent="VBoxContainer"]
+margin_right = 73.0
+margin_bottom = 120.0
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Launch"
+
+[node name="Predict|EndPredict" type="Button" parent="VBoxContainer"]
+margin_top = 124.0
+margin_right = 73.0
+margin_bottom = 244.0
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Predict"
+
+[node name="Leave" type="Button" parent="VBoxContainer"]
+margin_top = 248.0
+margin_right = 73.0
+margin_bottom = 368.0
+size_flags_vertical = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Leave"
+
+[node name="Angle" type="HScrollBar" parent="VBoxContainer"]
+margin_top = 372.0
+margin_right = 73.0
+margin_bottom = 384.0
+input_pass_on_modal_close_click = false
+min_value = -2.945
+max_value = -0.196
+value = -0.196
+
+[node name="Strength" type="VScrollBar" parent="."]
+margin_left = 77.0
+margin_right = 89.0
+margin_bottom = 384.0
+input_pass_on_modal_close_click = false
+min_value = 25.0
+max_value = 50.0
+value = 50.0
+
+[connection signal="pressed" from="VBoxContainer/Launch" to="." method="_launch"]
+[connection signal="pressed" from="VBoxContainer/Predict|EndPredict" to="." method="_predict"]
+[connection signal="pressed" from="VBoxContainer/Leave" to="." method="_leave"]

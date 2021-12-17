@@ -30,7 +30,6 @@ func _input(_event):
 	if Input.is_action_pressed("interact") && parent.interaction_timer.is_stopped():
 		if [states.Manning].has(state):
 			parent.leave_building()
-			set_state(states.Idle)
 		elif parent.held_item != null:
 			if parent.interaction_list.size() > 0:
 				if parent.interaction_list[-1] is Area2D && parent.held_item.get_collision_layer() == 8:
@@ -40,7 +39,7 @@ func _input(_event):
 		elif parent.interaction_list.size() > 0:
 			if parent.interaction_list[0] is Scrap || parent.interaction_list[0].get_collision_layer() == 8:
 				parent.pickup_item(parent.interaction_list[0])
-			elif parent.interaction_list[0].get_parent() is Launcher:
+			elif parent.interaction_list[0].get_parent() is Building:
 				parent.enter_building(parent.interaction_list[0])
 				set_state(states.Manning)
 		parent.interaction_timer.start()

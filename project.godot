@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Building",
+"language": "GDScript",
+"path": "res://src/Singletons/Building.gd"
+}, {
 "base": "Reference",
 "class": "DTS",
 "language": "GDScript",
@@ -39,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/dialogic/Other/DialogicUtil.gd"
 }, {
-"base": "Node2D",
+"base": "Building",
 "class": "Launcher",
 "language": "GDScript",
 "path": "res://src/Launcher/Launcher.gd"
@@ -210,6 +215,7 @@ _global_script_classes=[ {
 "path": "res://src/Tower/Tower.gd"
 } ]
 _global_script_class_icons={
+"Building": "",
 "DTS": "",
 "Dialogic": "",
 "DialogicBackgroundMusic": "",

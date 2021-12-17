@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-const tower = preload("res://src/Tower/Tower.tscn")
+const building = preload("res://src/Launcher/Launcher.tscn")
 
 onready var sprite = $Sprite
 onready var particles = $Particles
@@ -39,26 +39,16 @@ func launch(velocity):
 	launched = true
 	for particle in particles.get_children():
 		particle.set_emitting(true)
-#	connect("body_entered",self,"_on_landed") #connect when the code is figured out, right now this is more fun to watch
+	connect("body_entered",self,"_on_landed") #connect when the code is figured out, right now this is more fun to watch
 
 
 func _on_landed(body):
 	if body is Planet:
-		var newTower = tower.instance()
-		var texture = get_node(@"Sprite").get_texture()
-		body.add_child(newTower)
-		newTower.global_position = global_position
-		newTower.set_rotation(newTower.get_position().angle() + PI / 2)
-		newTower.set_position((newTower.position / newTower.position.length()) * 520) #Sets vector length to 520pixels
-		newTower.get_node(@"Sprite").set_texture(texture)
-		queue_free()
-	elif body is Tower:
-		var newTower = tower.instance()
-		var texture = get_node(@"Sprite").get_texture()
-		body.add_child(newTower)
-		newTower.set_rotation(body.get_node(@"Sprite").get_rotation())
-		newTower.set_position(Vector2(0,-16))
-		newTower.get_node(@"Sprite").set_texture(texture)
+		var new_building = building.instance()
+		new_building.global_position = global_position
+		new_building.set_position((new_building.position / new_building.position.length()) * body.planetRadius)
+#		body.add_child(new_building)
+		body.call_deferred("add_child", new_building)
 		queue_free()
 
 

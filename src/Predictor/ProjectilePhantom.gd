@@ -5,7 +5,7 @@ const pathRes = preload("res://src/Predictor/Path.tscn")
 export var planetPath : NodePath
 
 onready var parent = get_parent()
-onready var planet = get_parent().get_parent().get_parent()
+onready var planet = find_parent("Planet")
 onready var sprite = $Sprite
 onready var planet_mask = $Planet_Mask
 
@@ -56,15 +56,24 @@ func set_from_planet(value):
 
 
 func set_texture(texture):
+	
 	$Sprite.set_texture(texture)
+	
+
+func set_region_rect(region):
+	$Sprite.set_region_rect(region)
 
 
-func reset_collisions(body):
-	set_collision_mask(18)
+func set_texture_scale(scale):
+	$Sprite.set_scale(scale)
 
 
 func set_collision(collision):
 	$CollisionShape2D.set_shape(collision)
+
+
+func reset_collisions(body):
+	set_collision_mask(18)
 
 
 func _on_RigidBody2D_body_entered(body):
@@ -79,5 +88,4 @@ func spawn_path():
 	newPath.set_position(position)
 	newPath.set_rotation(rotation - PI / 2)
 	last_path_pos = position
-
 
