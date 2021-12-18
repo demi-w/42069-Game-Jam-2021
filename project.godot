@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Building",
+"language": "GDScript",
+"path": "res://src/Singletons/Building.gd"
+}, {
 "base": "Reference",
 "class": "DTS",
 "language": "GDScript",
@@ -39,7 +44,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://addons/dialogic/Other/DialogicUtil.gd"
 }, {
-"base": "Node2D",
+"base": "Building",
 "class": "Launcher",
 "language": "GDScript",
 "path": "res://src/Launcher/Launcher.gd"
@@ -63,6 +68,11 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://src/Character/Player.gd"
+}, {
+"base": "RigidBody2D",
+"class": "Projectile",
+"language": "GDScript",
+"path": "res://src/Box Launcher/Projectile.gd"
 }, {
 "base": "Resource",
 "class": "RMS2D_Material",
@@ -204,12 +214,13 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Singletons/StateMachine.gd"
 }, {
-"base": "StaticBody2D",
+"base": "Building",
 "class": "Tower",
 "language": "GDScript",
 "path": "res://src/Tower/Tower.gd"
 } ]
 _global_script_class_icons={
+"Building": "",
 "DTS": "",
 "Dialogic": "",
 "DialogicBackgroundMusic": "",
@@ -221,6 +232,7 @@ _global_script_class_icons={
 "Phantom": "",
 "Planet": "",
 "Player": "",
+"Projectile": "",
 "RMS2D_Material": "",
 "RMS2D_VertexProperties": "",
 "RMS2D_VertexPropertiesArray": "",
@@ -333,7 +345,7 @@ down={
 2d_physics/layer_3="Asteroids"
 2d_physics/layer_4="Projectile"
 2d_physics/layer_5="Planet"
-2d_physics/layer_6="Scrap"
+2d_physics/layer_6="Interaction"
 
 [physics]
 

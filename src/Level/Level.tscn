@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/Planet/Planet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Level/Level.gd" type="Script" id=2]
 [ext_resource path="res://src/Launcher/Launcher.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/Character/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/AsteroidSpawner/AsteroidSpawner.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Pod/Pods.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Factory/Factory.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/Towers/Tesla.png" type="Texture" id=8]
+[ext_resource path="res://src/Box Launcher/Projectile.tscn" type="PackedScene" id=9]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
@@ -13,7 +16,10 @@ script = ExtResource( 2 )
 zoom = Vector2( 2, 2 )
 
 [node name="Planet" parent="." instance=ExtResource( 1 )]
-planetScale = Vector2( 0.997202, 0.841859 )
+
+[node name="Factory" parent="Planet" instance=ExtResource( 7 )]
+show_behind_parent = true
+position = Vector2( 0, -512 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Planet"]
 enabled = true
@@ -22,11 +28,21 @@ collision_mask = 48
 collide_with_areas = true
 
 [node name="Launcher" parent="Planet" instance=ExtResource( 3 )]
-position = Vector2( 120, -496 )
-rotation = 0.370022
+position = Vector2( 512, 0 )
+rotation = 1.5708
 
-[node name="Player" parent="Planet" instance=ExtResource( 4 )]
-position = Vector2( 0, -600 )
+[node name="Pod" parent="Planet" instance=ExtResource( 6 )]
+position = Vector2( 8, -728 )
+
+[node name="Sprite3" type="Sprite" parent="Planet"]
+position = Vector2( -216, -488 )
+rotation = -0.396758
+scale = Vector2( 3, 3 )
+z_index = -1
+texture = ExtResource( 8 )
+
+[node name="Projectile" parent="Planet" instance=ExtResource( 9 )]
+position = Vector2( 408, -368 )
 
 [node name="Colony_Timer" type="Timer" parent="."]
 wait_time = 0.05

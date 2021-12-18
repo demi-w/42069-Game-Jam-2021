@@ -1,10 +1,10 @@
 extends RigidBody2D
-
-const tower = preload("res://src/Tower/Tower.tscn")
+class_name Projectile
 
 onready var sprite = $Sprite
 onready var particles = $Particles
 
+var building = null setget set_stored
 var followCursor = false
 var launched = false
 var armed = false
@@ -36,33 +36,22 @@ func launch(velocity):
 	global_transform = temp
 #	apply_central_impulse(velocity)
 	set_linear_velocity(velocity)
+	set_collision_layer(8)
 	launched = true
 	for particle in particles.get_children():
 		particle.set_emitting(true)
-#	connect("body_entered",self,"_on_landed") #connect when the code is figured out, right now this is more fun to watch
+	connect("body_entered",self,"_on_landed") #connect when the code is figured out, right now this is more fun to watch
 
 
 func _on_landed(body):
-	if body is Planet:
-		var newTower = tower.instance()
-		var texture = get_node(@"Sprite").get_texture()
-		body.add_child(newTower)
-		newTower.global_position = global_position
-		newTower.set_rotation(newTower.get_position().angle() + PI / 2)
-		newTower.set_position((newTower.position / newTower.position.length()) * 520) #Sets vector length to 520pixels
-		newTower.get_node(@"Sprite").set_texture(texture)
-		queue_free()
-	elif body is Tower:
-		var newTower = tower.instance()
-		var texture = get_node(@"Sprite").get_texture()
-		body.add_child(newTower)
-		newTower.set_rotation(body.get_node(@"Sprite").get_rotation())
-		newTower.set_position(Vector2(0,-16))
-		newTower.get_node(@"Sprite").set_texture(texture)
-		queue_free()
+	if building != null:
+		if body is Planet:
+			spawn_building(body)
+			queue_free()
 
 
 func arm():
+	set_collision_layer(0)
 	set_mode(1)
 	armed = true
 
@@ -70,3 +59,13 @@ func arm():
 func get_vertical_direction():
 	return lastPosition.length() - get_position().length()
 
+
+func set_stored(building_reference):
+	building = building_reference
+
+
+func spawn_building(planet):
+	var new_building = building.instance()
+	new_building.global_position = global_position
+	new_building.set_position((new_building.position / new_building.position.length() * planet.planetRadius))
+	planet.call_deferred("add_child", new_building)

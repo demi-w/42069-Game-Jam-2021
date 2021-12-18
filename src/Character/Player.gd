@@ -9,6 +9,7 @@ onready var groundcast = $Groundcast
 onready var carry_position = $Carry_Position
 onready var interaction_timer = $Interaction_Timer
 onready var e_button = $Control/Button
+onready var player_state_machine = $StateMachine
 
 var interaction_list = []
 
@@ -25,14 +26,15 @@ var maxSpeed = 100
 var lastPosition = Vector2()
 var is_grounded
 var held_item = null
+var can_zoom = true
 
 #For throwing
 var launch_pos = Vector2(0,-10)
 var min_strength = 10
 var max_strength = 50
 var strength_scroll = 1
-var min_angle = -7 * PI / 8
-var max_angle = -PI / 8
+var min_angle = -15 * PI / 16
+var max_angle = -PI / 16
 var angle_scroll = 2*PI / 180
 var angle_dir = 1
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -48,7 +50,7 @@ func _update_movDir():
 	movDir = Input.get_action_strength("right") - Input.get_action_strength("left")
 
 
-func _apply_gravity(delta):
+func _apply_gravity(_delta):
 	pass #no
 
 
@@ -64,6 +66,10 @@ func _handle_movement():
 func _handle_throw():
 	launch_pos = launch_pos.normalized()*(launch_pos.length()+_set_strength())
 	launch_pos = launch_pos.rotated(_set_angle())
+	if launch_pos.x >= 0 :
+		sprite.scale.x = 1
+	else: 
+		sprite.scale.x = -1
 	$Launch_Direction.set_position(launch_pos+Vector2(0,-16))
 
 
@@ -95,14 +101,16 @@ func _set_angle():
 
 func _throw():
 	if held_item != null:
+		var raw_vel = $Launch_Direction.get_global_position()-held_item.get_global_position()
 		if held_item.get_collision_layer_bit(3) == true:
 			held_item.armed = true
 #			print($Launch_Direction.get_global_position())
-			held_item.launch(4*($Launch_Direction.get_global_position()-held_item.get_global_position()))
+			held_item.launch(4*(raw_vel))
 			held_item = null
 		elif held_item is Scrap:
-			held_item.set_linear_velocity(4*($Launch_Direction.get_global_position()-held_item.get_global_position()))
+			held_item.set_linear_velocity(4*(raw_vel))
 			drop_item()
+		set_linear_velocity(get_position().tangent().normalized()*raw_vel.length()*sprite.scale.x)
 
 
 func get_vertical_direction():
@@ -139,25 +147,21 @@ func change_parent(changed = null, new_owner = null):
 #	print(changed, " / ", new_owner, " / ", old_owner)
 
 
-func enter_building(building):
-	change_parent(self, building.get_parent())
-	set_mode(1)
-	set_position(get_parent().chair.position)
-	set_rotation(0)
-	get_parent().manned = true
-	interaction_list.remove(interaction_list.find(building))
-	emit_signal("entered_building", self, building.get_parent())
+func enter_building(building_node):
+	print("ppf")
+	if building_node.enter_building(self):
+		emit_signal("entered_building", self, building_node)
+		if interaction_list.find(building_node) != -1:
+			interaction_list.remove(interaction_list.find(building_node))
+		player_state_machine.set_state(player_state_machine.states.Manning)
 
 
 func store_item(building):
-	building.get_parent().store_projectile(held_item)
-	held_item = null
+	if building.store_item(held_item):
+		held_item = null
 
 
-func leave_building():
-	var building = get_parent()
-	get_parent().manned = false
-	change_parent(self, building.get_parent())
-	set_mode(0)
+func leave_building(building):
+	player_state_machine.set_state(player_state_machine.states.Idle)
 	emit_signal("exited_building", self, building)
 
