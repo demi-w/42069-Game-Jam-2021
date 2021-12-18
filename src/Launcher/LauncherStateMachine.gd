@@ -52,7 +52,6 @@ func _exit_state(new_state, old_state):
 func _on_predict_pressed(state):
 	if parent.current_projectile != null:
 		if state:
-			print("pressed")
 			set_state(states.Predict)
 		else:
 			set_state(states.Aim)

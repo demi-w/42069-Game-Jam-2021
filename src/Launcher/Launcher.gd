@@ -30,10 +30,11 @@ var launch_pos = Vector2(0,-25)
 
 func _init():
 	can_zoom = true
-	
+
 
 func _ready():
 	rotation = get_position().angle() + PI / 2
+	position = get_position().normalized()*512
 	camera_pos = get_node("Camera_Position").get_position()
 
 

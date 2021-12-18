@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Progress.png-10a3ccd54aef57fc879c3dcbce1c87de.stex"
+path="res://.import/Progress top1.png-a914beabd77522b90709992912712546.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Healthbar Scene/TEMP/Progress.png"
-dest_files=[ "res://.import/Progress.png-10a3ccd54aef57fc879c3dcbce1c87de.stex" ]
+source_file="res://assets/World/UI Progress Bars/Progress top1.png"
+dest_files=[ "res://.import/Progress top1.png-a914beabd77522b90709992912712546.stex" ]
 
 [params]
 

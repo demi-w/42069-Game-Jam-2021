@@ -9,7 +9,7 @@ var followCursor = false
 var launched = false
 var armed = false
 var lastPosition
-
+var too_close = false
 
 func _physics_process(_delta):
 	if launched:
@@ -40,20 +40,31 @@ func launch(velocity):
 	launched = true
 	for particle in particles.get_children():
 		particle.set_emitting(true)
-	connect("body_entered",self,"_on_landed") #connect when the code is figured out, right now this is more fun to watch
+	if !is_connected("body_entered", self, "_on_landed"):
+		connect("body_entered",self,"_on_landed") #connect when the code is figured out, right now this is more fun to watch
 
 
 func _on_landed(body):
-	if building != null:
-		if body is Planet:
-			spawn_building(body)
-			queue_free()
-
+	if !too_close:
+		if building != null:
+			if body is Planet:
+				spawn_building(body)
+				queue_free()
+	else:
+		unarm()
 
 func arm():
 	set_collision_layer(0)
 	set_mode(1)
 	armed = true
+
+
+func unarm():
+	set_collision_layer(8)
+	if get_mode() != 0:
+		set_mode(0)
+	armed = false
+	launched = false
 
 
 func get_vertical_direction():

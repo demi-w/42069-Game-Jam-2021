@@ -51,7 +51,6 @@ func _handle_aim():
 	_set_strength()
 	_set_angle()
 	launch_pos = (launch_pos.normalized()*_get_strength()).rotated(-(launch_pos.angle()-_get_angle()))
-	print(launch_pos.angle()-_get_angle())
 
 
 func get_aim():
