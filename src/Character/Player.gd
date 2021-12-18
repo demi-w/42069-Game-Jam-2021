@@ -102,7 +102,7 @@ func _set_angle():
 func _throw():
 	if held_item != null:
 		var raw_vel = $Launch_Direction.get_global_position()-held_item.get_global_position()
-		if held_item.get_collision_layer_bit(3) == true:
+		if held_item is Projectile:
 			held_item.armed = true
 #			print($Launch_Direction.get_global_position())
 			held_item.launch(4*(raw_vel))
@@ -148,7 +148,6 @@ func change_parent(changed = null, new_owner = null):
 
 
 func enter_building(building_node):
-	print("ppf")
 	if building_node.enter_building(self):
 		emit_signal("entered_building", self, building_node)
 		if interaction_list.find(building_node) != -1:

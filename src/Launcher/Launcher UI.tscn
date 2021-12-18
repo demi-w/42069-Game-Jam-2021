@@ -34,6 +34,7 @@ margin_right = 73.0
 margin_bottom = 120.0
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 1 )
+disabled = true
 text = "Launch"
 
 [node name="Predict|EndPredict" type="Button" parent="VBoxContainer"]
@@ -42,6 +43,7 @@ margin_right = 73.0
 margin_bottom = 244.0
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 1 )
+disabled = true
 text = "Predict"
 
 [node name="Leave" type="Button" parent="VBoxContainer"]
@@ -50,6 +52,7 @@ margin_right = 73.0
 margin_bottom = 368.0
 size_flags_vertical = 3
 custom_fonts/font = ExtResource( 1 )
+disabled = true
 shortcut = SubResource( 2 )
 text = "Leave"
 

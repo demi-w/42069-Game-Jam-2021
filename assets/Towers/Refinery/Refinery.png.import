@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Progress top1.png-82b4cbb00748a632647a45e7047eea38.stex"
+path="res://.import/Refinery.png-015a8d417849553af19ce49ffda6f2b8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Healthbar Scene/TEMP/Progress top1.png"
-dest_files=[ "res://.import/Progress top1.png-82b4cbb00748a632647a45e7047eea38.stex" ]
+source_file="res://assets/Towers/Refinery/Refinery.png"
+dest_files=[ "res://.import/Refinery.png-015a8d417849553af19ce49ffda6f2b8.stex" ]
 
 [params]
 
