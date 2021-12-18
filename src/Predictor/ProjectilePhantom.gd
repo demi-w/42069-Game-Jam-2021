@@ -1,6 +1,5 @@
 class_name Phantom extends RigidBody2D
 
-const tower = preload("res://src/Tower/Tower.tscn")
 const pathRes = preload("res://src/Predictor/Path.tscn")
 export var planetPath : NodePath
 
@@ -56,9 +55,8 @@ func set_from_planet(value):
 
 
 func set_texture(texture):
-	
 	$Sprite.set_texture(texture)
-	
+
 
 func set_region_rect(region):
 	$Sprite.set_region_rect(region)
@@ -77,7 +75,8 @@ func reset_collisions(body):
 
 
 func _on_RigidBody2D_body_entered(body):
-	queue_free()
+	if body is Planet || body is Building:
+		queue_free()
 
 
 func spawn_path():
