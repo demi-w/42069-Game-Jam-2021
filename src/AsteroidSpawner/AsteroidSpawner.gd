@@ -2,6 +2,8 @@ extends Node
 
 const asteroidPrefab = preload("res://src/Asteroid/Asteroid.tscn")
 
+signal new(asteroid)
+
 export var spawnInterval : float = 3
 export var asteroidsOnStart : float = 0
 export var planetPath : NodePath
@@ -24,7 +26,7 @@ func queueAsteroids(newAsteroids:int):
 
 func remove_asteroid(asteroid : Node2D):
 	_asteroids.erase(asteroid)
-
+	
 func spawner_coroutine():
 	_spawnerRunning = true
 	while _queuedAsteroids > 0:
@@ -46,6 +48,7 @@ func spawner_coroutine():
 				"rng":_rng
 			})
 		add_child(newAsteroid)
+		emit_signal("new",newAsteroid)
 		#print("Added asteroid")
 		_queuedAsteroids -= 1
 		yield(get_tree().create_timer(spawnInterval), "timeout")
@@ -55,17 +58,20 @@ func asteroids_intersect_cone(startRads,endRads,coneRange):
 	var sortedByTime = []
 	for asteroid in _asteroids:
 		var unsortedAdditions = asteroid.times_intersect_cone(startRads,endRads,coneRange)
-		var unsortedIndex = 0
-		var sortedIndex = 0
-		while sortedIndex < sortedByTime.length() and unsortedIndex < unsortedAdditions.length():
-			if sortedByTime[sortedIndex][0] > unsortedAdditions[unsortedIndex][0]: 
-				unsortedAdditions[unsortedIndex].push(asteroid)
-				unsortedAdditions[unsortedIndex][0]
-				sortedByTime.insert(sortedIndex,unsortedAdditions[unsortedIndex])
-				unsortedIndex += 1
-			sortedIndex += 1
-		while unsortedIndex < unsortedAdditions.length():
-			unsortedAdditions[unsortedIndex].push(asteroid)
-			sortedByTime.append(unsortedAdditions[unsortedIndex])
-			unsortedIndex += 1
+		for additionIndex in range(unsortedAdditions.length()):
+			unsortedAdditions[additionIndex].push(asteroid)
+		merge_sorted_collisionInfo_lists(sortedByTime,unsortedAdditions)
 	return sortedByTime
+
+static func merge_sorted_collisionInfo_lists(mergeInto,list2):
+	var firstIndex = 0
+	var secondIndex = 0
+	while firstIndex < mergeInto.length() and secondIndex < list2.length():
+		if mergeInto[firstIndex][0] > list2[secondIndex][0]: 
+			mergeInto.insert(firstIndex,list2[secondIndex])
+			secondIndex += 1
+		firstIndex += 1
+	while secondIndex < list2.length():
+		mergeInto.append(list2[secondIndex])
+		secondIndex += 1
+	return mergeInto
