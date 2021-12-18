@@ -50,7 +50,7 @@ func _update_movDir():
 	movDir = Input.get_action_strength("right") - Input.get_action_strength("left")
 
 
-func _apply_gravity(delta):
+func _apply_gravity(_delta):
 	pass #no
 
 
@@ -148,7 +148,7 @@ func change_parent(changed = null, new_owner = null):
 
 
 func enter_building(building_node):
-#	var building_node = building.get_parent()
+	print("ppf")
 	if building_node.enter_building(self):
 		emit_signal("entered_building", self, building_node)
 		if interaction_list.find(building_node) != -1:
@@ -157,8 +157,8 @@ func enter_building(building_node):
 
 
 func store_item(building):
-	building.store_projectile(held_item)
-	held_item = null
+	if building.store_item(held_item):
+		held_item = null
 
 
 func leave_building(building):
