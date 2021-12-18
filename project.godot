@@ -265,7 +265,7 @@ mouse_cursor/custom_image="res://src/Launcher/TEMP/cursor.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray(  )
+enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg" )
 
 [global]
 
