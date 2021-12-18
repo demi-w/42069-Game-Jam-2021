@@ -26,8 +26,8 @@ var min_strength = 25
 var max_strength = 50
 var strength_scroll = 1
 var strength_dir = 0
-var min_angle = -7 * PI / 8
-var max_angle = -PI / 8
+var min_angle = -5 * PI / 16
+var max_angle = -PI / 16
 var angle_scroll = 2*PI / 180
 var angle_dir = 0
 
