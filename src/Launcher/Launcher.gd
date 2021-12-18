@@ -19,7 +19,6 @@ onready var launcher_ui = $CanvasLayer/LauncherUI
 
 var current_projectile = null
 var manned = false
-var player = null
 
 #For aiming
 var launch_pos = Vector2(0,-25)
@@ -142,14 +141,23 @@ func position_projectile():
 
 
 func enter_building(entered):
-	manned = true
-	launcher_ui.visible = true
-	player = entered
-	player.set_position(chair.get_position())
-	player.set_rotation(0)
+	if player == null:
+		change_parent(entered, self)
+		manned = true
+		launcher_ui.visible = true
+		player = entered
+		player.set_position(chair.get_position())
+		player.set_rotation(0)
+		player.set_mode(1)
+		return true
+	else: 
+		return false
 
 
 func exit_building():
+	change_parent(player, get_parent())
 	manned = false
 	launcher_ui.visible = false
+	player.leave_building(self)
+	player.set_mode(0)
 	player = null

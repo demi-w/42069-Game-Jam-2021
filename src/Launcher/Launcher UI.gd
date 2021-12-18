@@ -17,6 +17,7 @@ func set_strength(value):
 func set_angle(value):
 	angle.set_value(value)
 
+
 func _launch():
 	emit_signal("launch_pressed")
 

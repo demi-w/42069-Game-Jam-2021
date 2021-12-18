@@ -29,19 +29,18 @@ func _input(_event):
 
 	if Input.is_action_pressed("interact") && parent.interaction_timer.is_stopped():
 		if [states.Manning].has(state):
-			parent.leave_building()
+			parent.get_parent().exit_building()
 		elif parent.held_item != null:
 			if parent.interaction_list.size() > 0:
-				if parent.interaction_list[-1] is Area2D && parent.held_item.get_collision_layer() == 8:
+				if parent.interaction_list[-1] is Building && parent.held_item is Projectile:
 					parent.store_item(parent.interaction_list[-1])
 			else:
 				parent.drop_item()
 		elif parent.interaction_list.size() > 0:
-			if parent.interaction_list[0] is Scrap || parent.interaction_list[0].get_collision_layer() == 8:
+			if parent.interaction_list[0] is Scrap || parent.interaction_list[0] is Projectile:
 				parent.pickup_item(parent.interaction_list[0])
-			elif parent.interaction_list[0].get_parent() is Building:
+			elif parent.interaction_list[0] is Building:
 				parent.enter_building(parent.interaction_list[0])
-				set_state(states.Manning)
 		parent.interaction_timer.start()
 	
 	
@@ -169,13 +168,16 @@ func _on_scrap_body_exited(body):
 
 
 func _on_Interaction_Area_area_entered(area):
-	parent.interaction_list.append(area)
-	parent.get_node("Control/Button").set_visible(true)
+	area = area.get_parent()
+	if area != parent.get_parent():
+		parent.interaction_list.append(area)
+		parent.get_node("Control/Button").set_visible(true)
 #	print(parent.interaction_list)
 
 
 func _on_Interaction_Area_area_exited(area):
-	if area != get_parent():
+	area = area.get_parent()
+	if area != parent.get_parent():
 		parent.interaction_list.remove(parent.interaction_list.find(area))
 		if parent.interaction_list.size() == 0:
 			parent.get_node("Control/Button").visible = false

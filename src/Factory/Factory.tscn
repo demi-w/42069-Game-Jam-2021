@@ -46,4 +46,7 @@ position = Vector2( 0, -28 )
 [node name="Manning_Position" type="Position2D" parent="."]
 position = Vector2( 20, -8 )
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Construction_Timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="Construction_Timer" to="." method="send_box"]

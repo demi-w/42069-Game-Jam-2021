@@ -147,25 +147,21 @@ func change_parent(changed = null, new_owner = null):
 #	print(changed, " / ", new_owner, " / ", old_owner)
 
 
-func enter_building(building):
-	print("ran1")
-	change_parent(self, building.get_parent())
-	set_mode(1)
-	get_parent().enter_building(self)
-	interaction_list.remove(interaction_list.find(building))
-	emit_signal("entered_building", self, building.get_parent())
+func enter_building(building_node):
+#	var building_node = building.get_parent()
+	if building_node.enter_building(self):
+		emit_signal("entered_building", self, building_node)
+		if interaction_list.find(building_node) != -1:
+			interaction_list.remove(interaction_list.find(building_node))
+		player_state_machine.set_state(player_state_machine.states.Manning)
 
 
 func store_item(building):
-	building.get_parent().store_projectile(held_item)
+	building.store_projectile(held_item)
 	held_item = null
 
 
-func leave_building():
-	var building = get_parent()
-	get_parent().exit_building()
-	change_parent(self, building.get_parent())
-	set_mode(0)
+func leave_building(building):
 	player_state_machine.set_state(player_state_machine.states.Idle)
 	emit_signal("exited_building", self, building)
 

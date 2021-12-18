@@ -51,11 +51,12 @@ func _exit_state(new_state, old_state):
 
 
 func _on_predict_pressed(state):
-	if state:
-		print("pressed")
-		set_state(states.Predict)
-	else:
-		set_state(states.Aim)
+	if parent.current_projectile != null:
+		if state:
+			print("pressed")
+			set_state(states.Predict)
+		else:
+			set_state(states.Aim)
 
 
 func _on_launch_pressed():
@@ -63,5 +64,5 @@ func _on_launch_pressed():
 
 
 func _on_back_pressed():
-	parent.player.leave_building()
+	parent.exit_building()
 	set_state(states.Aim)
