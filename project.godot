@@ -214,7 +214,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Singletons/StateMachine.gd"
 }, {
-"base": "StaticBody2D",
+"base": "Building",
 "class": "Tower",
 "language": "GDScript",
 "path": "res://src/Tower/Tower.gd"
@@ -345,7 +345,7 @@ down={
 2d_physics/layer_3="Asteroids"
 2d_physics/layer_4="Projectile"
 2d_physics/layer_5="Planet"
-2d_physics/layer_6="Scrap"
+2d_physics/layer_6="Interaction"
 
 [physics]
 
