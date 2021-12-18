@@ -52,6 +52,6 @@ func send_box():
 		new_box.set_position($Box_Spawn.get_position())
 #		remove shader
 		new_box.set_linear_velocity(Vector2(40,-40))
-		call_deferred("change_parent",new_box, get_parent())
+		call_deferred("switch_parent",new_box, get_parent())
 		currently_building = false
 		current_construction = null
