@@ -66,7 +66,7 @@ func _ready():
 	give_up_coroutine()
 	var rotationAsPercent = _posRotation / PI / 2.0
 	timeAlive = rotationAsPercent / _period
-	spawnTime = OS.get_ticks_msec() - timeAlive
+	spawnTime = OS.get_ticks_msec()/1000 - timeAlive
 	_initDist += rotationAsPercent * _linearFall
 	position = get_position_at_time(timeAlive)*_worldScale
 
