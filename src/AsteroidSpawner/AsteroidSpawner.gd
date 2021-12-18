@@ -31,7 +31,7 @@ func spawner_coroutine():
 		var newAsteroid := asteroidPrefab.instance()
 		_asteroids.append(newAsteroid)
 		newAsteroid.setupParameters(
-			#{"period":1/(76+_rng.randf_range(0,4)),
+							#{"period":1/(76+_rng.randf_range(0,4)),
 			#"initDist":1.4+_rng.randf_range(-0.01,0.01),
 			#"giveUpDist":1.1,
 			{
@@ -50,3 +50,22 @@ func spawner_coroutine():
 		_queuedAsteroids -= 1
 		yield(get_tree().create_timer(spawnInterval), "timeout")
 	_spawnerRunning = false
+
+func asteroids_intersect_cone(startRads,endRads,coneRange):
+	var sortedByTime = []
+	for asteroid in _asteroids:
+		var unsortedAdditions = asteroid.times_intersect_cone(startRads,endRads,coneRange)
+		var unsortedIndex = 0
+		var sortedIndex = 0
+		while sortedIndex < sortedByTime.length() and unsortedIndex < unsortedAdditions.length():
+			if sortedByTime[sortedIndex][0] > unsortedAdditions[unsortedIndex][0]: 
+				unsortedAdditions[unsortedIndex].push(asteroid)
+				unsortedAdditions[unsortedIndex][0]
+				sortedByTime.insert(sortedIndex,unsortedAdditions[unsortedIndex])
+				unsortedIndex += 1
+			sortedIndex += 1
+		while unsortedIndex < unsortedAdditions.length():
+			unsortedAdditions[unsortedIndex].push(asteroid)
+			sortedByTime.append(unsortedAdditions[unsortedIndex])
+			unsortedIndex += 1
+	return sortedByTime

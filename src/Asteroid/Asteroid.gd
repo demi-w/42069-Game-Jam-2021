@@ -37,6 +37,7 @@ var defaultParamFuncs = {
 # var a = 2
 # var b = "text"
 
+var spawnTime = 0
 var simRadius = 5
 var timeAlive = 0
 var deathTime
@@ -65,6 +66,7 @@ func _ready():
 	give_up_coroutine()
 	var rotationAsPercent = _posRotation / PI / 2.0
 	timeAlive = rotationAsPercent / _period
+	spawnTime = OS.get_ticks_msec() - timeAlive
 	_initDist += rotationAsPercent * _linearFall
 	position = get_position_at_time(timeAlive)*_worldScale
 
@@ -98,18 +100,35 @@ func die():
 	add_child(asteroidPhysics.instance())
 	#get_parent().remove_child(self)
 
-func time_intersect_ray(rads,rayRange):
+func times_intersect_ray(rads,rayRange, useSimTime=false):
+	var addSpawnTime = 0 if useSimTime else spawnTime
 	var timeToGetToRads = rads/(TAU*_period)
-	var rotationsToGetToRange = ceil((1-rayRange-rads*_linearFall/TAU)/_linearFall)/_period
-	return timeToGetToRads + rotationsToGetToRange
+	var timeToGetToRangeRot = ceil((1-rayRange-rads*_linearFall/TAU)/_linearFall)/_period
+	var timeAtIntersect = timeToGetToRads + timeToGetToRangeRot + addSpawnTime
+	var times = []
+	while timeAtIntersect < deathTime:
+		times.append(timeAtIntersect + addSpawnTime)
+		timeAtIntersect += 1/_period
+	return times
 
-func time_intersect_cone(startRads,endRads,coneRange):
+func times_intersect_cone(startRads,endRads,coneRange, useSimTime=false):
+	var addSpawnTime = 0 if useSimTime else spawnTime
 	var endInTOfStart = fmod(endRads-startRads,TAU)
 	var collisionInTOfStart = fmod((1-coneRange)/_linearFall,1)*TAU
 	var collisionAngle = fmod(clamp(collisionInTOfStart,0,endInTOfStart) + startRads,TAU)
-	return time_intersect_ray(collisionAngle,coneRange)
-	
-func time_intersect_asteroid(other):
+	var bonks = times_intersect_ray(collisionAngle,coneRange)
+	if bonks == []:
+		return bonks
+	else:
+		var timeAndAngles = [bonks[0]+addSpawnTime,abs(endRads-collisionAngle)/TAU/_period+addSpawnTime,collisionAngle]
+		var rayTimes = times_intersect_ray(startRads,coneRange,useSimTime)
+		rayTimes.pop_front()
+		var timeToPassCone = abs(endRads-startRads)/TAU/_period
+		for i in rayTimes:
+			timeAndAngles.append([i,i+timeToPassCone,startRads])
+		return timeAndAngles
+
+func time_intersect_asteroid(other,useSimTime=false):
 	var a = ((simRadius+other.simRadius-_initDist+other._initDist) / 
 		(other._linearFall*other._initDist - _linearFall*_initDist))
 	
@@ -120,7 +139,7 @@ func time_intersect_asteroid(other):
 	
 	b = b if b > 0 else float("inf")
 	
-	return min(a,b)
+	return min(a,b) + 0 if useSimTime else spawnTime
 
 
 #Called every frame. 'delta' is the elapsed time since the previous frame.
