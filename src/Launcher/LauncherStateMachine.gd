@@ -6,7 +6,6 @@ func _ready():
 	add_state("Aim")
 	add_state("Predict")
 	add_state("Launch")
-	add_state("Fucking")
 	call_deferred("set_state", states.Idle)
 
 

@@ -60,7 +60,8 @@ margin_bottom = 384.0
 input_pass_on_modal_close_click = false
 min_value = -2.945
 max_value = -0.196
-value = -0.196
+step = -0.098
+value = -1.571
 
 [node name="Strength" type="VScrollBar" parent="."]
 margin_left = 77.0
@@ -69,6 +70,7 @@ margin_bottom = 384.0
 input_pass_on_modal_close_click = false
 min_value = 25.0
 max_value = 50.0
+step = 1.0
 value = 50.0
 
 [connection signal="pressed" from="VBoxContainer/Launch" to="." method="_launch"]
