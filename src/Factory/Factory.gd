@@ -2,7 +2,9 @@ extends Building
 
 const projectile_box = preload("res://src/Box Launcher/Projectile.tscn")
 
-const building = preload("res://src/Refinery/Refinery.tscn")
+const launcher = preload("res://src/Launcher/Launcher.tscn")
+const refinery = preload("res://src/Refinery/Refinery.tscn")
+const laser_tower = null
 
 onready var chair = $Manning_Position
 onready var construction_timer = $Construction_Timer
@@ -10,17 +12,37 @@ onready var factory_ui = $CanvasLayer/Control
 
 var currently_building = false
 var current_construction = null
+var selected_construct = null
 
 
 func _ready():
 	camera_pos = get_node("Camera_Position").get_position()
 
 
-func build(item):
-	if !currently_building:
-		current_construction = building
+func build():
+	if !currently_building && selected_construct != null:
+		current_construction = selected_construct
 		currently_building = true
+		selected_construct = null
 		construction_timer.start()
+
+
+func stop_build():
+	construction_timer.stop()
+
+
+func change_selected(construct):
+	selected_construct = get_building(construct)
+
+
+func get_building(construct):
+	match construct:
+		"Refinery":
+			return refinery
+		"Launcher":
+			return launcher
+		"Laser Tower":
+			return laser_tower
 
 
 func enter_building(entered):
@@ -29,7 +51,6 @@ func enter_building(entered):
 		player = entered
 		player.set_position(chair.get_position())
 		player.set_mode(1)
-		build(building)
 		factory_ui.open()
 		#open ui
 		return true

@@ -69,3 +69,7 @@ visible = false
 [connection signal="timeout" from="Construction_Timer" to="." method="send_box"]
 [connection signal="body_entered" from="Exception_Area" to="." method="_on_exception_area_entered"]
 [connection signal="body_exited" from="Exception_Area" to="." method="_on_exception_area_exited"]
+[connection signal="construct_pressed" from="CanvasLayer/Control" to="." method="build"]
+[connection signal="leave_pressed" from="CanvasLayer/Control" to="." method="exit_building"]
+[connection signal="selected_changed" from="CanvasLayer/Control" to="." method="change_selected"]
+[connection signal="stop_pressed" from="CanvasLayer/Control" to="." method="stop_build"]
