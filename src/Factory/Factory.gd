@@ -4,7 +4,7 @@ const projectile_box = preload("res://src/Box Launcher/Projectile.tscn")
 
 const launcher = preload("res://src/Launcher/Launcher.tscn")
 const refinery = preload("res://src/Refinery/Refinery.tscn")
-const laser_tower = null
+const laser_tower = preload("res://src/Tower/Laser Tower/Laser Tower.tscn")
 
 onready var chair = $Manning_Position
 onready var construction_timer = $Construction_Timer
@@ -40,7 +40,7 @@ func get_building(construct):
 		"Refinery":
 			return refinery
 		"Launcher":
-			return launcher
+			return laser_tower
 		"Laser Tower":
 			return laser_tower
 
