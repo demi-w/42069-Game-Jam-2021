@@ -278,7 +278,7 @@ TowerStuff="*res://src/Singletons/Tower Stuff.gd"
 
 [display]
 
-mouse_cursor/custom_image="res://src/Launcher/TEMP/cursor.png"
+mouse_cursor/custom_image="res://assets/cursor.png"
 
 [editor_plugins]
 

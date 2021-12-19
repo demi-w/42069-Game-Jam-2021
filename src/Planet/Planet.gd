@@ -12,7 +12,7 @@ func _draw():
 		draw_circle(position,planetRadius,Color.red)
 
 
-func set_radius(value):
+func set_radius(_value):
 	planetRadius = $Planet_Radius.get_shape().get_radius()
 
 

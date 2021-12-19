@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/cursor.png-07a68cee9238f591690ee754131ed71a.stex"
+path="res://.import/pointer.png-92aec0b7cbd29a7700038be32be053fb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://src/Launcher/TEMP/cursor.png"
-dest_files=[ "res://.import/cursor.png-07a68cee9238f591690ee754131ed71a.stex" ]
+source_file="res://assets/Towers/Launcher/pointer.png"
+dest_files=[ "res://.import/pointer.png-92aec0b7cbd29a7700038be32be053fb.stex" ]
 
 [params]
 

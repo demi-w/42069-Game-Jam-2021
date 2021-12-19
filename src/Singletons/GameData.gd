@@ -6,7 +6,7 @@ var asteroid_spawner = null
 var stardust = 0.0
 var planet_health = 100.0
 var refinery_count = 0
-var scrap = 0.0
+var scrap = 0
 
 func set_things(level_node):
 	current_level = level_node

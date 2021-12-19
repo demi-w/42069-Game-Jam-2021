@@ -9,14 +9,14 @@ func _ready():
 	call_deferred("set_state", states.Idle)
 
 
-func _state_logic(delta):
+func _state_logic(_delta):
 	if parent.manned:
 		if parent.current_projectile != null:
 			if state != states.Predict:
 				parent._handle_aim()
 
 
-func _get_transition(delta):
+func _get_transition(_delta):
 	match state:
 		states.Idle:
 			if parent.current_projectile != null:
@@ -29,7 +29,7 @@ func _get_transition(delta):
 				return states.Idle
 
 
-func _enter_state(new_state, old_state):
+func _enter_state(new_state, _old_state):
 	match new_state:
 		states.Idle: 
 			parent.launch_pos_sprite.set_visible(false)
@@ -41,7 +41,7 @@ func _enter_state(new_state, old_state):
 			parent.fire(8*(parent.launch_pos_sprite.get_global_position()-parent.projectile_spawn.get_global_position()))
 
 
-func _exit_state(new_state, old_state):
+func _exit_state(_new_state, old_state):
 	match old_state:
 		states.Aim:
 			pass

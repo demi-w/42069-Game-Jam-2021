@@ -41,9 +41,10 @@ func _input(_event):
 					parent.enter_building(parent.interaction_list[0])
 			parent.interaction_timer.start()
 	else:
-		if Input.is_action_just_pressed("interact") && parent.interaction_timer.is_stopped():
-			parent.get_parent().exit_building()
-			parent.interaction_timer.start()
+#		if Input.is_action_just_pressed("interact") && parent.interaction_timer.is_stopped():
+#			parent.get_parent().exit_building()
+#			parent.interaction_timer.start()
+		pass
 
 #	if Input.is_action_pressed("interact"):
 #			if parent.held_item == null:
@@ -66,7 +67,7 @@ func _state_logic(_delta):
 		parent._update_angleDir()
 		parent._handle_throw()
 
-func _get_transition(delta):
+func _get_transition(_delta):
 	match state:
 		states.Idle:
 			if !parent.is_grounded:
@@ -111,7 +112,7 @@ func _get_transition(delta):
 				return states.Idle
 
 
-func _enter_state(new_state, old_state):
+func _enter_state(new_state, _old_state):
 	match new_state:
 		states.Idle:
 			pass
@@ -131,7 +132,7 @@ func _enter_state(new_state, old_state):
 			parent.z_index = 0
 
 
-func _exit_state(new_state, old_state):
+func _exit_state(_new_state, old_state):
 	match old_state:
 		states.Idle:
 			pass

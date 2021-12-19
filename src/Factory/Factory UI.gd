@@ -11,6 +11,7 @@ var button_list = []
 
 func _ready():
 	add_all_buttons(self)
+	$BoxContainer/Refinery/VBoxContainer/HBoxContainer/Scrap_Cost.set_text(str(TowerStuff.get_building_cost("Refinery")))
 
 
 func add_all_buttons(node):

@@ -14,6 +14,9 @@ func _ready():
 	throw_scrap()
 
 
+func _input(_event):
+	if Input.is_action_just_pressed("interact") && player != null:
+		exit_building()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
@@ -39,8 +42,10 @@ func throw_scrap():
 	var rotPosition = get_position().angle()+PI/2
 	change_parent(left_door, get_parent())
 	change_parent(right_door, get_parent())
-	left_door.apply_impulse(scrap_force_offset.rotated(rotPosition),scrap_force.rotated(rotPosition))
-	right_door.apply_impulse(scrap_force_offset.rotated(rotPosition),Vector2(-scrap_force.x,scrap_force.y).rotated(rotPosition))
+	if left_door != null:
+		left_door.apply_impulse(scrap_force_offset.rotated(rotPosition),scrap_force.rotated(rotPosition))
+	if right_door != null:
+		right_door.apply_impulse(scrap_force_offset.rotated(rotPosition),Vector2(-scrap_force.x,scrap_force.y).rotated(rotPosition))
 
 
 func change_layer(body, scrap):

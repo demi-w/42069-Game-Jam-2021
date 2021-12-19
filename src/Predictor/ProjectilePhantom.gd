@@ -13,7 +13,7 @@ var is_grounded = false
 var followCursor = false
 var launched = false
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if launched:
 		global_rotation = linear_velocity.angle() + PI / 2
 		if (get_position() - last_path_pos).length() > 60:
@@ -70,7 +70,7 @@ func set_collision(collision):
 	$CollisionShape2D.set_shape(collision)
 
 
-func reset_collisions(body):
+func reset_collisions(_body):
 	set_collision_mask(18)
 
 

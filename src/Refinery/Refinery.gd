@@ -10,3 +10,13 @@ func _ready():
 	position = get_position().normalized()*512
 	emit_signal("refinery_added")
 
+
+func _on_exception_area_entered(body):
+	print(body)
+	if body is Projectile:
+		body.too_close = true
+
+
+func _on_exception_area_exited(body):
+	if body is Projectile:
+		body.too_close = false

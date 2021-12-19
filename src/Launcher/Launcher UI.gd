@@ -45,7 +45,6 @@ func _set_angle():
 
 
 func _handle_aim():
-	var last_launch_pos = launch_pos
 	_update_angle_dir()
 	_update_strength_dir()
 	_set_strength()

@@ -7,6 +7,8 @@ onready var HUD = $CanvasLayer/Healthbar
 
 export (int) var number_of_factories
 
+
+
 func _ready():
 	GameData.set_things(self)
 	spawn_factories()
