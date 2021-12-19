@@ -274,6 +274,7 @@ config/icon="res://SpacemanPortraitIcon.png"
 [autoload]
 
 GameData="*res://src/Singletons/GameData.gd"
+TowerStuff="*res://src/Singletons/Tower Stuff.gd"
 
 [display]
 
@@ -281,7 +282,7 @@ mouse_cursor/custom_image="res://src/Launcher/TEMP/cursor.png"
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg" )
 
 [global]
 

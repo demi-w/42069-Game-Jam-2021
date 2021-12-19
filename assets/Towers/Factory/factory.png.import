@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/factory.png-0c959317d444aa1e19851acedbbf82f2.stex"
+path="res://.import/Factory.png-763438ac7868c981110a713969b9793f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/Towers/Factory/factory.png"
-dest_files=[ "res://.import/factory.png-0c959317d444aa1e19851acedbbf82f2.stex" ]
+source_file="res://assets/Towers/Factory/Factory.png"
+dest_files=[ "res://.import/Factory.png-763438ac7868c981110a713969b9793f.stex" ]
 
 [params]
 

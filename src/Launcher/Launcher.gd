@@ -2,10 +2,6 @@ extends Building
 class_name Launcher
 
 
-signal strength_changed(strength)
-signal angle_changed(angle)
-
-
 onready var projectile_spawn = $Barrel/Projectile_Spawn
 onready var launch_pos_sprite = $Launch_Direction
 onready var cannon = $Barrel
@@ -19,14 +15,7 @@ var manned = false
 
 #For aiming
 var launch_pos = Vector2(0,-25)
-#var min_strength = 25
-#var max_strength = 50
-#var strength_scroll = 1
-#var strength_dir = 0
-#var min_angle = -15 * PI / 16
-#var max_angle = -PI / 16
-#var angle_scroll = 2*PI / 180
-#var angle_dir = 0
+
 
 func _init():
 	can_zoom = true
@@ -38,46 +27,7 @@ func _ready():
 	camera_pos = get_node("Camera_Position").get_position()
 
 
-#func _update_strength_dir():
-#	strength_dir = Input.get_action_strength("up") - Input.get_action_strength("down")
-#
-#
-#func _update_angle_dir():
-#	angle_dir = Input.get_action_strength("right") - Input.get_action_strength("left")
-
-
-#func _set_strength():
-#	if strength_dir != 0:
-#		if strength_dir > 0:
-#			if launch_pos.length() < max_strength:
-#				return strength_scroll
-#		elif strength_dir < 0:
-#			if launch_pos.length() > min_strength:
-#				return -strength_scroll
-#	return 0
-#
-#
-#func _set_angle():
-#	if angle_dir != 0:
-#		if angle_dir > 0:
-#			if launch_pos.angle() < max_angle:
-#				return angle_scroll
-#		elif angle_dir < 0:
-#			if launch_pos.angle() > min_angle:
-#				return -angle_scroll
-#	return 0
-	
-	
 func _handle_aim():
-#	_update_strength_dir()
-#	_update_angle_dir()
-#	var last_launch_pos = launch_pos
-#	launch_pos = launch_pos.normalized()*(launch_pos.length()+_set_strength())
-#	launch_pos = launch_pos.rotated(_set_angle())
-#	if last_launch_pos.length() != launch_pos.length():
-#		emit_signal("strength_changed", launch_pos.length())
-#	if last_launch_pos.angle() != launch_pos.angle():
-#		emit_signal("angle_changed",launch_pos.angle())
 	launch_pos_sprite.set_position(launcher_ui.get_aim()+Vector2(0,-10))
 	aim_barrel()
 
@@ -87,10 +37,6 @@ func fire(direction):
 		change_parent(current_projectile, self)
 		current_projectile.launch(direction)
 		current_projectile = null
-
-
-#func on_button_pressed(TowerType):
-#	spawn_tower(TowerType)
 
 
 func aim_reticle():

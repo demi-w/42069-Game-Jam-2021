@@ -4,6 +4,7 @@ signal construct_pressed()
 signal stop_pressed()
 signal leave_pressed()
 signal selected_changed(construct)
+signal add_queue()
 
 var button_list = []
 
@@ -20,7 +21,6 @@ func add_all_buttons(node):
 			add_all_buttons(i)
 
 
-
 func open():
 	set_visible(true)
 	for child in button_list:
@@ -33,6 +33,10 @@ func close():
 	for child in button_list:
 		if child is BaseButton:
 			child.call_deferred("set_disabled", true)
+
+
+func queue_pressed():
+	emit_signal("add_queue")
 
 
 func change_selected_construct(construct):

@@ -1,0 +1,27 @@
+[gd_resource type="ShaderMaterial" load_steps=2 format=2]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+uniform float opacity = 0;
+
+uniform vec4 OLDCOLOR : hint_color;
+
+uniform vec4 NEWCOLOR : hint_color;
+
+void fragment(){
+	if(texture(TEXTURE,UV)==OLDCOLOR){
+		COLOR.rgb = NEWCOLOR.rgb * (1.0 - opacity) + vec3(1,1,1)*opacity;
+		COLOR.a = NEWCOLOR.a;
+	}
+	else{
+		COLOR = texture(TEXTURE,UV);
+	}
+}"
+
+[resource]
+resource_local_to_scene = true
+shader = SubResource( 1 )
+shader_param/opacity = 0.2
+shader_param/OLDCOLOR = Color( 1, 0, 0, 1 )
+shader_param/NEWCOLOR = Color( 0.168627, 0.647059, 0.180392, 1 )

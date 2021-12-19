@@ -17,7 +17,7 @@ func _on_Level_1_pressed():
 	root.remove_child(currentLevel)
 	currentLevel.call_deferred("free")
 	
-	var next_level_resource = load("res://src/Level/Level.tscn")
+	var next_level_resource = load("res://src/Level/Level1/Level1.tscn")
 	var next_level = next_level_resource.instance()
 	root.add_child(next_level)
 	queue_free()

@@ -22,10 +22,10 @@ func _input(_event):
 				parent.maxSpeed = 150
 			if Input.is_action_just_released("run"):
 				parent.maxSpeed = 100
-			if Input.is_action_pressed("throw") && parent.held_item != null:
+			if Input.is_action_just_pressed("throw") && parent.held_item != null:
 				set_state(states.Throw)
 		elif state == states.Throw:
-			if Input.is_action_pressed("throw"):
+			if Input.is_action_just_pressed("throw"):
 				parent._throw()
 		if Input.is_action_pressed("interact") && parent.interaction_timer.is_stopped():
 			if parent.held_item != null:

@@ -9,7 +9,9 @@ const laser_tower = preload("res://src/Tower/Laser Tower/Laser Tower.tscn")
 onready var chair = $Manning_Position
 onready var construction_timer = $Construction_Timer
 onready var factory_ui = $CanvasLayer/Control
+onready var animation = $Sprite/AnimationPlayer
 
+var base_color = Color.white
 var currently_building = false
 var current_construction = null
 var selected_construct = null
@@ -17,6 +19,10 @@ var selected_construct = null
 
 func _ready():
 	camera_pos = get_node("Camera_Position").get_position()
+	get_node("Sprite").material.set("shader_param/NEWCOLOR", base_color)
+
+
+
 
 
 func build():
@@ -25,14 +31,19 @@ func build():
 		currently_building = true
 		selected_construct = null
 		construction_timer.start()
+		animation.play("Build")
 
 
 func stop_build():
 	construction_timer.stop()
+	animation.stop()
+	get_node("Sprite").material.set("shader_param/NEWCOLOR",base_color)
 
 
 func change_selected(construct):
 	selected_construct = get_building(construct)
+	get_node("Sprite").material.set("shader_param/NEWCOLOR", get_building_color(selected_construct))
+	print(get_node("Sprite").material.get("shader_param/NEWCOLOR"))
 
 
 func get_building(construct):
@@ -40,9 +51,20 @@ func get_building(construct):
 		"Refinery":
 			return refinery
 		"Launcher":
-			return laser_tower
+			return launcher
 		"Laser Tower":
 			return laser_tower
+
+
+func get_building_color(building):
+	if building != null:
+		match building:
+			refinery:
+				return Color.yellow
+			launcher:
+				return Color.purple
+			laser_tower:
+				return Color.green
 
 
 func enter_building(entered):
@@ -77,8 +99,13 @@ func send_box():
 #		remove shader
 		new_box.set_linear_velocity(Vector2(40,-40).rotated(get_position().angle()+ PI/2))
 		call_deferred("change_parent",new_box, get_parent())
+		animation.stop()
+		get_node("Sprite").material.set("shader_param/NEWCOLOR",base_color)
 		currently_building = false
 		current_construction = null
+
+
+
 
 
 func _on_exception_area_entered(body):
