@@ -1,20 +1,16 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/Planet/Planet.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Level/Level.gd" type="Script" id=2]
 [ext_resource path="res://src/Launcher/Launcher.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/Character/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/Pod/StaticPod.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/AsteroidSpawner/AsteroidSpawner.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Healthbar Scene/Healthbar.tscn" type="PackedScene" id=6]
-[ext_resource path="res://assets/Towers/Tesla.png" type="Texture" id=8]
 [ext_resource path="res://src/Box Launcher/Projectile.tscn" type="PackedScene" id=9]
 
 [node name="Level" type="Node2D"]
 script = ExtResource( 2 )
 number_of_factories = 3
-
-[node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2( 2, 2 )
 
 [node name="Planet" parent="." instance=ExtResource( 1 )]
 
@@ -22,18 +18,11 @@ zoom = Vector2( 2, 2 )
 position = Vector2( 336, -392 )
 rotation = 1.5708
 
-[node name="Sprite3" type="Sprite" parent="Planet"]
-position = Vector2( -216, -488 )
-rotation = -0.396758
-scale = Vector2( 3, 3 )
-z_index = -1
-texture = ExtResource( 8 )
-
 [node name="Projectile" parent="Planet" instance=ExtResource( 9 )]
 position = Vector2( 408, -368 )
 
-[node name="Player" parent="Planet" instance=ExtResource( 4 )]
-position = Vector2( 264, -488 )
+[node name="Static Pod" parent="Planet" instance=ExtResource( 4 )]
+position = Vector2( 0, -520 )
 
 [node name="AsteroidSpawner" parent="." instance=ExtResource( 5 )]
 spawnInterval = 0.5
