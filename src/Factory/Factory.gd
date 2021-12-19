@@ -20,9 +20,12 @@ func _ready():
 	get_node("Sprite").material.set("shader_param/NEWCOLOR", base_color)
 	scrap_label.set_text(str(GameData.scrap))
 
-
+var last_color
 func _process(_delta):
 	scrap_label.set_text(str(GameData.scrap))
+#	if last_color != get_node("Sprite").material.get("shader_param/NEWCOLOR"):
+#		print(get_node("Sprite").material.get("shader_param/NEWCOLOR"))
+#	last_color = get_node("Sprite").material.get("shader_param/NEWCOLOR")
 
 
 func build():
@@ -31,7 +34,6 @@ func build():
 			GameData.scrap -= TowerStuff.get_building_cost(selected_construct)
 			current_construction = selected_construct
 			currently_building = true
-			selected_construct = null
 			construction_timer.start()
 			animation.play("Build")
 		else:
@@ -39,20 +41,27 @@ func build():
 			animation.play("Flash")
 			selected_construct = null
 			yield(get_node("Sprite/AnimationPlayer"),"animation_finished")
+			get_node("Sprite").material.set("shader_param/opacity", 0)
 			get_node("Sprite").material.set("shader_param/NEWCOLOR", base_color)
 
 
 func stop_build():
-	construction_timer.stop()
-	animation.stop()
-	GameData.scrap += TowerStuff.get_building_cost(selected_construct)
-	get_node("Sprite").material.set("shader_param/NEWCOLOR",base_color)
+	if selected_construct != null && currently_building:
+		construction_timer.stop()
+		animation.stop()
+		GameData.scrap += TowerStuff.get_building_cost(selected_construct)
+		get_node("Sprite").material.set("shader_param/NEWCOLOR",base_color)
+		selected_construct = null
+		current_construction = null
+		currently_building = false
 
 
 func change_selected(construct):
 	if !currently_building:
-		selected_construct = TowerStuff.get_building(construct)
-		get_node("Sprite").material.set("shader_param/NEWCOLOR", TowerStuff.get_building_color(selected_construct))
+		if construct != null:
+			selected_construct = TowerStuff.get_building(construct)
+			get_node("Sprite").material.set("shader_param/NEWCOLOR", TowerStuff.get_building_color(selected_construct))
+			print(get_node("Sprite").material.get("shader_param/NEWCOLOR"))
 
 
 func enter_building(entered):
@@ -62,7 +71,6 @@ func enter_building(entered):
 		player.set_position(chair.get_position())
 		player.set_mode(1)
 		factory_ui.open()
-		#open ui
 		return true
 	else: 
 		return false
@@ -89,6 +97,7 @@ func send_box():
 		animation.stop()
 		get_node("Sprite").material.set("shader_param/NEWCOLOR",base_color)
 		new_box.show_behind_parent = true
+		selected_construct = null
 		currently_building = false
 		current_construction = null
 

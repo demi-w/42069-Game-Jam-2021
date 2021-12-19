@@ -53,4 +53,14 @@ func change_layer(body, scrap):
 
 
 func despawn():
+	yield(get_tree().create_timer(3), "timeout")
+	var base = $Pod_Base
+	var rotPosition = get_position().angle()+PI/2
+	change_parent(base, get_parent())
+	base.set_collision_layer(8)
+	base.set_collision_mask(24)
+	base.set_mode(0)
+	
+	base.apply_impulse(Vector2(6,0).rotated(rotPosition), Vector2(0,-50).rotated(rotPosition))
+	yield(get_tree().create_timer(3),"timeout")
 	queue_free()
