@@ -5,7 +5,6 @@ class_name Launcher
 onready var projectile_spawn = $Barrel/Projectile_Spawn
 onready var launch_pos_sprite = $Launch_Direction
 onready var cannon = $Barrel
-onready var tween = $Tween
 onready var predictor = $Predictor
 onready var chair = $Manning_Position
 onready var launcher_ui = $CanvasLayer/LauncherUI
@@ -35,17 +34,8 @@ func _handle_aim():
 func fire(direction):
 	if current_projectile != null:
 		change_parent(current_projectile, self)
-		current_projectile.launch(direction)
+		current_projectile.launch(direction, true)
 		current_projectile = null
-
-
-func aim_reticle():
-	tween.interpolate_property(launch_pos, 'position', 
-			launch_pos.get_position(), to_local(get_global_mouse_position()),
-			abs((to_local(get_global_mouse_position()) - launch_pos.get_position()).length() / 50), 
-			0, 2)
-	tween.start()
-	aim_barrel()
 
 
 func aim_barrel():
@@ -84,7 +74,7 @@ func store_item(body):
 
 func position_projectile():
 	if current_projectile != null:
-		current_projectile.set_position(projectile_spawn.get_position()) 
+		current_projectile.set_position(Vector2(0,0)) 
 		current_projectile.rotation = 0
 
 

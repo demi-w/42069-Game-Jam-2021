@@ -37,3 +37,10 @@ emitting = false
 amount = 16
 local_coords = false
 process_material = SubResource( 2 )
+
+[node name="Tower_Mask" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 18
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Tower_Mask"]
+shape = SubResource( 1 )

@@ -22,13 +22,15 @@ func _unhandled_input(event):
 
 
 func switch_to_building(player, building):
-	player.remove_child(self)
-	building.add_child(self)
-	set_position(get_position()+building.camera_pos)
+	if get_parent() == player:
+		player.remove_child(self)
+		building.add_child(self)
+		set_position(get_position()+building.camera_pos)
 
 
 func switch_to_player(player, building):
-	set_position(get_position()-building.camera_pos)
-	building.remove_child(self)
-	player.add_child(self)
+	if get_parent() == building:
+		set_position(get_position()-building.camera_pos)
+		building.remove_child(self)
+		player.add_child(self)
 

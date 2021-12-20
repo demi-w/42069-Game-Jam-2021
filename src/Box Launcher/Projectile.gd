@@ -3,6 +3,7 @@ class_name Projectile
 
 onready var sprite = $Sprite
 onready var particles = $Particles
+onready var tower_mask = $Tower_Mask
 
 var building = null setget set_stored
 var followCursor = false
@@ -27,7 +28,7 @@ func _process(_delta):
 	lastPosition = get_position()
 
 
-func launch(velocity):
+func launch(velocity, from_tower):
 	set_mode(0)
 	var temp = global_transform
 	var parent = get_parent()
@@ -42,6 +43,11 @@ func launch(velocity):
 		particle.set_emitting(true)
 	if !is_connected("body_entered", self, "_on_landed"):
 		connect("body_entered",self,"_on_landed") #connect when the code is figured out, right now this is more fun to watch
+	if from_tower:
+		if !tower_mask.is_connected("body_exited", self, "_on_mask_exited"):
+			set_collision_mask(0)
+			tower_mask.connect("body_exited", self, "_on_mask_exited")
+			print("ran1")
 
 
 func _on_landed(body):
@@ -54,6 +60,7 @@ func _on_landed(body):
 		unarm()
 
 func arm():
+	print(tower_mask.get_overlapping_bodies().size())
 	set_collision_layer(0)
 	set_mode(1)
 	armed = true
@@ -80,3 +87,8 @@ func spawn_building(planet):
 	new_building.global_position = global_position
 	new_building.set_position((new_building.position / new_building.position.length() * planet.planetRadius))
 	planet.call_deferred("add_child", new_building)
+
+
+func _on_mask_exited(body):
+	if tower_mask.get_overlapping_bodies().size() == 0:
+		set_collision_mask(26)

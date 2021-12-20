@@ -105,7 +105,7 @@ func _throw():
 		if held_item is Projectile:
 			held_item.armed = true
 #			print($Launch_Direction.get_global_position())
-			held_item.launch(4*(raw_vel))
+			held_item.launch(4*(raw_vel), false)
 			held_item = null
 		elif held_item is Scrap:
 			held_item.set_linear_velocity(4*(raw_vel))
