@@ -64,7 +64,7 @@ func predict(params : Dictionary):
 
 
 func end_predict():
-	get_tree().call_group("Paths", "queue_free")
+	get_tree().call_deferred("call_group","Paths", "queue_free")
 
 
 func launch():

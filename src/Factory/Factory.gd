@@ -23,9 +23,6 @@ func _ready():
 var last_color
 func _process(_delta):
 	scrap_label.set_text(str(GameData.scrap))
-#	if last_color != get_node("Sprite").material.get("shader_param/NEWCOLOR"):
-#		print(get_node("Sprite").material.get("shader_param/NEWCOLOR"))
-#	last_color = get_node("Sprite").material.get("shader_param/NEWCOLOR")
 
 
 func build():
@@ -61,7 +58,6 @@ func change_selected(construct):
 		if construct != null:
 			selected_construct = TowerStuff.get_building(construct)
 			get_node("Sprite").material.set("shader_param/NEWCOLOR", TowerStuff.get_building_color(selected_construct))
-			print(get_node("Sprite").material.get("shader_param/NEWCOLOR"))
 
 
 func enter_building(entered):
