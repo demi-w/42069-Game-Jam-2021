@@ -1,0 +1,83 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1639966868.json",
+			"event_id": "dialogic_002",
+			"mirror": true,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"action": "join",
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": true
+			}
+		},
+		{
+			"character": "character-1639966868.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Second shipment just arrived, How much can you pay me this time?"
+		},
+		{
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Hmm..."
+		},
+		{
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "2378\t Credits"
+		},
+		{
+			"character": "character-1639966868.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Hold on. Am I close to the amount you need at least?"
+		},
+		{
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Hmm..."
+		},
+		{
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Indeed."
+		},
+		{
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Go once more."
+		},
+		{
+			"emit_signal": "end",
+			"event_id": "dialogic_040"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1639970118.json",
+		"name": "Second Round"
+	}
+}

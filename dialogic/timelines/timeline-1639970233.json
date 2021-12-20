@@ -1,0 +1,59 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1639966868.json",
+			"event_id": "dialogic_002",
+			"mirror": true,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"action": "join",
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": true
+			}
+		},
+		{
+			"character": "character-1639966868.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "I sent off everything I had left. Was it enough?"
+		},
+		{
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Hmm..."
+		},
+		{
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Indeed. $3190. You may be free of this time loop.\nZzkrezzt will call again should services be required."
+		},
+		{
+			"emit_signal": "end",
+			"event_id": "dialogic_040"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1639970233.json",
+		"name": "Third Round"
+	}
+}

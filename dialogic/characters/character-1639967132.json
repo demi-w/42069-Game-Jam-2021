@@ -1,0 +1,20 @@
+{
+	"color": "#ff1c0890",
+	"description": "",
+	"display_name": "",
+	"display_name_bool": false,
+	"id": "character-1639967132.json",
+	"mirror_portraits": false,
+	"name": "TechnoPus",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 0,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://assets/Dialogue Stuff/Portraits/TechnoOcto.png"
+		}
+	],
+	"scale": 100
+}

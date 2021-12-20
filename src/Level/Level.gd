@@ -1,4 +1,7 @@
 extends Node2D
+class_name Level
+
+signal start_descent()
 
 const factory = preload("res://src/Factory/Factory.tscn")
 
@@ -10,7 +13,10 @@ export (int) var number_of_factories
 
 
 func _ready():
-	GameData.set_things(self)
+	var new_dialog = Dialogic.start('Game Start') 
+	add_child(new_dialog)
+	new_dialog.connect("dialogic_signal", self, "on_dialogue_end")
+	GameData.set_things(self, get_node("Planet/Player"))
 	spawn_factories()
 	start_coroutine()
 
@@ -42,3 +48,5 @@ func start_coroutine():
 			HUD.set_health(GameData.planet_health)
 		yield(get_tree().create_timer(1), "timeout")
 
+func on_dialogue_end(string):
+	emit_signal("start_descent")

@@ -1,0 +1,65 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1639966868.json",
+			"event_id": "dialogic_002",
+			"mirror": true,
+			"portrait": "",
+			"position": {
+				"0": true,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"action": "join",
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": false,
+				"1": false,
+				"2": false,
+				"3": false,
+				"4": true
+			}
+		},
+		{
+			"character": "character-1639966868.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Here's the stellar dust you wanted. How much money will this get me?"
+		},
+		{
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Hmm..."
+		},
+		{
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "1240 Credits"
+		},
+		{
+			"character": "character-1639967132.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "Go again."
+		},
+		{
+			"emit_signal": "end",
+			"event_id": "dialogic_040"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1639969921.json",
+		"name": "First Round"
+	}
+}

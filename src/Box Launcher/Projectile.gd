@@ -22,6 +22,9 @@ func _physics_process(_delta):
 		if get_vertical_direction() >= 0:
 			for particle in particles.get_children():
 				particle.set_emitting(false)
+	else:
+		for particle in particles.get_children():
+			particle.set_emitting(false)
 
 
 func _process(_delta):

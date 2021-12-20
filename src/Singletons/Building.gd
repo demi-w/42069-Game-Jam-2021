@@ -1,6 +1,8 @@
 extends Node2D
 class_name Building
 
+var land_sound = preload("res://assets/Audio/Building General/buildingLanding.wav")
+
 var can_zoom  = false
 var camera_pos = Vector2(0,0)
 var player = null
@@ -35,6 +37,10 @@ func change_parent(changed = null, new_owner = null):
 			old_owner.remove_child(changed)
 			new_owner.add_child(changed)
 			changed.global_transform = temp
+
+
+func spawn():
+	pass
 
 
 func despawn():

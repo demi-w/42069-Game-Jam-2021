@@ -44,7 +44,6 @@ var can_zoom = true
 
 onready var particles = $Particles
 onready var parent = get_parent()
-onready var camera = $Camera
 
 var landed = false
 var timeAlive = 0
@@ -61,9 +60,9 @@ func setupParameters(params : Dictionary, configInfo : Dictionary):
 			self.set("_" + param,defaultParamFuncs[param].call_func(configInfo))
 
 
-func _input(event):
-	if Input.is_action_pressed("ui_accept") && not falling:
-		start_fall()
+#func _input(event):
+#	if Input.is_action_pressed("ui_accept") && not falling:
+#		start_fall()
 
 
 func _ready():
@@ -73,7 +72,7 @@ func _ready():
 		{"worldScale" : get_parent().get_radius(),
 		"posRotation" : -PI/2,
 		"initDist" : (3*parent.get_radius()) / parent.get_radius(),
-		"period" : 1.0/10.0},
+		"period" : 1.0/30.0},
 		{"rng": rng}
 	)
 	pass
@@ -84,12 +83,10 @@ func _process(delta):
 	if not falling:
 		position = get_position_at_time(timeAlive)*_worldScale
 		global_rotation = get_position().angle()
-		camera.rotation = global_rotation + PI/2
 	else:
 #		global_rotation = get_linear_velocity().angle() - PI / 2
 		position = get_fall_at_time(timeAlive)*_worldScale
 		global_rotation = (get_fall_at_time(timeAlive)-get_fall_at_time_delta(timeAlive, delta)).angle() + PI/2
-#		camera.rotation = global_rotation + PI/2
 		for particle in particles.get_children():
 			particle.get_process_material().set_gravity(-96 * Vector3((get_position().normalized()).x, 
 																	(get_position().normalized()).y, 
@@ -119,6 +116,7 @@ func start_fall():
 	timeAlive = 1/_period
 	_initDist = _initDist/3
 	_posRotation = get_position().angle() + PI
+	print(get_fall_at_time(timeAlive*_period)*_worldScale)
 	for particle in particles.get_children():
 		particle.set_emitting(true)
 
@@ -141,7 +139,5 @@ func _on_landed(body):
 	parent.call_deferred("add_child",staticPod)
 	staticPod.set_position(get_position().normalized()*520)
 	staticPod.set_rotation(get_position().angle() + PI/2)
-	var player_cam = staticPod.get_node("Player/Camera")
-	player_cam.position = camera.position
-	player_cam.zoom = camera.zoom
+	print(position)
 	queue_free()

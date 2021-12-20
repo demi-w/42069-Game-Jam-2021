@@ -75,7 +75,7 @@ func _get_transition(_delta):
 					return states.Jump
 				elif parent.get_vertical_direction() >= 0:
 					return states.Fall
-			elif parent.get_linear_velocity().project(parent.get_position().tangent()).length() >= 5:
+			elif parent.get_linear_velocity().project(parent.get_position().tangent()).length() >= 40:
 				return states.Walk
 		states.Walk:
 			if !parent.is_grounded:
@@ -83,7 +83,7 @@ func _get_transition(_delta):
 					return states.Jump
 				elif parent.get_vertical_direction() >= 0:
 					return states.Fall
-			elif parent.get_linear_velocity().tangent().length() < 5:
+			elif parent.get_linear_velocity().tangent().length() < 40:
 				return states.Idle
 			elif parent.get_linear_velocity().tangent().length() > 120:
 				return states.Run

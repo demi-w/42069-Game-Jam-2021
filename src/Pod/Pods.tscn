@@ -1,10 +1,9 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/Pod/TEMP/Pod base.png" type="Texture" id=1]
 [ext_resource path="res://src/Pod/TEMP/Pod background.png" type="Texture" id=2]
 [ext_resource path="res://src/Pod/TEMP/pod foreground.png" type="Texture" id=3]
 [ext_resource path="res://src/Pod/Pod.gd" type="Script" id=4]
-[ext_resource path="res://src/Character/CameraController.gd" type="Script" id=5]
 
 [sub_resource type="ParticlesMaterial" id=1]
 flag_disable_z = true
@@ -20,11 +19,6 @@ mode = 3
 contacts_reported = 1
 contact_monitor = true
 script = ExtResource( 4 )
-
-[node name="Camera" type="Camera2D" parent="."]
-rotation = 1.26885
-current = true
-script = ExtResource( 5 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, 2 )

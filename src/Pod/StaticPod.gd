@@ -8,20 +8,9 @@ var ready = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	get_node("Player/Camera")._set_current(true)
-	get_node("Player").enter_building(self)
-	player = get_node("Player")
-	player.call_deferred("enter_building",self)
 	yield(get_tree().create_timer(1),"timeout")
 	throw_scrap()
-
-
-func _input(_event):
-	if Input.is_action_just_pressed("interact") && player != null && ready:
-		exit_building()
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	despawn()
 
 
 func enter_building(entered):
@@ -61,6 +50,6 @@ func despawn():
 	base.set_collision_mask(24)
 	base.set_mode(0)
 	
-	base.apply_impulse(Vector2(6,0).rotated(rotPosition), Vector2(0,-50).rotated(rotPosition))
+	base.apply_impulse(Vector2(6,0).rotated(rotPosition), Vector2(10,-50).rotated(rotPosition))
 	yield(get_tree().create_timer(1),"timeout")
 	queue_free()

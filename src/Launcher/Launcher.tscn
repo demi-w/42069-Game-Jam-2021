@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/Towers/Launcher/Launcher.png" type="Texture" id=1]
 [ext_resource path="res://assets/Audio/Launcher/loading_launcher.wav" type="AudioStream" id=2]
 [ext_resource path="res://src/Launcher/Launcher UI.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/Audio/Launcher/launcherShoot.wav" type="AudioStream" id=4]
 [ext_resource path="res://src/Launcher/Launcher.gd" type="Script" id=5]
 [ext_resource path="res://assets/Towers/Launcher/pointer.png" type="Texture" id=7]
 [ext_resource path="res://src/Launcher/LauncherStateMachine.gd" type="Script" id=8]
@@ -15,10 +16,18 @@ extents = Vector2( 14, 6 )
 show_behind_parent = true
 script = ExtResource( 5 )
 
-[node name="Noises" type="Node" parent="."]
+[node name="Noises" type="Node2D" parent="."]
 
 [node name="Loading_Noise" type="AudioStreamPlayer2D" parent="Noises"]
 stream = ExtResource( 2 )
+max_distance = 100.0
+
+[node name="Shooting_Noise" type="AudioStreamPlayer2D" parent="Noises"]
+stream = ExtResource( 4 )
+max_distance = 100.0
+
+[node name="Misc_Noise" type="AudioStreamPlayer2D" parent="Noises"]
+max_distance = 500.0
 
 [node name="Barrel" type="Sprite" parent="."]
 show_behind_parent = true

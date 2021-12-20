@@ -9,6 +9,8 @@ onready var predictor = $Predictor
 onready var chair = $Manning_Position
 onready var launcher_ui = $CanvasLayer/LauncherUI
 onready var load_noise = $Noises/Loading_Noise
+onready var shoot_noise = $Noises/Shooting_Noise
+onready var misc_noise = $Noises/Misc_Noise
 
 var current_projectile = null
 var manned = false
@@ -25,6 +27,13 @@ func _ready():
 	rotation = get_position().angle() + PI / 2
 	position = get_position().normalized()*512
 	camera_pos = get_node("Camera_Position").get_position()
+	spawn()
+
+
+func spawn():
+	if !misc_noise.is_playing():
+		misc_noise.stream = land_sound
+		misc_noise.play()
 
 
 func _handle_aim():
@@ -35,6 +44,7 @@ func _handle_aim():
 func fire(direction):
 	if current_projectile != null:
 		change_parent(current_projectile, self)
+		shoot_noise.play()
 		current_projectile.launch(direction, true)
 		current_projectile = null
 

@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/Level/Level.gd" type="Script" id=1]
 [ext_resource path="res://src/AsteroidSpawner/AsteroidSpawner.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/Planet/Planet.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/Pod/Pods.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/Healthbar Scene/Healthbar.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/Character/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/Healthbar Scene/UI Warnings/Offscreen Marker.tscn" type="PackedScene" id=7]
+[ext_resource path="res://assets/World/UI Warning System/Exclamation.png" type="Texture" id=8]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 1 )
@@ -15,9 +18,20 @@ number_of_factories = 1
 [node name="Pod" parent="Planet" instance=ExtResource( 4 )]
 position = Vector2( 0, -980 )
 
+[node name="Player" parent="Planet" instance=ExtResource( 6 )]
+position = Vector2( 0, -520 )
+
+[node name="Sprite2" type="Sprite" parent="Planet"]
+position = Vector2( -392, -352 )
+texture = ExtResource( 8 )
+
+[node name="OffscreenMarker" parent="Planet/Sprite2" instance=ExtResource( 7 )]
+
 [node name="AsteroidSpawner" parent="." instance=ExtResource( 2 )]
 planetPath = NodePath("../Planet")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Healthbar" parent="CanvasLayer" instance=ExtResource( 5 )]
+
+[connection signal="start_descent" from="." to="Planet/Pod" method="start_fall"]

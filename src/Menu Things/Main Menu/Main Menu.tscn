@@ -1,8 +1,8 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/Fonts/DigitalDisco.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/Dialogue Stuff/Fonts/DigitalDisco.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/Menu Things/Main Menu/Main Menu.gd" type="Script" id=2]
-[ext_resource path="res://src/Fonts/Kapel.tres" type="DynamicFont" id=3]
+[ext_resource path="res://assets/Dialogue Stuff/Fonts/Kapel.tres" type="DynamicFont" id=3]
 
 [node name="Main_Menu" type="VBoxContainer"]
 anchor_left = 0.5
