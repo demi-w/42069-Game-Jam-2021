@@ -8,6 +8,7 @@ onready var cannon = $Barrel
 onready var predictor = $Predictor
 onready var chair = $Manning_Position
 onready var launcher_ui = $CanvasLayer/LauncherUI
+onready var load_noise = $Noises/Loading_Noise
 
 var current_projectile = null
 var manned = false
@@ -67,6 +68,7 @@ func store_item(body):
 		current_projectile = body
 		current_projectile.arm()
 		position_projectile()
+		load_noise.play()
 		return true
 	else:
 		return false

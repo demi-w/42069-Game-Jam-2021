@@ -7,6 +7,7 @@ onready var construction_timer = $Construction_Timer
 onready var factory_ui = $CanvasLayer/Control
 onready var animation = $Sprite/AnimationPlayer
 onready var scrap_label = $ScrapStuff/VBoxContainer/Scrap_Total
+onready var construction_sound = $Sprite/Building_Sound
 
 var base_color = Color.white
 var currently_building = false
@@ -33,6 +34,7 @@ func build():
 			currently_building = true
 			construction_timer.start()
 			animation.play("Build")
+			construction_sound.play()
 		else:
 			get_node("Sprite").material.set("shader_param/NEWCOLOR", Color.red)
 			animation.play("Flash")
@@ -46,6 +48,7 @@ func stop_build():
 	if selected_construct != null && currently_building:
 		construction_timer.stop()
 		animation.stop()
+		construction_sound.stop()
 		GameData.scrap += TowerStuff.get_building_cost(selected_construct)
 		get_node("Sprite").material.set("shader_param/NEWCOLOR",base_color)
 		selected_construct = null
@@ -91,6 +94,7 @@ func send_box():
 		new_box.set_linear_velocity(construct_start_velocity.rotated((get_position().angle()+ PI/2)))
 		new_box.set_angular_velocity(rand_range(-PI, PI))
 		animation.stop()
+		construction_sound.stop()
 		get_node("Sprite").material.set("shader_param/NEWCOLOR",base_color)
 		new_box.show_behind_parent = true
 		selected_construct = null
