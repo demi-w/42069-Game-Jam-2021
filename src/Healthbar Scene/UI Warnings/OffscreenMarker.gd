@@ -11,32 +11,37 @@ func _process(delta):
 	var canvas = get_canvas_transform()
 	var top_left = -canvas.origin
 	var size = get_viewport_rect().size
-	set_marker_position(canvas,top_left,size)
+	set_marker_position(canvas, top_left, size)
 	set_marker_rotation()
+
+
 
 
 func set_marker_position(transform : Transform2D, top_left, size):
 	var viewport_size = get_viewport_rect().size
-	var new_position = sprite.global_position
-#	print(transform)
-#	print(transform.affine_inverse())
-	print("_____")
-#	print(new_position)
+	var new_position = global_position
 	new_position = transform.basis_xform(new_position)
-	print(new_position)
-	print(top_left.y, " ", size.y)
-#	print(size)
-	new_position.x = clamp(new_position.x, top_left.x, size.x)
-	new_position.y = clamp(new_position.y, top_left.y, size.y)
+	if Rect2(top_left,size).has_point(new_position):
+		hide()
+	else:
+		show()
+	new_position.x = clamp(new_position.x, top_left.x, top_left.x + size.x)
+	new_position.y = clamp(new_position.y, top_left.y, top_left.y + size.y)
 	new_position = transform.affine_inverse().basis_xform(new_position)
-#	print(new_position)
 	sprite.global_position = new_position
-#	sprite.global_position = target_position
 
 
 
-
-#func set_marker_position(bounds : Rect2, _rotation : float):
+#func _process(delta):
+#	target_position = GameData.player.global_position
+#	var canvas = get_canvas_transform()
+#	var top_left = -canvas.origin / canvas.get_scale()
+#	var size = get_viewport_rect().size / canvas.get_scale()
+#	set_marker_position(Rect2(top_left, size))
+#	set_marker_rotation()
+#
+#
+#func set_marker_position(bounds : Rect2):
 #	if target_position == null:
 #		sprite.global_position.x = clamp(global_position.x, bounds.position.x, bounds.end.x)
 #		sprite.global_position.y = clamp(global_position.y, bounds.position.y, bounds.end.y)
