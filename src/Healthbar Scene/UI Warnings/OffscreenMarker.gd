@@ -16,6 +16,9 @@ func _process(delta):
 
 
 
+#My current problem appears to be with the clamp
+#	it doesn't cut off the vector at a certain length but instead cuts down each side
+
 
 func set_marker_position(transform : Transform2D, top_left, size):
 	var viewport_size = get_viewport_rect().size
