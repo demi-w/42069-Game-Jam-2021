@@ -49,7 +49,7 @@ var landed = false
 var timeAlive = 0
 var falling = false
 var rng : RandomNumberGenerator
-
+var predict_thing = null
 
 func setupParameters(params : Dictionary, configInfo : Dictionary):
 	for param in defaultParamFuncs.keys():
@@ -112,11 +112,14 @@ func get_fall_at_time_delta(time,delta):
 
 
 func start_fall():
+	predict_thing = GameData.prediction_flag.instance()
 	falling = true
 	timeAlive = 1/_period
 	_initDist = _initDist/3
 	_posRotation = get_position().angle() + PI
-	print(get_fall_at_time(timeAlive*_period)*_worldScale)
+	predict_thing.set_position((get_fall_at_time(timeAlive*_period)*_worldScale))
+	predict_thing.time_base = abs(timeAlive*_period - timeAlive)
+	GameData.current_level.get_node("Planet").add_child(predict_thing)
 	for particle in particles.get_children():
 		particle.set_emitting(true)
 
@@ -140,4 +143,5 @@ func _on_landed(body):
 	staticPod.set_position(get_position().normalized()*520)
 	staticPod.set_rotation(get_position().angle() + PI/2)
 	print(position)
+	predict_thing.queue_free()
 	queue_free()

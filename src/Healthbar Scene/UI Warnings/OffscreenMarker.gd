@@ -1,9 +1,42 @@
 extends Node2D
 
-onready var sprite = $Sprite
-onready var icon = $Sprite/Sprite
+onready var sprite = $Tag
+onready var icon = $Tag/Sprite
+onready var warning = $Exclamation
+onready var timer = $Timer
+onready var time_label1 = $Tag/Node2D/Time
+onready var time_label2 = $Exclamation/Time
 
 var target_position = null
+var time_base = null
+
+
+func _ready():
+	set_position(get_position().normalized() * get_parent().get_radius())
+	warning.set_rotation(get_position().angle()+PI/2)
+	if time_base != null:
+		set_timer(time_base)
+		print(time_base)
+	pass
+
+
+#	if (ms % 10) < 10:
+#		milisec = "0" + str(ms % 10)
+#	else:
+#		milisec = str(ms % 10)
+#
+#	if ((ms / 10) % 60) < 10:
+#		sec = "0" + str(((ms / 10) % 60))
+#	else:
+#		sec = str(((ms / 10) % 60))
+#	m = (ms / 10) / 60
+#
+#	set_text(str(m) + ":" + sec + ":" + milisec)
+
+
+func set_timer(time):
+	timer.set_wait_time(time)
+	timer.start()
 
 
 func _process(delta):
@@ -11,8 +44,12 @@ func _process(delta):
 	var canvas = get_canvas_transform()
 	var top_left = -canvas.origin
 	var size = get_viewport_rect().size
-	set_marker_position(canvas, top_left, size)
+	set_marker_position(canvas, Rect2(top_left,size))
 	set_marker_rotation()
+	if !timer.is_stopped():
+		var time = int(timer.get_time_left())
+		time_label1.set_text(str(time))
+		time_label2.set_text(str(time))
 
 
 
@@ -20,17 +57,17 @@ func _process(delta):
 #	it doesn't cut off the vector at a certain length but instead cuts down each side
 
 
-func set_marker_position(transform : Transform2D, top_left, size):
-	var viewport_size = get_viewport_rect().size
+func set_marker_position(transform : Transform2D, bounds : Rect2):
 	var new_position = global_position
-	new_position = transform.basis_xform(new_position)
-	if Rect2(top_left,size).has_point(new_position):
-		hide()
+	new_position = transform.basis_xform(new_position) #To Camera Space
+	
+	if bounds.has_point(new_position):
+		sprite.hide()
 	else:
-		show()
-	new_position.x = clamp(new_position.x, top_left.x, top_left.x + size.x)
-	new_position.y = clamp(new_position.y, top_left.y, top_left.y + size.y)
-	new_position = transform.affine_inverse().basis_xform(new_position)
+		sprite.show()
+	new_position.x = clamp(new_position.x, bounds.position.x, bounds.end.x)
+	new_position.y = clamp(new_position.y, bounds.position.y, bounds.end.y)
+	new_position = transform.affine_inverse().basis_xform(new_position) #To Game Space
 	sprite.global_position = new_position
 
 
@@ -79,4 +116,5 @@ func set_marker_position(transform : Transform2D, top_left, size):
 func set_marker_rotation():
 	var angle = (global_position - sprite.global_position).angle()
 	sprite.global_rotation = angle
-	icon.global_rotation = 0
+	icon.global_rotation = -get_viewport_transform().get_rotation()
+	time_label1.get_parent().rotation = icon.rotation

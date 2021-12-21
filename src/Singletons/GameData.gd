@@ -1,5 +1,6 @@
 extends Node
 
+const prediction_flag = preload("res://src/Healthbar Scene/UI Warnings/Offscreen Marker.tscn")
 
 var current_level = null
 var asteroid_spawner = null
@@ -10,6 +11,7 @@ var refinery_count = 0
 var scrap = 0
 
 func set_things(level_node, _player):
+	print("Ran")
 	current_level = level_node
 	asteroid_spawner = level_node.get_node("AsteroidSpawner")
 	player = _player
