@@ -120,16 +120,8 @@ func _enter_state(new_state, _old_state):
 			parent.get_node("Sounds/Walk").play()
 			parent.sprite.play("Walk")
 		states.Jump:
-			if parent.last_played == null:
-				parent.last_played = parent.get_node("Sounds/Jump2")
-			if parent.last_played == parent.get_node("Sounds/Jump2"):
-				var music = parent.get_node("Sounds/Jump1")
-				parent.last_played = music
-				music.play()
-			else:
-				var music = parent.get_node("Sounds/Jump2")
-				parent.last_played = music
-				music.play()
+			var music = parent.get_node("Sounds/Jump1")
+			music.play()
 		states.Fall:
 			pass
 		states.Run:
@@ -167,7 +159,7 @@ func _on_scrap_entered(body):
 	if parent.held_item != body:
 		parent.interaction_list.push_front(body)
 	if parent.held_item == null:
-		parent.get_node("Control/Button").set_visible(true)
+		parent.e_button.set_visible(true)
 #	print(parent.interaction_list)
 
 
@@ -176,7 +168,7 @@ func _on_scrap_body_exited(body):
 		if parent.interaction_list.find(body) != -1:
 			parent.interaction_list.remove(parent.interaction_list.find(body))
 		if parent.interaction_list.size() == 0:
-			parent.get_node("Control/Button").visible = false
+			parent.e_button.visible = false
 #	print(parent.interaction_list)
 
 
@@ -184,7 +176,7 @@ func _on_Interaction_Area_area_entered(area):
 	area = area.get_parent()
 	if area != parent.get_parent():
 		parent.interaction_list.append(area)
-		parent.get_node("Control/Button").set_visible(true)
+		parent.e_button.set_visible(true)
 #	print(parent.interaction_list)
 
 
@@ -193,5 +185,5 @@ func _on_Interaction_Area_area_exited(area):
 	if area != parent.get_parent():
 		parent.interaction_list.remove(parent.interaction_list.find(area))
 		if parent.interaction_list.size() == 0:
-			parent.get_node("Control/Button").visible = false
+			parent.e_button.visible = false
 #	print(parent.interaction_list)

@@ -8,7 +8,7 @@ onready var sprite = $Sprite
 onready var groundcast = $Groundcast
 onready var carry_position = $Carry_Position
 onready var interaction_timer = $Interaction_Timer
-onready var e_button = $Control/Button
+onready var e_button = $Interact_Button
 onready var player_state_machine = $StateMachine
 
 var last_played = null
@@ -39,9 +39,6 @@ var min_angle = -15 * PI / 16
 var max_angle = -PI / 16
 var angle_scroll = 2*PI / 180
 var angle_dir = 1
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 
 func _update_rotation():
