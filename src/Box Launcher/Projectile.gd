@@ -90,6 +90,6 @@ func spawn_building(planet):
 	planet.call_deferred("add_child", new_building)
 
 
-func _on_mask_exited(body):
+func _on_mask_exited(_body):
 	if tower_mask.get_overlapping_bodies().size() == 0:
 		set_collision_mask(26)

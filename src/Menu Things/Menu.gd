@@ -21,14 +21,14 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 #	print(get_viewport_rect().size/basic_rect.size)
 	var viewport_rect_size = get_viewport_rect().size
 	camera.zoom.x = 1 / (viewport_rect_size.x / basic_rect.size.x)
 	camera.zoom.y = 1 / (viewport_rect_size.y / basic_rect.size.y)
 
 
-func switch_menu(calling_menu, switched_menu):
+func switch_menu(_calling_menu, switched_menu):
 	if !tween.is_active():
 		var switchMenu = get_area(switched_menu)
 		tween.interpolate_property(camera, "position", 

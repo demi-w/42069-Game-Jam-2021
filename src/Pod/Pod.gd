@@ -193,7 +193,7 @@ func despawn_all():
 #	ready = true
 
 
-func _on_landed(body):
+func _on_landed(_body):
 	var staticPod = StaticPod.instance()
 	parent.call_deferred("add_child",staticPod)
 	staticPod.set_position(get_position().normalized()*520)

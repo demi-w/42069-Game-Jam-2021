@@ -37,7 +37,7 @@ func set_timer(time):
 	timer.start()
 
 
-func _process(delta):
+func _process(_delta):
 	target_position = GameData.player.global_position
 	var canvas = get_canvas_transform()
 	var top_left = -canvas.origin

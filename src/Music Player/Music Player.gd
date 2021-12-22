@@ -46,3 +46,7 @@ func fade_out(object):
 func fade_in(object):
 	tween.interpolate_property(object, "volume_db", -80, -10, transition_duration)
 	tween.start()
+
+
+func stop():
+	fade_out(current_stream)

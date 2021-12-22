@@ -1,6 +1,5 @@
 extends Control
 
-signal reset
 
 export(Vector2) var _start_position = Vector2(0, -20)
 export(Vector2) var _end_position = Vector2.ZERO

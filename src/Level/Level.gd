@@ -90,7 +90,7 @@ func lose_game():
 	dialog.connect("dialogic_signal", self, "open_next_level")
 
 
-func on_dialogue_end(string):
+func on_dialogue_end(_string):
 	emit_signal("start_descent")
 	dialog.queue_free()
 	dialog = null

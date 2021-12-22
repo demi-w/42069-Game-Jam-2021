@@ -13,7 +13,7 @@ func _ready():
 	despawn()
 
 
-func enter_building(entered):
+func enter_building(_entered):
 	return true
 
 func exit_building():
@@ -38,7 +38,7 @@ func throw_scrap():
 	ready = true
 
 
-func change_layer(body, scrap):
+func change_layer(_body, scrap):
 	scrap.set_z_index(0)
 
 
