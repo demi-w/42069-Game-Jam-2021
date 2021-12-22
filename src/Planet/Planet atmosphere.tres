@@ -1,14 +1,14 @@
 [gd_resource type="Resource" load_steps=10 format=2]
 
-[ext_resource path="res://addons/rmsmartshape/materials/edge_material_metadata.gd" type="Script" id=1]
-[ext_resource path="res://addons/rmsmartshape/materials/edge_material.gd" type="Script" id=2]
-[ext_resource path="res://addons/rmsmartshape/materials/shape_material.gd" type="Script" id=3]
-[ext_resource path="res://addons/rmsmartshape/normal_range.gd" type="Script" id=4]
-[ext_resource path="res://assets/World/Level Backgrounds/Background.png" type="Texture" id=5]
-[ext_resource path="res://assets/World/Level Backgrounds/Background Fill.png" type="Texture" id=6]
+[ext_resource path="res://gut/addons/rmsmartshape/normal_range.gd" type="Script" id=1]
+[ext_resource path="res://gut/addons/rmsmartshape/materials/shape_material.gd" type="Script" id=2]
+[ext_resource path="res://gut/addons/rmsmartshape/materials/edge_material_metadata.gd" type="Script" id=3]
+[ext_resource path="res://gut/addons/rmsmartshape/materials/edge_material.gd" type="Script" id=4]
+[ext_resource path="res://assets/World/Planet/Surface.png" type="Texture" id=5]
+[ext_resource path="res://assets/World/Planet/Fill.png" type="Texture" id=6]
 
 [sub_resource type="Resource" id=15]
-script = ExtResource( 2 )
+script = ExtResource( 4 )
 textures = [ ExtResource( 5 ) ]
 texture_normals = [  ]
 textures_corner_outer = [  ]
@@ -24,13 +24,13 @@ use_taper_texture = true
 fit_mode = 0
 
 [sub_resource type="Resource" id=16]
-script = ExtResource( 4 )
+script = ExtResource( 1 )
 begin = 0.0
 distance = 0.0
 edgeRendering = Vector2( 0, 0 )
 
 [sub_resource type="Resource" id=17]
-script = ExtResource( 1 )
+script = ExtResource( 3 )
 edge_material = SubResource( 15 )
 normal_range = SubResource( 16 )
 weld = true
@@ -40,7 +40,7 @@ z_as_relative = true
 offset = 0.0
 
 [resource]
-script = ExtResource( 3 )
+script = ExtResource( 2 )
 _edge_meta_materials = [ SubResource( 17 ) ]
 fill_textures = [ ExtResource( 6 ) ]
 fill_texture_normals = [  ]

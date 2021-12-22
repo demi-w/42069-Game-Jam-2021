@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/Level/Level.gd" type="Script" id=1]
 [ext_resource path="res://src/AsteroidSpawner/AsteroidSpawner.tscn" type="PackedScene" id=2]
@@ -7,11 +7,10 @@
 [ext_resource path="res://src/Healthbar Scene/Healthbar.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/Character/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/Healthbar Scene/Pause Menu/PauseMenu.tscn" type="PackedScene" id=7]
-[ext_resource path="res://src/Scrap/Scrap.tscn" type="PackedScene" id=8]
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 1 )
-stardust_cap = 10
+stardust_cap = 150
 end_dialogue = "First Round"
 number_of_factories = 1
 
@@ -22,18 +21,6 @@ position = Vector2( 0, -980 )
 
 [node name="Player" parent="Planet" instance=ExtResource( 6 )]
 position = Vector2( 0, -520 )
-
-[node name="Scrap" parent="Planet" instance=ExtResource( 8 )]
-position = Vector2( -32, -548 )
-
-[node name="Scrap2" parent="Planet" instance=ExtResource( 8 )]
-position = Vector2( -52, -552 )
-
-[node name="Scrap3" parent="Planet" instance=ExtResource( 8 )]
-position = Vector2( -12, -560 )
-
-[node name="Scrap4" parent="Planet" instance=ExtResource( 8 )]
-position = Vector2( 28, -552 )
 
 [node name="AsteroidSpawner" parent="." instance=ExtResource( 2 )]
 planetPath = NodePath("../Planet")

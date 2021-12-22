@@ -14,5 +14,5 @@ script = ExtResource( 3 )
 [node name="TransitionScene" parent="." instance=ExtResource( 1 )]
 pause_mode = 1
 
-[connection signal="switch_scene" from="Current_Scene/Menu" to="." method="_on_Menu_switch_scene"]
+[connection signal="switch_scene" from="Current_Scene/Menu" to="." method="on_switch_scene"]
 [connection signal="transitioned" from="TransitionScene" to="." method="_on_TransitionScene_transitioned"]

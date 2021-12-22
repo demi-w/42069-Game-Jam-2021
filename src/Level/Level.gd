@@ -2,27 +2,52 @@ extends Node2D
 class_name Level
 
 signal start_descent()
+signal switch_scene(next_level)
 
 const factory = preload("res://src/Factory/Factory.tscn")
 
+export (int) var planet_health = 100
+export (int) var stardust_cap = 100
+export (String) var end_dialogue
+
 onready var planet = $Planet
 onready var HUD = $CanvasLayer/Healthbar
+onready var pause_menu = $CanvasLayer/PauseMenu
 
 export (int) var number_of_factories
 
-
+var dialog = null
+var over = false
 
 func _ready():
-	var new_dialog = Dialogic.start('Game Start') 
-	add_child(new_dialog)
-	new_dialog.connect("dialogic_signal", self, "on_dialogue_end")
+	GameData.reset()
+	dialog = Dialogic.start('Game Start') 
+	add_child(dialog)
+	HUD.set_health_max(planet_health)
+	HUD.set_stardust_max(stardust_cap)
+	dialog.connect("dialogic_signal", self, "on_dialogue_end", [], CONNECT_ONESHOT)
 	GameData.set_things(self, get_node("Planet/Player"))
 	spawn_factories()
 	start_coroutine()
+	
 
+
+func _unhandled_input(event):
+	if event.is_action_pressed("ui_cancel") && dialog == null:
+		var tree = get_tree()
+		tree.paused = not tree.paused
+		if tree.paused:
+			pause_menu.open()
+		else:
+			pause_menu.close()
+		get_tree().set_input_as_handled()
 
 func added_refinery():
 	GameData.refinery_count += 1
+
+
+func removed_refinery():
+	GameData.refinery_count -= 0
 
 
 func spawn_factories():
@@ -44,9 +69,32 @@ func start_coroutine():
 		GameData.stardust += GameData.refinery_count
 		if GameData.stardust != HUD.get_stardust():
 			HUD.set_stardust(GameData.stardust)
+			if GameData.stardust >= stardust_cap:
+				win_game()
 		if GameData.planet_health != HUD.get_health():
 			HUD.set_health(GameData.planet_health)
-		yield(get_tree().create_timer(1), "timeout")
+			if planet_health <= 0:
+				lose_game()
+		if not over:
+			yield(get_tree().create_timer(1), "timeout")
+
+
+func win_game():
+	over = true
+	dialog = Dialogic.start(end_dialogue)
+	add_child(dialog)
+	dialog.connect("dialogic_signal", self, "open_next_level")
+
+
+func lose_game():
+	pass
+
 
 func on_dialogue_end(string):
 	emit_signal("start_descent")
+	dialog.queue_free()
+	dialog = null
+
+func open_next_level():
+	var next_level = load("res://src/Level/Level2/Level2.tscn")
+	emit_signal("switch_scene", next_level)

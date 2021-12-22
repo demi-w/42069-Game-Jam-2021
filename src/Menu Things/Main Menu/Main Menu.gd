@@ -19,7 +19,6 @@ func _ready():
 
 
 func _on_Play_pressed():
-	print("What the fuck")
 	emit_signal("switch_menu", "main_menu", "level_select")
 	
 
