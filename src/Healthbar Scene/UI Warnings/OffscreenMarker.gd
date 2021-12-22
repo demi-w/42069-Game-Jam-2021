@@ -60,15 +60,53 @@ func _process(delta):
 func set_marker_position(transform : Transform2D, bounds : Rect2):
 	var new_position = global_position
 	new_position = transform.basis_xform(new_position) #To Camera Space
-	
 	if bounds.has_point(new_position):
 		sprite.hide()
 	else:
 		sprite.show()
-	new_position.x = clamp(new_position.x, bounds.position.x, bounds.end.x)
-	new_position.y = clamp(new_position.y, bounds.position.y, bounds.end.y)
+	if target_position == null:
+		new_position.x = clamp(new_position.x, bounds.position.x, bounds.end.x)
+		new_position.y = clamp(new_position.y, bounds.position.y, bounds.end.y)
+	else:
+		var new_target_position = transform.basis_xform(target_position)
+		var displacement = new_position - new_target_position
+		var length
+
+		var tl = (bounds.position - new_target_position).angle()
+		var tr = (Vector2(bounds.end.x, bounds.position.y) - new_target_position).angle()
+		var bl = (Vector2(bounds.position.x, bounds.end.y) - new_target_position).angle()
+		var br = (bounds.end - new_target_position).angle()
+		if (displacement.angle() > tl && displacement.angle() < tr) \
+				|| (displacement.angle() < bl && displacement.angle() > br):
+			var y_length = clamp(displacement.y, bounds.position.y - new_target_position.y,
+					bounds.end.y - new_target_position.y)
+			var angle = displacement.angle() - PI / 2.0
+			length = y_length / cos(angle) if cos(angle) != 0 else y_length
+		else:
+			var x_length = clamp(displacement.x, bounds.position.x - new_target_position.x,
+					bounds.end.x - new_target_position.x)
+			var angle = displacement.angle()
+			length = x_length / cos(angle) if cos(angle) != 0 else x_length
+
+		new_position = polar2cartesian(length, displacement.angle()) + new_target_position
+
 	new_position = transform.affine_inverse().basis_xform(new_position) #To Game Space
 	sprite.global_position = new_position
+
+
+
+#func set_marker_position(transform : Transform2D, bounds : Rect2):
+#	var new_position = global_position
+#	new_position = transform.basis_xform(new_position) #To Camera Space
+#
+#	if bounds.has_point(new_position):
+#		sprite.hide()
+#	else:
+#		sprite.show()
+#	new_position.x = clamp(new_position.x, bounds.position.x, bounds.end.x)
+#	new_position.y = clamp(new_position.y, bounds.position.y, bounds.end.y)
+#	new_position = transform.affine_inverse().basis_xform(new_position) #To Game Space
+#	sprite.global_position = new_position
 
 
 
