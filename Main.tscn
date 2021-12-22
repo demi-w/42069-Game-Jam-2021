@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/Menu Things/Transition/TransitionScreen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/Menu Things/Menu.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Main.gd" type="Script" id=3]
+[ext_resource path="res://src/Music Player/Music Player.tscn" type="PackedScene" id=4]
 
 [node name="Main" type="Node"]
 script = ExtResource( 3 )
@@ -13,6 +14,8 @@ script = ExtResource( 3 )
 
 [node name="TransitionScene" parent="." instance=ExtResource( 1 )]
 pause_mode = 1
+
+[node name="Music_Player" parent="." instance=ExtResource( 4 )]
 
 [connection signal="switch_scene" from="Current_Scene/Menu" to="." method="on_switch_scene"]
 [connection signal="transitioned" from="TransitionScene" to="." method="_on_TransitionScene_transitioned"]

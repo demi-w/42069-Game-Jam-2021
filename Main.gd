@@ -2,7 +2,7 @@ extends Node
 
 
 onready var current_level = $Current_Scene/Menu
-
+onready var music_player = $Music_Player
 
 var next_scene = null
 
@@ -17,5 +17,13 @@ func _on_TransitionScene_transitioned():
 
 
 func on_switch_scene(_next_scene):
+	var check_instance = _next_scene.instance()
+	if check_instance is Level:
+		music_player.set_next_stream("res://assets/Audio/Music/songALT.mp3")
+	elif check_instance is Control:
+		music_player.set_next_stream("res://assets/Audio/Music/songALT.mp3")
+	else:
+		music_player.stop()
 	next_scene = _next_scene
 	$TransitionScene.transition()
+	check_instance.free()
