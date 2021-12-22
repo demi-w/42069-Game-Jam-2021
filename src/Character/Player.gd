@@ -10,6 +10,8 @@ onready var carry_position = $Carry_Position
 onready var interaction_timer = $Interaction_Timer
 onready var e_button = $Interact_Button
 onready var player_state_machine = $StateMachine
+onready var f_button = $Throw_Sprite
+onready var f_button2 = $Throw_Sprite2
 
 var last_played = null
 
@@ -124,6 +126,7 @@ func pickup_item(body):
 		body.set_mode(MODE_STATIC)
 	interaction_list.remove(interaction_list.find(body))
 	e_button.set_visible(false)
+	f_button.set_visible(true)
 
 
 func drop_item():
@@ -133,6 +136,7 @@ func drop_item():
 	held_item.set_linear_velocity(get_linear_velocity()+held_item.get_linear_velocity())
 	held_item.apply_central_impulse(Vector2(0,20).rotated(get_position().angle()+PI/2))
 	held_item = null
+	f_button.set_visible(false)
 
 
 func change_parent(changed = null, new_owner = null):

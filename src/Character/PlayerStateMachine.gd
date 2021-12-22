@@ -128,6 +128,8 @@ func _enter_state(new_state, _old_state):
 			parent.get_node("Sounds/Walk").play()
 		states.Throw:
 			parent.sprite.play("Throw")
+			parent.f_button.set_visible(false)
+			parent.f_button2.set_visible(true)
 			parent.set_mode(1)
 			parent.get_node("Launch_Direction").visible = true
 		states.Manning:
@@ -149,6 +151,7 @@ func _exit_state(_new_state, old_state):
 			parent.get_node("Sounds/Walk").stop()
 		states.Throw:
 			parent.set_mode(0)
+			parent.f_button2.set_visible(false)
 			parent.get_node("Launch_Direction").visible = false
 		states.Manning:
 			parent.show_behind_parent = false
@@ -176,7 +179,8 @@ func _on_Interaction_Area_area_entered(area):
 	area = area.get_parent()
 	if area != parent.get_parent():
 		parent.interaction_list.append(area)
-		parent.e_button.set_visible(true)
+		if parent.held_item == null:
+			parent.e_button.set_visible(true)
 #	print(parent.interaction_list)
 
 
