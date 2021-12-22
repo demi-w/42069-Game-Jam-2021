@@ -11,6 +11,7 @@ onready var launcher_ui = $CanvasLayer/LauncherUI
 onready var load_noise = $Noises/Loading_Noise
 onready var shoot_noise = $Noises/Shooting_Noise
 onready var misc_noise = $Noises/Misc_Noise
+onready var tween = $Tween
 
 var current_projectile = null
 var manned = false
@@ -30,10 +31,24 @@ func _ready():
 	spawn()
 
 
+func start():
+	pass
+
+
 func spawn():
 	if !misc_noise.is_playing():
 		misc_noise.stream = land_sound
 		misc_noise.play()
+	start_build()
+
+
+func start_build():
+	tween.interpolate_property(self,"position", 
+				get_position() + Vector2(0,24).rotated(get_position().angle() + PI/2), get_position(),4)
+	tween.interpolate_property(self,"modulate:a",
+				0, 1, 4)
+	tween.connect("tween_completed", self, "start")
+	tween.start()
 
 
 func _handle_aim():
@@ -73,7 +88,7 @@ func end_predict():
 
 
 func store_item(body):
-	if current_projectile == null:
+	if current_projectile == null && !tween.is_active():
 		change_parent(body, projectile_spawn)
 		current_projectile = body
 		current_projectile.arm()
@@ -91,7 +106,7 @@ func position_projectile():
 
 
 func enter_building(entered):
-	if player == null:
+	if player == null && !tween.is_active():
 		change_parent(entered, self)
 		manned = true
 		launcher_ui.open()
@@ -111,3 +126,13 @@ func exit_building():
 	player.leave_building(self)
 	player.set_mode(0)
 	player = null
+
+
+func _on_Exception_Area_body_entered(body):
+	if body is Projectile:
+		body.too_close = true
+
+
+func _on_Exception_Area_body_exited(body):
+	if body is Projectile:
+		body.too_close = false
