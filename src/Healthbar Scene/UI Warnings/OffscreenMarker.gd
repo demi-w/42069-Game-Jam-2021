@@ -12,7 +12,6 @@ var time_base = null
 
 
 func _ready():
-	set_position(get_position().normalized() * get_parent().get_radius())
 	warning.set_rotation(get_position().angle()+PI/2)
 	if time_base != null:
 		set_timer(time_base)
