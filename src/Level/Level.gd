@@ -9,6 +9,7 @@ const factory = preload("res://src/Factory/Factory.tscn")
 export (int) var planet_health = 100
 export (int) var stardust_cap = 100
 export (String) var end_dialogue
+export (String) var next_level_resource
 
 onready var planet = $Planet
 onready var HUD = $CanvasLayer/Healthbar
@@ -65,18 +66,17 @@ func spawn_factory(angle):
 
 
 func start_coroutine():
-	while HUD.get_health() > 0 || HUD.get_stardust() < 100:
+	while HUD.get_health() > 0 && HUD.get_stardust() < stardust_cap:
 		GameData.stardust += GameData.refinery_count
 		if GameData.stardust != HUD.get_stardust():
 			HUD.set_stardust(GameData.stardust)
-			if GameData.stardust >= stardust_cap:
-				win_game()
 		if GameData.planet_health != HUD.get_health():
 			HUD.set_health(GameData.planet_health)
-			if planet_health <= 0:
-				lose_game()
-		if not over:
-			yield(get_tree().create_timer(1), "timeout")
+		yield(get_tree().create_timer(1), "timeout")
+	if GameData.stardust >= stardust_cap:
+		win_game()
+	if GameData.planet_health <= 0:
+		lose_game()
 
 
 func win_game():
@@ -84,7 +84,6 @@ func win_game():
 	dialog = Dialogic.start(end_dialogue)
 	add_child(dialog)
 	dialog.connect("dialogic_signal", self, "open_next_level")
-
 
 func lose_game():
 	pass
@@ -95,6 +94,6 @@ func on_dialogue_end(string):
 	dialog.queue_free()
 	dialog = null
 
-func open_next_level():
-	var next_level = load("res://src/Level/Level2/Level2.tscn")
+func open_next_level(_blank):
+	var next_level = load(next_level_resource)
 	emit_signal("switch_scene", next_level)

@@ -4,7 +4,7 @@
 			"action": "join",
 			"character": "character-1639966868.json",
 			"event_id": "dialogic_002",
-			"mirror": true,
+			"mirror": false,
 			"portrait": "",
 			"position": {
 				"0": true,

@@ -13,6 +13,7 @@ func _on_TransitionScene_transitioned():
 	$Current_Scene.add_child(_next_scene)
 	_next_scene.connect("switch_scene", self, "on_switch_scene")
 	next_scene = null
+	current_level = _next_scene
 
 
 func on_switch_scene(_next_scene):

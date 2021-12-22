@@ -40,11 +40,13 @@ shape = SubResource( 1 )
 [node name="Particles" type="Node2D" parent="."]
 
 [node name="Particles2D" type="Particles2D" parent="Particles"]
-position = Vector2( -18, -30 )
+position = Vector2( -18, -31 )
+emitting = false
 process_material = SubResource( 2 )
 
 [node name="Particles2D2" type="Particles2D" parent="Particles"]
-position = Vector2( -9, -30 )
+position = Vector2( -9, -31 )
+emitting = false
 process_material = SubResource( 2 )
 
 [node name="Exception_Area" type="Area2D" parent="."]
@@ -56,6 +58,8 @@ shape = SubResource( 3 )
 
 [node name="Loading_Noise" type="AudioStreamPlayer2D" parent="."]
 max_distance = 500.0
+
+[node name="Tween" type="Tween" parent="."]
 
 [connection signal="body_entered" from="Exception_Area" to="." method="_on_exception_area_entered"]
 [connection signal="body_exited" from="Exception_Area" to="." method="_on_exception_area_exited"]
