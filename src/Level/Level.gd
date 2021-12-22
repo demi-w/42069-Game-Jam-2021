@@ -80,13 +80,14 @@ func start_coroutine():
 
 
 func win_game():
-	over = true
 	dialog = Dialogic.start(end_dialogue)
 	add_child(dialog)
 	dialog.connect("dialogic_signal", self, "open_next_level")
 
 func lose_game():
-	pass
+	dialog = Dialogic.start("failure")
+	add_child(dialog)
+	dialog.connect("dialogic_signal", self, "open_next_level")
 
 
 func on_dialogue_end(string):
