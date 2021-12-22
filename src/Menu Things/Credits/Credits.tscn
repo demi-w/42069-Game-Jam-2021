@@ -1,0 +1,254 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/Dialogue Stuff/Fonts/DigitalDisco.tres" type="DynamicFont" id=1]
+[ext_resource path="res://src/Menu Things/Credits/Credits.gd" type="Script" id=2]
+
+[node name="Credits" type="VBoxContainer"]
+margin_right = 288.0
+margin_bottom = 288.0
+rect_pivot_offset = Vector2( 144, 144 )
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+menuKey = "credits"
+
+[node name="Back" type="Button" parent="."]
+margin_right = 288.0
+margin_bottom = 22.0
+custom_fonts/font = ExtResource( 1 )
+text = "Back"
+
+[node name="Programmers" type="PanelContainer" parent="."]
+margin_top = 26.0
+margin_right = 288.0
+margin_bottom = 86.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Programmers" type="HBoxContainer" parent="Programmers"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 281.0
+margin_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Programmers" type="Label" parent="Programmers/Programmers"]
+margin_top = 15.0
+margin_right = 117.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Programmers"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Programmers/Programmers"]
+margin_left = 121.0
+margin_right = 274.0
+margin_bottom = 46.0
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Robby Campbell" type="Label" parent="Programmers/Programmers/VBoxContainer"]
+margin_top = 5.0
+margin_right = 153.0
+margin_bottom = 21.0
+custom_fonts/font = ExtResource( 1 )
+text = "Robby Campbell"
+align = 2
+
+[node name="Luke Demeter-William" type="Label" parent="Programmers/Programmers/VBoxContainer"]
+margin_top = 25.0
+margin_right = 153.0
+margin_bottom = 41.0
+custom_fonts/font = ExtResource( 1 )
+text = "Luke Demeter-William"
+align = 2
+
+[node name="Artists" type="PanelContainer" parent="."]
+margin_top = 90.0
+margin_right = 288.0
+margin_bottom = 150.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Artists" type="HBoxContainer" parent="Artists"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 281.0
+margin_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Artists" type="Label" parent="Artists/Artists"]
+margin_top = 15.0
+margin_right = 170.0
+margin_bottom = 31.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Artists"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Artists/Artists"]
+margin_left = 174.0
+margin_right = 274.0
+margin_bottom = 46.0
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Luke Triola" type="Label" parent="Artists/Artists/VBoxContainer"]
+margin_top = 5.0
+margin_right = 100.0
+margin_bottom = 21.0
+custom_fonts/font = ExtResource( 1 )
+text = "Luke Triola"
+align = 1
+
+[node name="Rohan Person" type="Label" parent="Artists/Artists/VBoxContainer"]
+margin_top = 25.0
+margin_right = 100.0
+margin_bottom = 41.0
+custom_fonts/font = ExtResource( 1 )
+text = "Rohan Person"
+align = 1
+
+[node name="Music|SFX" type="PanelContainer" parent="."]
+margin_top = 154.0
+margin_right = 288.0
+margin_bottom = 224.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Music|SFX" type="HBoxContainer" parent="Music|SFX"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 281.0
+margin_bottom = 63.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Music|SFX" type="Label" parent="Music|SFX/Music|SFX"]
+margin_top = 20.0
+margin_right = 120.0
+margin_bottom = 36.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 1 )
+text = "Music|SFX"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Music|SFX/Music|SFX"]
+margin_left = 124.0
+margin_right = 274.0
+margin_bottom = 56.0
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Amit Deb" type="Label" parent="Music|SFX/Music|SFX/VBoxContainer"]
+margin_right = 150.0
+margin_bottom = 16.0
+custom_fonts/font = ExtResource( 1 )
+text = "Amit Deb"
+align = 2
+
+[node name="Theo Clarke" type="Label" parent="Music|SFX/Music|SFX/VBoxContainer"]
+margin_top = 20.0
+margin_right = 150.0
+margin_bottom = 36.0
+custom_fonts/font = ExtResource( 1 )
+text = "Theo Clarke"
+align = 2
+
+[node name="Aleksander Chichosz" type="Label" parent="Music|SFX/Music|SFX/VBoxContainer"]
+margin_top = 40.0
+margin_right = 150.0
+margin_bottom = 56.0
+custom_fonts/font = ExtResource( 1 )
+text = "Aleksander Chichosz"
+align = 2
+
+[node name="Story" type="PanelContainer" parent="."]
+margin_top = 228.0
+margin_right = 288.0
+margin_bottom = 288.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Story" type="HBoxContainer" parent="Story"]
+margin_left = 7.0
+margin_top = 7.0
+margin_right = 281.0
+margin_bottom = 53.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Story" type="Label" parent="Story/Story"]
+margin_top = 15.0
+margin_right = 38.0
+margin_bottom = 31.0
+custom_fonts/font = ExtResource( 1 )
+text = "Story"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Story/Story"]
+margin_left = 42.0
+margin_right = 274.0
+margin_bottom = 46.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Autumn Gahagan" type="Label" parent="Story/Story/VBoxContainer"]
+margin_top = 11.0
+margin_right = 232.0
+margin_bottom = 46.0
+custom_fonts/font = ExtResource( 1 )
+text = "Autumn Gahagan
+"
+align = 2
+
+[connection signal="pressed" from="Back" to="." method="on_back_pressed"]

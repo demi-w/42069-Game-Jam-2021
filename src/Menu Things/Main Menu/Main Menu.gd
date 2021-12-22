@@ -29,3 +29,7 @@ func _on_Exit_pressed():
 
 func _on_Options_pressed():
 	emit_signal("switch_menu", menuKey, "options")
+
+
+func _on_Credits_pressed():
+	emit_signal("switch_menu", menuKey, "credits")

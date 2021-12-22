@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://assets/Dialogue Stuff/Fonts/DigitalDisco.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/Menu Things/Main Menu/Main Menu.gd" type="Script" id=2]
-[ext_resource path="res://assets/Dialogue Stuff/Fonts/Kapel.tres" type="DynamicFont" id=3]
 
 [node name="Main_Menu" type="VBoxContainer"]
 anchor_left = 0.5
@@ -22,8 +21,7 @@ menuKey = "main_menu"
 
 [node name="Play" type="Button" parent="."]
 margin_right = 250.0
-margin_bottom = 72.0
-focus_neighbour_top = NodePath("../Options")
+margin_bottom = 97.0
 focus_neighbour_bottom = NodePath("../Credits")
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -31,36 +29,25 @@ custom_fonts/font = ExtResource( 1 )
 text = "Play"
 
 [node name="Credits" type="Button" parent="."]
-margin_top = 76.0
+margin_top = 101.0
 margin_right = 250.0
-margin_bottom = 148.0
+margin_bottom = 198.0
 focus_neighbour_top = NodePath("../Play")
-focus_neighbour_bottom = NodePath("../Options")
 size_flags_horizontal = 3
 size_flags_vertical = 3
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 1 )
 text = "Credits"
 
-[node name="Options" type="Button" parent="."]
-margin_top = 152.0
-margin_right = 250.0
-margin_bottom = 224.0
-focus_neighbour_top = NodePath("../Credits")
-focus_neighbour_bottom = NodePath("../Exit")
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Options"
-
 [node name="Exit" type="Button" parent="."]
-margin_top = 228.0
+margin_top = 202.0
 margin_right = 250.0
 margin_bottom = 300.0
-focus_neighbour_top = NodePath("../Options")
 focus_neighbour_bottom = NodePath("../Play")
 size_flags_horizontal = 3
 size_flags_vertical = 3
+custom_fonts/font = ExtResource( 1 )
 text = "Exit"
 
 [connection signal="pressed" from="Play" to="." method="_on_Play_pressed"]
-[connection signal="pressed" from="Options" to="." method="_on_Options_pressed"]
+[connection signal="pressed" from="Credits" to="." method="_on_Credits_pressed"]
 [connection signal="pressed" from="Exit" to="." method="_on_Exit_pressed"]

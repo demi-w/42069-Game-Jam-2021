@@ -4,7 +4,7 @@ signal switch_scene(next_scene)
 
 onready var mainMenu = $Background/Main_Menu
 onready var levelSelect = $Background/Level_Select
-onready var options = $Background/Options
+onready var credits = $Background/Credits
 onready var tween = $Tween
 onready var background = $Background
 onready var camera = $Camera
@@ -46,8 +46,8 @@ func get_area(key):
 			return mainMenu
 		"level_select":
 			return levelSelect
-		"options":
-			return options
+		"credits":
+			return credits
 
 
 func _on_Level_Select_change_scene(next_scene):
