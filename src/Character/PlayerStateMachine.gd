@@ -117,13 +117,23 @@ func _enter_state(new_state, _old_state):
 		states.Idle:
 			parent.sprite.play("Idle")
 		states.Walk:
+			parent.get_node("Sounds/Walk").play()
 			parent.sprite.play("Walk")
 		states.Jump:
-			pass
+			if parent.last_played == null:
+				parent.last_played = parent.get_node("Sounds/Jump2")
+			if parent.last_played == parent.get_node("Sounds/Jump2"):
+				var music = parent.get_node("Sounds/Jump1")
+				parent.last_played = music
+				music.play()
+			else:
+				var music = parent.get_node("Sounds/Jump2")
+				parent.last_played = music
+				music.play()
 		states.Fall:
 			pass
 		states.Run:
-			pass
+			parent.get_node("Sounds/Walk").play()
 		states.Throw:
 			parent.sprite.play("Throw")
 			parent.set_mode(1)
@@ -138,13 +148,13 @@ func _exit_state(_new_state, old_state):
 		states.Idle:
 			pass
 		states.Walk:
-			pass
+			parent.get_node("Sounds/Walk").stop()
 		states.Jump:
 			pass
 		states.Fall:
 			pass
 		states.Run:
-			pass
+			parent.get_node("Sounds/Walk").stop()
 		states.Throw:
 			parent.set_mode(0)
 			parent.get_node("Launch_Direction").visible = false

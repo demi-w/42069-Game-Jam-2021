@@ -136,6 +136,7 @@ func explode_coroutine():
 
 
 func boom():
+	$Explosion.play()
 	predict_thing.queue_free()
 	var vel = ((_initDist * _worldScale) * (get_position().angle()-start_posRotation)) / _time_to_boom
 	disconnect_bodies((get_position().normalized().rotated(PI/2)*vel))

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/explosionTotal.wav-b016d2da421d967eb240cbe79f4a4344.sample"
+
+[deps]
+
+source_file="res://assets/Audio/Building General/explosionTotal.wav"
+dest_files=[ "res://.import/explosionTotal.wav-b016d2da421d967eb240cbe79f4a4344.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

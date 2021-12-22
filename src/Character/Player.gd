@@ -11,6 +11,8 @@ onready var interaction_timer = $Interaction_Timer
 onready var e_button = $Control/Button
 onready var player_state_machine = $StateMachine
 
+var last_played = null
+
 var interaction_list = []
 
 var snapvect = Vector2(0,4)
