@@ -11,7 +11,6 @@ var refinery_count = 0
 var scrap = 0
 
 func set_things(level_node, _player):
-	print("Ran")
 	current_level = level_node
 	asteroid_spawner = level_node.get_node("AsteroidSpawner")
 	player = _player

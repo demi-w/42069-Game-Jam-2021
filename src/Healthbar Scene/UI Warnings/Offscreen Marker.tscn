@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/Dialogue Stuff/Fonts/DigitalDisco.tres" type="DynamicFont" id=4]
 
 [node name="OffscreenMarker" type="Node2D"]
+z_index = 2
 script = ExtResource( 3 )
 
 [node name="Tag" type="Sprite" parent="."]

@@ -16,7 +16,6 @@ func _ready():
 	warning.set_rotation(get_position().angle()+PI/2)
 	if time_base != null:
 		set_timer(time_base)
-		print(time_base)
 	pass
 
 
