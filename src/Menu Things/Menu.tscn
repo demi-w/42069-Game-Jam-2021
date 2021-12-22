@@ -52,5 +52,6 @@ limit_right = 2048
 limit_bottom = 1200
 
 [connection signal="switch_menu" from="Background/Main_Menu" to="." method="switch_menu"]
+[connection signal="change_scene" from="Background/Level_Select" to="." method="_on_Level_Select_change_scene"]
 [connection signal="switch_menu" from="Background/Level_Select" to="." method="switch_menu"]
 [connection signal="switch_menu" from="Background/Options" to="." method="switch_menu"]

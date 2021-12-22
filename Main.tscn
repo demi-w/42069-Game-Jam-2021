@@ -1,7 +1,18 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/Level/Level.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Menu Things/Transition/TransitionScreen.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/Menu Things/Menu.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Main.gd" type="Script" id=3]
 
 [node name="Main" type="Node"]
+script = ExtResource( 3 )
 
-[node name="Level" parent="." instance=ExtResource( 1 )]
+[node name="Current_Scene" type="Node" parent="."]
+
+[node name="Menu" parent="Current_Scene" instance=ExtResource( 2 )]
+
+[node name="TransitionScene" parent="." instance=ExtResource( 1 )]
+pause_mode = 1
+
+[connection signal="switch_scene" from="Current_Scene/Menu" to="." method="_on_Menu_switch_scene"]
+[connection signal="transitioned" from="TransitionScene" to="." method="_on_TransitionScene_transitioned"]

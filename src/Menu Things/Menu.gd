@@ -1,5 +1,6 @@
 extends Control
 
+signal switch_scene(next_scene)
 
 onready var mainMenu = $Background/Main_Menu
 onready var levelSelect = $Background/Level_Select
@@ -43,3 +44,7 @@ func get_area(key):
 			return levelSelect
 		"options":
 			return options
+
+
+func _on_Level_Select_change_scene(next_scene):
+	emit_signal("switch_scene", next_scene)
