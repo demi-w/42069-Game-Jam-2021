@@ -115,9 +115,9 @@ func _get_transition(_delta):
 func _enter_state(new_state, _old_state):
 	match new_state:
 		states.Idle:
-			pass
+			parent.sprite.play("Idle")
 		states.Walk:
-			pass
+			parent.sprite.play("Walk")
 		states.Jump:
 			pass
 		states.Fall:
@@ -125,6 +125,7 @@ func _enter_state(new_state, _old_state):
 		states.Run:
 			pass
 		states.Throw:
+			parent.sprite.play("Throw")
 			parent.set_mode(1)
 			parent.get_node("Launch_Direction").visible = true
 		states.Manning:
