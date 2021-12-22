@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Background Fill.png-60d825ce54738448eb225eef0daf5b56.stex"
+path="res://.import/background_2.png-addf08f5836311bff7877d9195b40c2f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/World/Level Backgrounds/Background Fill.png"
-dest_files=[ "res://.import/Background Fill.png-60d825ce54738448eb225eef0daf5b56.stex" ]
+source_file="res://assets/World/Level Backgrounds/background_2.png"
+dest_files=[ "res://.import/background_2.png-addf08f5836311bff7877d9195b40c2f.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=1
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

@@ -166,9 +166,6 @@ func randomize_scrap(vel):
 	randomize()
 	for scrap in $Scrap_Cluster.get_children():
 		change_parent(scrap, get_parent())
-		scrap.add_collision_exception_with(right_door)
-		scrap.add_collision_exception_with(left_door)
-		scrap.add_collision_exception_with(base)
 		scrap.set_mode(0)
 		scrap.set_linear_velocity(vel+Vector2(ceil(rand_range(10,40)),ceil(rand_range(10,40))).rotated(_posRotation + get_rotation()))
 
@@ -176,9 +173,9 @@ func randomize_scrap(vel):
 
 func despawn_all():
 	yield(get_tree().create_timer(20), "timeout")
-	right_door.queue_free()
-	left_door.queue_free()
-	base.queue_free()
+#	right_door.queue_free()
+#	left_door.queue_free()
+#	base.queue_free()
 	queue_free()
 
 

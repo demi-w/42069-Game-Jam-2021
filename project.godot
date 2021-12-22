@@ -212,7 +212,7 @@ _global_script_classes=[ {
 "base": "RigidBody2D",
 "class": "Scrap",
 "language": "GDScript",
-"path": "res://src/Singletons/Scrap.gd"
+"path": "res://src/Scrap/Scrap.gd"
 }, {
 "base": "Node",
 "class": "StateMachine",
@@ -275,7 +275,7 @@ _global_script_class_icons={
 config/name="fuck"
 run/main_scene="res://Main.tscn"
 boot_splash/image="res://SpacemanPortrait.png"
-config/icon="res://SpacemanPortraitIcon.png"
+config/icon="res://game_icon.png"
 
 [autoload]
 

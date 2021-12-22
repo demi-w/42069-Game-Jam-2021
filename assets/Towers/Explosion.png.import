@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Background.png-15d5fc99d0bd37c999c18392b4300ecc.stex"
+path="res://.import/Explosion.png-d71b36de57672ab493634927e9b8b64a.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/World/Level Backgrounds/Background.png"
-dest_files=[ "res://.import/Background.png-15d5fc99d0bd37c999c18392b4300ecc.stex" ]
+source_file="res://assets/Towers/Explosion.png"
+dest_files=[ "res://.import/Explosion.png-d71b36de57672ab493634927e9b8b64a.stex" ]
 
 [params]
 
@@ -19,7 +19,7 @@ compress/lossy_quality=0.7
 compress/hdr_mode=0
 compress/bptc_ldr=0
 compress/normal_map=0
-flags/repeat=1
+flags/repeat=0
 flags/filter=false
 flags/mipmaps=false
 flags/anisotropic=false

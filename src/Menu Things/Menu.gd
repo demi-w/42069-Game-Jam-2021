@@ -9,7 +9,7 @@ onready var tween = $Tween
 onready var background = $Background
 onready var camera = $Camera
 
-
+onready var basic_rect = Rect2(0,0,1024,600)
 # Declare member variables here. Examples:
 # var a = 2
 # var b = "text"
@@ -21,8 +21,12 @@ func _ready():
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _process(delta):
+#	print(get_viewport_rect().size/basic_rect.size)
+	var viewport_rect_size = get_viewport_rect().size
+	camera.zoom.x = 1 / (viewport_rect_size.x / basic_rect.size.x)
+	camera.zoom.y = 1 / (viewport_rect_size.y / basic_rect.size.y)
+
 
 func switch_menu(calling_menu, switched_menu):
 	if !tween.is_active():
