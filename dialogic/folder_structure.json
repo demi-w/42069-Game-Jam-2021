@@ -30,7 +30,10 @@
 		},
 		"Themes": {
 			"files": [
-				"default-theme.cfg"
+				"default-theme.cfg",
+				"theme-1640222929.cfg",
+				"theme-1640225328.cfg",
+				"theme-1640225404.cfg"
 			],
 			"folders": {
 

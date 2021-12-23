@@ -15,13 +15,17 @@
 			}
 		},
 		{
+			"event_id": "dialogic_024",
+			"set_theme": "theme-1640222929.cfg"
+		},
+		{
 			"character": "character-1639967132.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "No credits."
 		},
 		{
-			"character": "",
+			"character": "character-1639967132.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "Go again."

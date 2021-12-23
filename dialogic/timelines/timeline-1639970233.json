@@ -29,16 +29,28 @@
 			}
 		},
 		{
+			"event_id": "dialogic_024",
+			"set_theme": "theme-1640225404.cfg"
+		},
+		{
 			"character": "character-1639966868.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "I sent off everything I had left. Was it enough?"
 		},
 		{
+			"event_id": "dialogic_024",
+			"set_theme": "theme-1640225328.cfg"
+		},
+		{
 			"character": "character-1639967132.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "Hmm..."
+		},
+		{
+			"event_id": "dialogic_024",
+			"set_theme": "theme-1640222929.cfg"
 		},
 		{
 			"character": "character-1639967132.json",

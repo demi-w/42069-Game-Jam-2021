@@ -29,16 +29,28 @@
 			}
 		},
 		{
+			"event_id": "dialogic_024",
+			"set_theme": "theme-1640225404.cfg"
+		},
+		{
 			"character": "character-1639966868.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "Second shipment just arrived, How much can you pay me this time?"
 		},
 		{
+			"event_id": "dialogic_024",
+			"set_theme": "theme-1640225328.cfg"
+		},
+		{
 			"character": "character-1639967132.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "Hmm..."
+		},
+		{
+			"event_id": "dialogic_024",
+			"set_theme": "theme-1640222929.cfg"
 		},
 		{
 			"character": "character-1639967132.json",
@@ -47,16 +59,28 @@
 			"text": "2378\t Credits"
 		},
 		{
+			"event_id": "dialogic_024",
+			"set_theme": "theme-1640225404.cfg"
+		},
+		{
 			"character": "character-1639966868.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "Hold on. Am I close to the amount you need at least?"
 		},
 		{
+			"event_id": "dialogic_024",
+			"set_theme": "theme-1640225328.cfg"
+		},
+		{
 			"character": "character-1639967132.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
 			"text": "Hmm..."
+		},
+		{
+			"event_id": "dialogic_024",
+			"set_theme": "theme-1640222929.cfg"
 		},
 		{
 			"character": "character-1639967132.json",
