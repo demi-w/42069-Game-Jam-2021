@@ -10,7 +10,7 @@
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 1 )
-stardust_cap = 150
+stardust_cap = 600
 end_dialogue = "Second Round"
 next_level_resource = "\"res://src/Level/Level2/Level2.tscn\""
 number_of_factories = 2

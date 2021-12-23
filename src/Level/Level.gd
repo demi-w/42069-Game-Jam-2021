@@ -95,6 +95,12 @@ func on_dialogue_end(_string):
 	dialog.queue_free()
 	dialog = null
 
+
+func restart_level(_blank):
+	var this_level = load(filename)
+	emit_signal("switch_scene", this_level)
+
+
 func open_next_level(_blank):
 	var next_level = load(next_level_resource)
 	emit_signal("switch_scene", next_level)

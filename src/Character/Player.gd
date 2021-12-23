@@ -161,6 +161,8 @@ func enter_building(building_node):
 func store_item(building):
 	if building.store_item(held_item):
 		held_item = null
+		f_button.set_visible(false)
+		f_button2.set_visible(false)
 
 
 func leave_building(building):
