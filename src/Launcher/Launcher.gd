@@ -31,7 +31,7 @@ func _ready():
 	spawn()
 
 
-func start():
+func start(_body, _key):
 	pass
 
 
