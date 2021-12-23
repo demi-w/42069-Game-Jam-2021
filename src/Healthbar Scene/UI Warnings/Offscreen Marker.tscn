@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/World/UI Warning System/Exclamation.png" type="Texture" id=1]
-[ext_resource path="res://assets/World/UI Warning System/Warning Tab.png" type="Texture" id=2]
+[ext_resource path="res://assets/World/UI Warning System/Pointer.png" type="Texture" id=2]
 [ext_resource path="res://src/Healthbar Scene/UI Warnings/OffscreenMarker.gd" type="Script" id=3]
 [ext_resource path="res://assets/Dialogue Stuff/Fonts/DigitalDisco.tres" type="DynamicFont" id=4]
 
@@ -11,15 +11,14 @@ script = ExtResource( 3 )
 
 [node name="Tag" type="Sprite" parent="."]
 texture = ExtResource( 2 )
-offset = Vector2( -16, 0 )
+offset = Vector2( -8, 0 )
 
 [node name="Sprite" type="Sprite" parent="Tag"]
-position = Vector2( -24, 0 )
-scale = Vector2( 0.2, 0.2 )
+position = Vector2( -11, 0 )
 texture = ExtResource( 1 )
 
 [node name="Node2D" type="Node2D" parent="Tag"]
-position = Vector2( -40, 0 )
+position = Vector2( -24, 0 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="Time" type="Label" parent="Tag/Node2D"]
@@ -37,18 +36,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Exclamation" type="Sprite" parent="."]
-position = Vector2( 0, -8 )
-texture = ExtResource( 1 )
-offset = Vector2( 0, -16 )
+[node name="Exclamation" type="Node2D" parent="."]
+position = Vector2( -3.8147e-06, 0 )
+scale = Vector2( 0.2, 0.2 )
 
 [node name="Time" type="Label" parent="Exclamation"]
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -32.0
-margin_top = -48.0
-margin_right = 16.0
-margin_bottom = -34.0
+margin_left = -39.9999
+margin_top = -200.0
+margin_right = 40.0001
+margin_bottom = -160.0
 grow_horizontal = 2
 grow_vertical = 2
 custom_fonts/font = ExtResource( 4 )
@@ -57,6 +55,12 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Exclamation" type="Sprite" parent="Exclamation"]
+position = Vector2( 3.05176e-05, -40 )
+scale = Vector2( 10, 20 )
+texture = ExtResource( 1 )
+offset = Vector2( 0, -4 )
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 30.0
