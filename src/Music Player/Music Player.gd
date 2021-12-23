@@ -1,12 +1,16 @@
 extends Node
 
 export var transition_duration = 2
-
+export var base_volume = -10
 
 onready var current_stream = $Current_Stream
 onready var tween = $Stream_Tweener
 
 var next_stream = null
+
+
+func _ready():
+	current_stream.set_volume_db(base_volume)
 
 
 func start_cross_fade():
@@ -39,12 +43,12 @@ func switch_stream():
 
 
 func fade_out(object):
-	tween.interpolate_property(object, "volume_db", -10, -80, transition_duration)
+	tween.interpolate_property(object, "volume_db", object.get_volume_db(), -80, transition_duration)
 	tween.start()
 
 
 func fade_in(object):
-	tween.interpolate_property(object, "volume_db", -80, -10, transition_duration)
+	tween.interpolate_property(object, "volume_db", -80, base_volume, transition_duration)
 	tween.start()
 
 

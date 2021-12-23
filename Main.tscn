@@ -16,6 +16,7 @@ script = ExtResource( 3 )
 pause_mode = 1
 
 [node name="Music_Player" parent="." instance=ExtResource( 4 )]
+base_volume = -20
 
 [connection signal="switch_scene" from="Current_Scene/Menu" to="." method="on_switch_scene"]
 [connection signal="transitioned" from="TransitionScene" to="." method="_on_TransitionScene_transitioned"]

@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/64_Db4.wav-4d692ea61560a31161cb136d315c5bc7.sample"
+
+[deps]
+
+source_file="res://assets/Audio/Dialog/64/64_Db4.wav"
+dest_files=[ "res://.import/64_Db4.wav-4d692ea61560a31161cb136d315c5bc7.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

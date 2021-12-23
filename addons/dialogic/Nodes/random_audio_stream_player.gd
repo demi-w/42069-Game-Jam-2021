@@ -49,6 +49,8 @@ func play(from_position=0.0, playing_sample_nb=-1):
 							playing_sample_nb += 1
 						last_played_sample_nb = playing_sample_nb
 					2:
+						if len(to_play) > len(samples):
+							to_play.clear()
 						if len(to_play) == 0:
 							for i in range(number_of_samples):
 								if i != last_played_sample_nb:

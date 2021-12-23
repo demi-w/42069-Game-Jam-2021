@@ -19,9 +19,11 @@ func _on_TransitionScene_transitioned():
 func on_switch_scene(_next_scene):
 	var check_instance = _next_scene.instance()
 	if check_instance is Level:
-		music_player.set_next_stream("res://assets/Audio/Music/songALT.mp3")
+		music_player.base_volume = -30
+		music_player.set_next_stream("res://assets/Audio/Music/levelMusic.wav")
 	elif check_instance is Control:
-		music_player.set_next_stream("res://assets/Audio/Music/songALT.mp3")
+		music_player.set_next_stream("res://assets/Audio/Music/mainMenu.wav")
+		music_player.base_volume = -20
 	else:
 		music_player.stop()
 	next_scene = _next_scene
