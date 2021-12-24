@@ -8,7 +8,7 @@ onready var time_label1 = $Tag/Node2D/Time
 onready var time_label2 = $Exclamation/Time
 
 var target_position = null
-var time_base = null
+var time_base = null setget set_time
 
 
 func _ready():
@@ -16,6 +16,16 @@ func _ready():
 	if time_base != null:
 		set_timer(time_base)
 	pass
+
+
+func set_different_position(_value):
+	set_position(_value)
+	call_deferred("set_visible_warning")
+
+
+func set_visible_warning():
+	warning.set_visible(true)
+
 
 
 #	if (ms % 10) < 10:
@@ -32,9 +42,15 @@ func _ready():
 #	set_text(str(m) + ":" + sec + ":" + milisec)
 
 
+func set_time(_value):
+	time_base = _value
+
+
 func set_timer(time):
 	timer.set_wait_time(time)
 	timer.start()
+	time_label1.set_visible(true)
+	time_label2.set_visible(false)
 
 
 func _process(_delta):

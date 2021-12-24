@@ -22,6 +22,7 @@ position = Vector2( -24, 0 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="Time" type="Label" parent="Tag/Node2D"]
+visible = false
 margin_left = -40.0
 margin_top = -40.0
 margin_right = 40.0
@@ -37,10 +38,12 @@ __meta__ = {
 }
 
 [node name="Exclamation" type="Node2D" parent="."]
+visible = false
 position = Vector2( -3.8147e-06, 0 )
 scale = Vector2( 0.2, 0.2 )
 
 [node name="Time" type="Label" parent="Exclamation"]
+visible = false
 anchor_left = 0.5
 anchor_right = 0.5
 margin_left = -39.9999

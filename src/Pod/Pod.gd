@@ -122,8 +122,8 @@ func start_fall():
 	predict_thing = GameData.prediction_flag.instance()
 	start_posRotation = get_position().angle()
 	falling = true
-	predict_thing.set_position(get_position_at_time(timeAlive*(_period)+5)*_worldScale)
-	predict_thing.time_base = abs(timeAlive*(_period)+5 - timeAlive)
+	predict_thing.set_different_position(get_position_at_time(timeAlive*(_period)+5)*_worldScale)
+	predict_thing.set_time(abs(timeAlive*(_period)+5 - timeAlive))
 	GameData.current_level.get_node("Planet").add_child(predict_thing)
 	for particle in particles.get_children():
 		particle.set_emitting(true)
