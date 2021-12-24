@@ -29,8 +29,6 @@ func _ready():
 	dialog.connect("dialogic_signal", self, "on_dialogue_end", [], CONNECT_ONESHOT)
 	GameData.set_things(self, get_node("Planet/Player"))
 	spawn_factories()
-	start_coroutine()
-	
 
 
 func _unhandled_input(event):
@@ -65,26 +63,14 @@ func spawn_factory(angle):
 	new_factory.add_to_group("Factories")
 
 
-func start_coroutine():
-	while HUD.get_health() > 0 && HUD.get_stardust() < stardust_cap:
-		GameData.stardust += GameData.refinery_count
-		if GameData.stardust != HUD.get_stardust():
-			HUD.set_stardust(GameData.stardust)
-		if GameData.planet_health != HUD.get_health():
-			HUD.set_health(GameData.planet_health)
-		yield(get_tree().create_timer(1), "timeout")
-	if GameData.stardust >= stardust_cap:
-		win_game()
-	if GameData.planet_health <= 0:
-		lose_game()
 
 
-func win_game():
+func win():
 	dialog = Dialogic.start(end_dialogue)
 	add_child(dialog)
 	dialog.connect("dialogic_signal", self, "open_next_level")
 
-func lose_game():
+func lose():
 	dialog = Dialogic.start("failure")
 	add_child(dialog)
 	dialog.connect("dialogic_signal", self, "open_next_level")
