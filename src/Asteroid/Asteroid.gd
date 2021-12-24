@@ -94,4 +94,5 @@ func _on_Asteroid_body_entered(body):
 		die()
 	
 func die():
+	get_parent().add_child(GameData.asteriodSpawner.scrapPrefab.instance())
 	queue_free()
