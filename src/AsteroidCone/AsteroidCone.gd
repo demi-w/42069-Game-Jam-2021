@@ -15,11 +15,11 @@ var _asteroidTimes = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	GameData.asteroidSpawner.connect("new",self,"_new_asteroid")
+	GameData.asteroid_spawner.connect("new",self,"_new_asteroid")
 	var baseRads = position.angle() + PI / 2
 	_startRads = fmod(baseRads-arcLength,TAU)
 	_endRads = fmod(baseRads-arcLength,TAU)
-	_asteroidTimes = GameData.asteroidSpawner.asteroids_intersect_cone(_startRads,_endRads,coneRange)
+	_asteroidTimes = GameData.asteroid_spawner.asteroids_intersect_cone(_startRads,_endRads,coneRange)
 
 func enter_coroutine():
 	while _asteroidTimes.length() > 0:
@@ -33,7 +33,7 @@ func exit_coroutine(collisionInfo):
 	emit_signal("exit",collisionInfo)
 	
 func _new_asteroid(asteroid):
-	GameData.asteroidSpawner.merge_sorted_collisionInfo_lists(_asteroidTimes,asteroid.times_intersect_cone(_startRads,_endRads,coneRange))
+	GameData.asteroid_spawner.merge_sorted_collisionInfo_lists(_asteroidTimes,asteroid.times_intersect_cone(_startRads,_endRads,coneRange))
 #Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass

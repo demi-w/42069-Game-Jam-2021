@@ -1,19 +1,19 @@
-extends Node2D
-
-const asteroidPhysics = preload("res://src/Asteroid/AsteroidPhysics.tscn")
+extends RigidBody2D
 
 #Forgot I was defying naming convention, fix this if u wanna but i cannot b fuked to
 func _defaultInitDist(configInfo : Dictionary):
-	return (150+configInfo["rng"].randf_range(-15,15))/_worldScale
+	return (400+configInfo["rng"].randf_range(-15,15))/_worldScale
 
 func _defaultLinearFall(configInfo : Dictionary):
-	return (0.5+configInfo["rng"].randf_range(0,4))
+	#return 500
+	return (8+configInfo["rng"].randf_range(0,12))
 
 func _defaultGiveUpDist(configInfo : Dictionary):
-	return (1.4-(configInfo["rng"].randf_range(0,0.15)/_worldScale)/2)
+	return 1
+	#return (1.4-(configInfo["rng"].randf_range(0,0.15)/_worldScale)/2)
 
 func _defaultPeriod(configInfo : Dictionary):
-	return 1/((1.5+configInfo["rng"].randf_range(0,3))*_worldScale)
+	return 1/((.15+configInfo["rng"].randf_range(0,.3))*_worldScale)
 	#return 1/(15+rng.randf_range(0,5)*rng.randf_range(0,6))
 
 func _defaultPosRotation(configInfo : Dictionary):
@@ -62,86 +62,36 @@ func setupParameters(params : Dictionary, configInfo : Dictionary):
 		
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	deathTime = calc_death_time()
-	give_up_coroutine()
-	var rotationAsPercent = _posRotation / PI / 2.0
-	timeAlive = rotationAsPercent / _period
-	spawnTime = OS.get_ticks_msec()/1000 - timeAlive
-	_initDist += rotationAsPercent * _linearFall
-	position = get_position_at_time(timeAlive)*_worldScale
+	var tween = get_node("Tween")
+	tween.interpolate_property($Node2D, "scale",
+		Vector2(0, 0), Vector2(1, 1), 1,
+		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	tween.start()
+	var initForce = Vector2.DOWN*_linearFall/10 + Vector2.RIGHT/_period
+	initForce = initForce.rotated(_posRotation)
+	add_central_force(initForce*1.1)
+	position = Vector2.UP.rotated(_posRotation)*_initDist*_worldScale
+	#_initDist += _linearFall
+	
 
+# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	timeAlive += delta
-	if not dead:
-		position = get_position_at_time(timeAlive)*_worldScale
-	
-func get_position_at_time(time):
-	var periodTime = time*_period #Default period takes 1 second
-	return Vector2(_initDist*cos(TAU*periodTime)-_linearFall*periodTime*cos(TAU	*periodTime),
-					_initDist*sin(TAU*periodTime)-_linearFall*periodTime*sin(TAU*periodTime))
-	
-func calc_death_time():
-	if(_initDist-_giveUpDist == 0):
-		return 0
-	elif _linearFall == 0:
-		return float("inf")
-	else:
-		return (_initDist-_giveUpDist)/_linearFall/_period
-
-func give_up_coroutine():
-	yield(get_tree().create_timer(deathTime), "timeout")
-	#print("AHH SHOULD GIVE UP NOW")
-	die()
+	#pass
+	var distFromCenter = position.distance_to(Vector2.ZERO)
+	linear_damp = clamp(1024-distFromCenter,0,200)/1024 + 0.3
+	add_central_force(position.direction_to(Vector2.ZERO)*delta/distFromCenter*14240)
+	if distFromCenter > 4096:
+		var curAngle = position.angle()
+		linear_velocity = Vector2.ZERO
+		position = Vector2.UP.rotated(curAngle)*4000
+		add_central_force(position.direction_to(Vector2.ZERO)*124*delta)
 	
 
+
+func _on_Asteroid_body_entered(body):
+	if body.get_collision_layer_bit(4): #if it's a planet! gotta love gdscript
+		GameData.planet_health -= 1
+		die()
+	
 func die():
-	get_parent().remove_asteroid(self)
-	dead = true
-	add_child(asteroidPhysics.instance())
-	#get_parent().remove_child(self)
-
-func times_intersect_ray(rads,rayRange, useSimTime=false):
-	var addSpawnTime = 0 if useSimTime else spawnTime
-	var timeToGetToRads = rads/(TAU*_period)
-	var timeToGetToRangeRot = ceil((1-rayRange-rads*_linearFall/TAU)/_linearFall)/_period
-	var timeAtIntersect = timeToGetToRads + timeToGetToRangeRot + addSpawnTime
-	var times = []
-	while timeAtIntersect < deathTime:
-		times.append(timeAtIntersect + addSpawnTime)
-		timeAtIntersect += 1/_period
-	return times
-
-func times_intersect_cone(startRads,endRads,coneRange, useSimTime=false):
-	var addSpawnTime = 0 if useSimTime else spawnTime
-	var endInTOfStart = fmod(endRads-startRads,TAU)
-	var collisionInTOfStart = fmod((1-coneRange)/_linearFall,1)*TAU
-	var collisionAngle = fmod(clamp(collisionInTOfStart,0,endInTOfStart) + startRads,TAU)
-	var bonks = times_intersect_ray(collisionAngle,coneRange)
-	if bonks == []:
-		return bonks
-	else:
-		var timeAndAngles = [bonks[0]+addSpawnTime,abs(endRads-collisionAngle)/TAU/_period+addSpawnTime,collisionAngle]
-		var rayTimes = times_intersect_ray(startRads,coneRange,useSimTime)
-		rayTimes.pop_front()
-		var timeToPassCone = abs(endRads-startRads)/TAU/_period
-		for i in rayTimes:
-			timeAndAngles.append([i,i+timeToPassCone,startRads])
-		return timeAndAngles
-
-func time_intersect_asteroid(other,useSimTime=false):
-	var a = ((simRadius+other.simRadius-_initDist+other._initDist) / 
-		(other._linearFall*other._initDist - _linearFall*_initDist))
-	
-	a = a if a > 0 else float("inf")
-	
-	var b = ((-simRadius-other.simRadius-_initDist+other._initDist) / 
-		(other._linearFall*other._initDist - _linearFall*_initDist))
-	
-	b = b if b > 0 else float("inf")
-	
-	return min(a,b) + 0 if useSimTime else spawnTime
-
-
-#Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+	queue_free()

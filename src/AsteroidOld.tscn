@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="StreamTexture" id=2]
+load_path = "res://.import/asteroid_medium.png-9d14e3d3cd865b0c8d8149760859961a.stex"
+
+[node name="Asteroid" type="Sprite"]
+texture = SubResource( 2 )

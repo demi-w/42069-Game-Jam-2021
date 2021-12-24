@@ -1,5 +1,7 @@
 extends Tower
 
-func fire():
-	get_tree().remove_child(_target)
-	print("pew!")
+func fire(target):
+	target.queue_free()
+
+func can_fire_at(body):
+	return true
