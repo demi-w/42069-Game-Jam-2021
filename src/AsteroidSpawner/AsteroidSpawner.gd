@@ -1,5 +1,6 @@
 extends Node
 
+const scrapPrefab = preload("res://src/Scrap/Scrap.tscn")
 const asteroidPrefabs = [
 preload("res://src/Asteroid/DifferentAsteroids/LargeAsteroid.tscn"),
 preload("res://src/Asteroid/DifferentAsteroids/MediumAsteroid.tscn"),
