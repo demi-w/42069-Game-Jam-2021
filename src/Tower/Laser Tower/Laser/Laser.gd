@@ -24,14 +24,10 @@ func _ready() -> void:
 
 func set_beam_color(_value: Color):
 	beam_color = _value
-	fill.default_color = beam_color
 
 
 func set_particle_color(_value: Color):
 	particle_color = _value
-	casting_particles.set_modulate(particle_color)
-	beam_particles.set_modulate(particle_color)
-	collision_particles.set_modulate(particle_color)
 
 
 func _physics_process(delta: float) -> void:
@@ -41,6 +37,11 @@ func _physics_process(delta: float) -> void:
 
 func set_is_casting(cast: bool) -> void:
 	is_casting = cast
+
+	casting_particles.set_modulate(particle_color)
+	beam_particles.set_modulate(particle_color)
+	collision_particles.set_modulate(particle_color)
+	fill.set_default_color(beam_color)
 
 	if is_casting:
 		cast_to = Vector2.ZERO

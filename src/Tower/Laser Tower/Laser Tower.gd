@@ -8,6 +8,8 @@ var damage = 5
 
 
 func _ready():
+	laser.set_beam_color(Color(1.00,1.00,0.0,1.00))
+	laser.set_particle_color(Color(0.00,1.00,0.00,1.00))
 	spawn()
 
 
