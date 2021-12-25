@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/Tower/Laser Tower/Laser/Laser.gd" type="Script" id=1]
 [ext_resource path="res://assets/Towers/Laser Tower/Laser/green_circle.png" type="Texture" id=2]
@@ -59,9 +59,6 @@ scale = 0.5
 scale_curve = SubResource( 4 )
 color_ramp = SubResource( 2 )
 
-[sub_resource type="RectangleShape2D" id=10]
-extents = Vector2( 21, 116 )
-
 [node name="Laser" type="RayCast2D"]
 position = Vector2( 0, 328 )
 enabled = true
@@ -114,9 +111,3 @@ process_material = SubResource( 9 )
 texture = ExtResource( 2 )
 
 [node name="Tween" type="Tween" parent="."]
-
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2( 856, 0 )
-shape = SubResource( 10 )
