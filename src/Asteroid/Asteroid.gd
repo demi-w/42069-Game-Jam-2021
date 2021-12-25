@@ -1,4 +1,11 @@
 extends RigidBody2D
+class_name Asteroid
+
+export (float) var max_health = 15.0
+export (float) var damage = 50
+
+
+var health
 
 #Forgot I was defying naming convention, fix this if u wanna but i cannot b fuked to
 func _defaultInitDist(configInfo : Dictionary):
@@ -52,6 +59,9 @@ var _giveUpDist : float = 1.2
 var _period : float = 1.0/30.0
 var _posRotation: float = 0 # >= 0 && < 2*PI, determines offset for start above planet
 
+func _init().():
+	health = max_health
+
 func setupParameters(params : Dictionary, configInfo : Dictionary):
 	for param in defaultParamFuncs.keys():
 		if params.has(param):
@@ -63,7 +73,7 @@ func setupParameters(params : Dictionary, configInfo : Dictionary):
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var tween = get_node("Tween")
-	tween.interpolate_property($Node2D, "scale",
+	tween.interpolate_property(self, "scale",
 		Vector2(0, 0), Vector2(1, 1), 1,
 		Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
 	tween.start()
@@ -94,5 +104,20 @@ func _on_Asteroid_body_entered(body):
 		die()
 	
 func die():
-	get_parent().add_child(GameData.asteriodSpawner.scrapPrefab.instance())
+	var new_scrap = GameData.asteroid_spawner.scrapPrefab.instance()
+	get_parent().call_deferred("add_child",new_scrap)
+	new_scrap.global_transform = global_transform
 	queue_free()
+
+
+func take_damage(damage = 1):
+	_set_health(health - damage)
+
+
+func _set_health(value):
+	var prev_health = health
+	health = clamp(value,0,max_health)
+	if health != prev_health:
+		emit_signal("health_updated", health)
+		if health == 0:
+			die()

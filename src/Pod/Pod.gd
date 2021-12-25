@@ -1,4 +1,4 @@
-extends Building
+extends Node2D
 
 func _defaultInitDist(configInfo : Dictionary):
 	return (150+configInfo["rng"].randf_range(-15,15))/_worldScale
@@ -142,6 +142,16 @@ func boom():
 	for particle in particles.get_children():
 		particle.set_emitting(false)
 	despawn_all()
+
+
+func change_parent(changed = null, new_owner = null):
+	if changed != null:
+		var old_owner = changed.get_parent()
+		if new_owner != old_owner:
+			var temp = changed.global_transform
+			old_owner.remove_child(changed)
+			new_owner.add_child(changed)
+			changed.global_transform = temp
 
 
 func disconnect_bodies(vel):

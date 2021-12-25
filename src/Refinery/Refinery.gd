@@ -11,7 +11,7 @@ func _physics_process(delta):
 	GameData.stardust += refinery_output * delta
 
 
-func start(_object,_nodePath):
+func start():
 	set_physics_process(true)
 	for particle in $Particles.get_children():
 		particle.set_emitting(true)

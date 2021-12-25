@@ -8,7 +8,7 @@ onready var cannon = $Barrel
 onready var predictor = $Predictor
 onready var chair = $Manning_Position
 onready var launcher_ui = $CanvasLayer/LauncherUI
-onready var load_noise = $Sounds/Loading_Noise
+onready var load_noise = $Sounds/Loading_Sound
 onready var shoot_noise = $Sounds/Shooting_Noise
 
 var current_projectile = null
@@ -25,10 +25,6 @@ func _init():
 func _ready():
 	camera_pos = get_node("Camera_Position").get_position()
 	spawn()
-
-
-func start(_body, _key):
-	pass
 
 
 

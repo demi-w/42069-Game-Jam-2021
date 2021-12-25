@@ -1,7 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/Refinery/Refinery.gd" type="Script" id=1]
 [ext_resource path="res://assets/Towers/Refinery/Refinery.png" type="Texture" id=2]
+[ext_resource path="res://assets/Towers/General/Tower_Fill.png" type="Texture" id=3]
+[ext_resource path="res://assets/Towers/General/Tower_Top.png" type="Texture" id=4]
+[ext_resource path="res://assets/Towers/General/Tower_Back.png" type="Texture" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 24, 16 )
@@ -22,6 +25,23 @@ radius = 40.0
 [node name="Refinery" type="Node2D"]
 show_behind_parent = true
 script = ExtResource( 1 )
+max_health = 25.0
+
+[node name="Healthbar" type="TextureProgress" parent="."]
+visible = false
+margin_left = 28.0
+margin_top = -24.0
+margin_right = 36.0
+margin_bottom = 2.0
+value = 50.0
+texture_under = ExtResource( 5 )
+texture_over = ExtResource( 4 )
+texture_progress = ExtResource( 3 )
+fill_mode = 3
+tint_progress = Color( 0.227451, 0.619608, 0.694118, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Sounds" type="Node2D" parent="."]
 
@@ -54,6 +74,14 @@ process_material = SubResource( 2 )
 position = Vector2( -9, -31 )
 emitting = false
 process_material = SubResource( 2 )
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2( 0, -14 )
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 1 )
 
 [node name="Exception_Area" type="Area2D" parent="."]
 collision_layer = 0

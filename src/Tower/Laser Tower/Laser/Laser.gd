@@ -9,7 +9,7 @@ onready var collision_particles := $CollisionParticles2D
 onready var beam_particles := $BeamParticles2D
 onready var fill := $FillLine2D
 onready var tween := $Tween
-onready var line_width: float = fill.width
+export  var line_width: float = 10
 
 var is_casting := false setget set_is_casting
 

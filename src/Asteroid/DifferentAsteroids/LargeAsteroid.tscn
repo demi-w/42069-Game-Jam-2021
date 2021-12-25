@@ -8,12 +8,13 @@ radius = 16.0
 
 [node name="Asteroid2" type="RigidBody2D"]
 collision_layer = 4
-collision_mask = 31
+collision_mask = 21
 contacts_reported = 1
 contact_monitor = true
 linear_damp = 0.2
 angular_damp = 0.0
 script = ExtResource( 2 )
+max_health = 45.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
