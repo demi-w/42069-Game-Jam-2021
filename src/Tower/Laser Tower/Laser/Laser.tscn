@@ -62,7 +62,7 @@ color_ramp = SubResource( 2 )
 [sub_resource type="RectangleShape2D" id=10]
 extents = Vector2( 21, 116 )
 
-[node name="LaserBeam2D" type="RayCast2D"]
+[node name="Laser" type="RayCast2D"]
 position = Vector2( 0, 328 )
 enabled = true
 cast_to = Vector2( 0, 0 )
