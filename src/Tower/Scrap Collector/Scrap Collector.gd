@@ -22,10 +22,8 @@ func fire(_target):
 
 func _physics_process(delta):
 	if target_dict.size() > 0:
-		while !target_dict[0] is Scrap && target_dict.size() > 0:
-			target_dict.remove(0)
 		
-		if !tween.is_active() && target_dict.size() > 0:
+		if !tween.is_active() && target_dict.size() != 0:
 			if !field.is_pulling:
 				field.is_pulling = true
 			move_gravity(to_local(target_dict[0].get_global_position()), $Scrap_Chute.get_position())
@@ -75,7 +73,8 @@ func _on_Area2D_body_exited(body):
 func _on_Scrap_Chute_body_entered(body):
 	if !in_chute.has(body):
 		in_chute.append(body)
-		target_dict.remove(target_dict.find(body))
+		if target_dict.has(body):
+			target_dict.remove(target_dict.find(body))
 
 
 func _on_Scrap_Chute_body_exited(body):
@@ -83,7 +82,7 @@ func _on_Scrap_Chute_body_exited(body):
 		in_chute.remove(in_chute.find(body))
 
 # For some fucking reason, scrap needs to have its OWN AREA2D IN ORDER TO BE PICKED UP CORRECTLY
-#I DON'T EVEN KNOW ANYMORE, IT'S 2:23 AM WTF
+#I DON'T EVEN KNOW ANYMORE, IT'S 2:
 func _on_scrap_entered(body):
 	if body is Scrap:
 		GameData.scrap += body.get_scrap_value()

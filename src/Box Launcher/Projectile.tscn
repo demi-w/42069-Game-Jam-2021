@@ -70,7 +70,6 @@ visible = false
 shape = SubResource( 1 )
 
 [node name="Particles" type="Node2D" parent="."]
-visible = false
 
 [node name="Particles2D" type="Particles2D" parent="Particles"]
 position = Vector2( 0, 8 )

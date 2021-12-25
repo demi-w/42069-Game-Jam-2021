@@ -27,7 +27,7 @@ func set_things(level_node, _player):
 func _set_planet_health(value):
 	_planet_healthbar.set_health(value)
 	planet_health = value
-	if planet_health <= 0:
+	if planet_health <= 0 && !current_level.over:
 		current_level.lose()
 	
 func _set_stardust(value):
