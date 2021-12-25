@@ -6,6 +6,8 @@ signal refinery_added()
 onready var sound = $Loading_Noise
 onready var tween = $Tween
 
+var refinery_output = 1
+
 func _ready():
 	connect("refinery_added", GameData.current_level, "added_refinery", [], CONNECT_ONESHOT)
 	rotation = get_position().angle()+PI/2
@@ -13,13 +15,19 @@ func _ready():
 	spawn()
 
 
+func _physics_process(delta):
+	GameData.stardust += refinery_output * delta
+
+
 func start(_object,_nodePath):
-	emit_signal("refinery_added")
+#	emit_signal("refinery_added")
+	set_physics_process(true)
 	for particle in $Particles.get_children():
 		particle.set_emitting(true)
 
 
 func spawn():
+	set_physics_process(false)
 	if !sound.is_playing():
 		sound.stream = land_sound
 		sound.play()

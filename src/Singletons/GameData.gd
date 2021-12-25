@@ -13,10 +13,9 @@ var scrap = 0
 var _planet_healthbar = null
 
 
-func _process(delta):
-	if current_level != null && refinery_count > 0:
-		print(self.stardust)
-		self.stardust += refinery_count * delta
+#func _process(delta):
+#	if current_level != null && refinery_count > 0:
+#		self.stardust += refinery_count * delta
 
 
 func set_things(level_node, _player):
@@ -30,12 +29,10 @@ func _set_planet_health(value):
 	planet_health = value
 	
 func _set_stardust(value):
-	if current_level != null:
-		print(current_level)
-		_planet_healthbar.set_stardust(value)
-		stardust = value
-		if stardust > _planet_healthbar.get_stardust_max() && !current_level.over:
-			current_level.win()
+	_planet_healthbar.set_stardust(value)
+	stardust = value
+	if stardust > _planet_healthbar.get_stardust_max() && !current_level.over:
+		current_level.win()
 
 
 func reset():
