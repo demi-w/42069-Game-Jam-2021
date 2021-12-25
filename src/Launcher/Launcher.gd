@@ -8,10 +8,8 @@ onready var cannon = $Barrel
 onready var predictor = $Predictor
 onready var chair = $Manning_Position
 onready var launcher_ui = $CanvasLayer/LauncherUI
-onready var load_noise = $Noises/Loading_Noise
-onready var shoot_noise = $Noises/Shooting_Noise
-onready var misc_noise = $Noises/Misc_Noise
-onready var tween = $Tween
+onready var load_noise = $Sounds/Loading_Noise
+onready var shoot_noise = $Sounds/Shooting_Noise
 
 var current_projectile = null
 var manned = false
@@ -25,8 +23,6 @@ func _init():
 
 
 func _ready():
-	rotation = get_position().angle() + PI / 2
-	position = get_position().normalized()*512
 	camera_pos = get_node("Camera_Position").get_position()
 	spawn()
 
@@ -34,21 +30,6 @@ func _ready():
 func start(_body, _key):
 	pass
 
-
-func spawn():
-	if !misc_noise.is_playing():
-		misc_noise.stream = land_sound
-		misc_noise.play()
-	start_build()
-
-
-func start_build():
-	tween.interpolate_property(self,"position", 
-				get_position() + Vector2(0,24).rotated(get_position().angle() + PI/2), get_position(),4)
-	tween.interpolate_property(self,"modulate:a",
-				0, 1, 4)
-	tween.connect("tween_completed", self, "start")
-	tween.start()
 
 
 func _handle_aim():

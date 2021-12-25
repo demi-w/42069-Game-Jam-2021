@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "RigidBody2D",
+"class": "Asteroid",
+"language": "GDScript",
+"path": "res://src/Asteroid/Asteroid.gd"
+}, {
 "base": "Node2D",
 "class": "Building",
 "language": "GDScript",
@@ -225,6 +230,7 @@ _global_script_classes=[ {
 "path": "res://src/Tower/Tower.gd"
 } ]
 _global_script_class_icons={
+"Asteroid": "",
 "Building": "",
 "DTS": "",
 "Dialogic": "",
@@ -242,8 +248,8 @@ _global_script_class_icons={
 "RMS2D_Material": "",
 "RMS2D_VertexProperties": "",
 "RMS2D_VertexPropertiesArray": "",
-"RMSmartShape2D": "res://addons/rmsmartshape/assets/LEGACY_shape.png",
-"RMSmartShapeAnchor2D": "res://addons/rmsmartshape/assets/LEGACY_shape_anchor.png",
+"RMSmartShape2D": "",
+"RMSmartShapeAnchor2D": "",
 "SS2D_Common_Functions": "",
 "SS2D_Edge": "",
 "SS2D_Material_Edge": "",
@@ -256,12 +262,12 @@ _global_script_class_icons={
 "SS2D_Point": "",
 "SS2D_Point_Array": "",
 "SS2D_Quad": "",
-"SS2D_Shape_Anchor": "res://addons/rmsmartshape/assets/Anchor.svg",
+"SS2D_Shape_Anchor": "",
 "SS2D_Shape_Base": "",
-"SS2D_Shape_Closed": "res://addons/rmsmartshape/assets/closed_shape.png",
+"SS2D_Shape_Closed": "",
 "SS2D_Shape_Combine_Union": "",
-"SS2D_Shape_Meta": "res://addons/rmsmartshape/assets/meta_shape.png",
-"SS2D_Shape_Open": "res://addons/rmsmartshape/assets/open_shape.png",
+"SS2D_Shape_Meta": "",
+"SS2D_Shape_Open": "",
 "SS2D_Shape_Render": "",
 "SS2D_Strings": "",
 "SS2D_VertexProperties": "",
@@ -285,6 +291,7 @@ TowerStuff="*res://src/Singletons/Tower Stuff.gd"
 [display]
 
 mouse_cursor/custom_image="res://assets/cursor.png"
+mouse_cursor/tooltip_position_offset=Vector2( 0, 0 )
 
 [editor_plugins]
 

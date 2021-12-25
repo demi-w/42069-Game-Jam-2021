@@ -18,10 +18,10 @@ var construct_start_velocity = Vector2(100,-100)
 func _ready():
 	randomize()
 	camera_pos = get_node("Camera_Position").get_position()
-	get_node("Sprite").material.set("shader_param/NEWCOLOR", base_color)
+	get_node("Sprite").material.set("shader_param/NEWCOLOR1", base_color)
 	scrap_label.set_text(str(GameData.scrap))
 
-var last_color
+
 func _process(_delta):
 	scrap_label.set_text(str(GameData.scrap))
 
@@ -36,12 +36,12 @@ func build():
 			animation.play("Build")
 			construction_sound.play()
 		else:
-			get_node("Sprite").material.set("shader_param/NEWCOLOR", Color.red)
+			get_node("Sprite").material.set("shader_param/NEWCOLOR1", Color.red)
 			animation.play("Flash")
 			selected_construct = null
 			yield(get_node("Sprite/AnimationPlayer"),"animation_finished")
 			get_node("Sprite").material.set("shader_param/opacity", 0)
-			get_node("Sprite").material.set("shader_param/NEWCOLOR", base_color)
+			get_node("Sprite").material.set("shader_param/NEWCOLOR1", base_color)
 
 
 func stop_build():
@@ -50,7 +50,7 @@ func stop_build():
 		animation.stop()
 		construction_sound.stop()
 		GameData.scrap += TowerStuff.get_building_cost(selected_construct)
-		get_node("Sprite").material.set("shader_param/NEWCOLOR",base_color)
+		get_node("Sprite").material.set("shader_param/NEWCOLOR1",base_color)
 		selected_construct = null
 		current_construction = null
 		currently_building = false
@@ -60,7 +60,7 @@ func change_selected(construct):
 	if !currently_building:
 		if construct != null:
 			selected_construct = TowerStuff.get_building(construct)
-			get_node("Sprite").material.set("shader_param/NEWCOLOR", TowerStuff.get_building_color(selected_construct))
+			get_node("Sprite").material.set("shader_param/NEWCOLOR1", TowerStuff.get_building_color(selected_construct))
 
 
 func enter_building(entered):
@@ -88,21 +88,18 @@ func exit_building():
 func send_box():
 	if currently_building:
 		var new_box = projectile_box.instance()
-		call_deferred("add_child", new_box)
 		new_box.set_stored(current_construction)
 		new_box.set_position($Box_Spawn.get_position())
 		new_box.set_linear_velocity(construct_start_velocity.rotated((get_position().angle()+ PI/2)))
 		new_box.set_angular_velocity(rand_range(-PI, PI))
+		call_deferred("add_child", new_box)
 		animation.stop()
 		construction_sound.stop()
-		get_node("Sprite").material.set("shader_param/NEWCOLOR",base_color)
+		get_node("Sprite").material.set("shader_param/NEWCOLOR1",base_color)
 		new_box.show_behind_parent = true
 		selected_construct = null
 		currently_building = false
 		current_construction = null
-
-
-
 
 
 func _on_exception_area_entered(body):

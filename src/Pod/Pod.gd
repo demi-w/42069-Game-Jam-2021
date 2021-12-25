@@ -1,7 +1,5 @@
 extends Building
 
-const StaticPod = preload("res://src/Pod/StaticPod.tscn")
-
 func _defaultInitDist(configInfo : Dictionary):
 	return (150+configInfo["rng"].randf_range(-15,15))/_worldScale
 
@@ -191,12 +189,3 @@ func despawn_all():
 #	if right_door != null:
 #		right_door.apply_impulse(scrap_force_offset.rotated(rotPosition),Vector2(-scrap_force.x,scrap_force.y).rotated(rotPosition))
 #	ready = true
-
-
-func _on_landed(_body):
-	var staticPod = StaticPod.instance()
-	parent.call_deferred("add_child",staticPod)
-	staticPod.set_position(get_position().normalized()*520)
-	staticPod.set_rotation(get_position().angle() + PI/2)
-	predict_thing.queue_free()
-	queue_free()

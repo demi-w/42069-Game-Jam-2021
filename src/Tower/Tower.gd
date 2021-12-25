@@ -9,8 +9,6 @@ var _currentlyFiring = false
 var _lookAngle = null
 
 func _ready():
-	rotation = get_position().angle()+PI/2
-	position = get_position().normalized()*512
 	_lookAngle = Vector2.RIGHT.rotated(position.angle())
 	triggerdome.connect("body_entered", self, "_on_Area2D_body_entered")
 	

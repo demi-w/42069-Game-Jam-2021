@@ -27,11 +27,22 @@ func get_building_color(building):
 				return Color.green
 
 
+func get_building_secondary_color(building):
+	if building != null:
+		match building:
+			refinery:
+				return Color.palegoldenrod
+			launcher:
+				return Color.blueviolet
+			laser_tower:
+				return Color.limegreen
+
+
 func get_building_cost(building):
 	if building is PackedScene:
 		match building:
 			refinery:
-				return 10
+				return 20
 			launcher:
 				return 5
 			laser_tower:
@@ -39,7 +50,7 @@ func get_building_cost(building):
 	elif building is String:
 		match building:
 			"Refinery":
-				return 10
+				return 20
 			"Launcher":
 				return 5
 			"Laser Tower":

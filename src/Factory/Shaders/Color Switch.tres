@@ -5,14 +5,20 @@ code = "shader_type canvas_item;
 
 uniform float opacity = 0;
 
-uniform vec4 OLDCOLOR : hint_color;
+uniform vec4 OLDCOLOR1 : hint_color;
+uniform vec4 OLDCOLOR2 : hint_color;
 
-uniform vec4 NEWCOLOR : hint_color;
+uniform vec4 NEWCOLOR1 : hint_color;
+uniform vec4 NEWCOLOR2 : hint_color;
 
 void fragment(){
-	if(texture(TEXTURE,UV)==OLDCOLOR){
-		COLOR.rgb = NEWCOLOR.rgb * (1.0 - opacity) + vec3(1,1,1)*opacity;
-		COLOR.a = NEWCOLOR.a;
+	if(texture(TEXTURE,UV)==OLDCOLOR1){
+		COLOR.rgb = NEWCOLOR1.rgb * (1.0 - opacity) + vec3(1,1,1)*opacity;
+		COLOR.a = NEWCOLOR1.a;
+	}
+	else if(texture(TEXTURE,UV)==OLDCOLOR2){
+		COLOR.rgb = NEWCOLOR2.rgb * (1.0 - opacity) + vec3(1,1,1)*opacity;
+		COLOR.a = NEWCOLOR2.a;
 	}
 	else{
 		COLOR = texture(TEXTURE,UV);
@@ -23,5 +29,7 @@ void fragment(){
 resource_local_to_scene = true
 shader = SubResource( 1 )
 shader_param/opacity = 0.0
-shader_param/OLDCOLOR = Color( 1, 0, 0, 1 )
-shader_param/NEWCOLOR = Color( 0.556863, 0, 0, 1 )
+shader_param/OLDCOLOR1 = Color( 1, 0, 0, 1 )
+shader_param/OLDCOLOR2 = Color( 0, 1, 0, 1 )
+shader_param/NEWCOLOR1 = Color( 0.498039, 0.615686, 0.498039, 1 )
+shader_param/NEWCOLOR2 = Color( 0.372549, 0.0784314, 0.0784314, 1 )
