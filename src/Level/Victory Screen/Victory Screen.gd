@@ -1,16 +1,9 @@
 extends Control
 
+signal switch_scene(next_scene)
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var base_scale = Vector2(6.827,7.143)
 
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	pass # Replace with function body.
-
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+func _on_Back_pressed():
+	var next_level_resource = load("res://src/Menu Things/Menu.tscn") 
+	emit_signal("switch_scene", next_level_resource)

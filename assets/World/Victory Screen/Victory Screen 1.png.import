@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Starry Background.png-ba9339f596b0cceb3a932670b34e2b9a.stex"
+path="res://.import/Victory Screen 1.png-17282dba53e39340ae9111b196b7d4f4.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/World/Level Backgrounds/Starry Background.png"
-dest_files=[ "res://.import/Starry Background.png-ba9339f596b0cceb3a932670b34e2b9a.stex" ]
+source_file="res://assets/World/Victory Screen/Victory Screen 1.png"
+dest_files=[ "res://.import/Victory Screen 1.png-17282dba53e39340ae9111b196b7d4f4.stex" ]
 
 [params]
 

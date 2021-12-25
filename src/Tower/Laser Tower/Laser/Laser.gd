@@ -14,10 +14,6 @@ onready var line_width: float = fill.width
 var is_casting := false setget set_is_casting
 
 
-func _unhandled_input(event):
-	if event is InputEventMouseButton:
-		self.is_casting = event.pressed
-
 func _ready() -> void:
 	set_physics_process(false)
 	fill.points[1] = Vector2.ZERO
