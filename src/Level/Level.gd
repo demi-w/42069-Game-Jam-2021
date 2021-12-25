@@ -86,7 +86,7 @@ func win():
 	dialog.connect("dialogic_signal", self, "open_next_level")
 
 func lose():
-	dialog = Dialogic.start("failure")
+	dialog = Dialogic.start("Failure")
 	over = true
 	add_child(dialog)
 	dialog.connect("dialogic_signal", self, "open_next_level")

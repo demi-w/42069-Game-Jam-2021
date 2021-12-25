@@ -104,20 +104,23 @@ func _on_Asteroid_body_entered(body):
 		die()
 	
 func die():
+	var new_explosion = GameData.asteroid_spawner.asteroidBoom.instance()
 	var new_scrap = GameData.asteroid_spawner.scrapPrefab.instance()
 	get_parent().call_deferred("add_child",new_scrap)
+	get_parent().call_deferred("add_child", new_explosion)
 	new_scrap.global_transform = global_transform
+	new_explosion.global_transform = global_transform
 	queue_free()
 
 
-func take_damage(damage = 1):
-	_set_health(health - damage)
+func take_damage(_damage = 1):
+	_set_health(health - _damage)
 
 
 func _set_health(value):
 	var prev_health = health
 	health = clamp(value,0,max_health)
 	if health != prev_health:
-		emit_signal("health_updated", health)
+#		emit_signal("health_updated", health)
 		if health == 0:
 			die()

@@ -54,15 +54,15 @@ func despawn():
 	queue_free()
 
 
-func take_damage(damage = 1):
-	_set_health(health - damage)
+func take_damage(_damage = 1):
+	_set_health(health - _damage)
 
 
 func _set_health(value):
 	var prev_health = health
 	health = clamp(value,0,max_health)
 	if health != prev_health:
-		emit_signal("health_updated", health)
+#		emit_signal("health_updated", health)
 		healthbar.set_value(health)
 		if health == 0:
 			_die()

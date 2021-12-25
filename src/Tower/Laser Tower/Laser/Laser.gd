@@ -3,6 +3,9 @@ extends RayCast2D
 export var cast_speed := 7000.0
 export var max_length := 1400
 export var growth_time := 0.1
+export var beam_color : = Color(0.30,0.65,1.00,1.00) setget set_beam_color
+export var particle_color :Color = Color(0.30,0.65,1.00,1.00) setget set_particle_color
+
 
 onready var casting_particles := $CastingParticles2D
 onready var collision_particles := $CollisionParticles2D
@@ -17,6 +20,18 @@ var is_casting := false setget set_is_casting
 func _ready() -> void:
 	set_physics_process(false)
 	fill.points[1] = Vector2.ZERO
+
+
+func set_beam_color(_value: Color):
+	beam_color = _value
+	fill.default_color = beam_color
+
+
+func set_particle_color(_value: Color):
+	particle_color = _value
+	casting_particles.set_modulate(particle_color)
+	beam_particles.set_modulate(particle_color)
+	collision_particles.set_modulate(particle_color)
 
 
 func _physics_process(delta: float) -> void:

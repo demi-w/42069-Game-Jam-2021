@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/ogggbrrrrr.ogg-19ef51e4b49d13aa6305288747ebc8de.oggstr"
+
+[deps]
+
+source_file="res://assets/Audio/Laser_Tower/ogggbrrrrr.ogg"
+dest_files=[ "res://.import/ogggbrrrrr.ogg-19ef51e4b49d13aa6305288747ebc8de.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

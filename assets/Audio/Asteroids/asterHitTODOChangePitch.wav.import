@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/asterHitTODOChangePitch.wav-e04fc708191afc6c1c15aff4155ce932.sample"
+
+[deps]
+
+source_file="res://assets/Audio/Asteroids/asterHitTODOChangePitch.wav"
+dest_files=[ "res://.import/asterHitTODOChangePitch.wav-e04fc708191afc6c1c15aff4155ce932.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=1

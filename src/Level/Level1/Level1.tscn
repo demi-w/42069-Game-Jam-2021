@@ -13,7 +13,7 @@ script = ExtResource( 1 )
 stardust_cap = 180
 end_dialogue = "First Round"
 next_level_resource = "res://src/Level/Level2/Level2.tscn"
-number_of_factories = 1
+number_of_factories = 3
 
 [node name="Planet" parent="." instance=ExtResource( 3 )]
 

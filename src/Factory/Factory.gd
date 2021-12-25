@@ -13,7 +13,7 @@ var base_color = Color.white
 var currently_building = false
 var current_construction = null
 var selected_construct = null
-var construct_start_velocity = Vector2(100,-100)
+var construct_start_velocity = Vector2(40,-40)
 
 func _ready():
 	randomize()

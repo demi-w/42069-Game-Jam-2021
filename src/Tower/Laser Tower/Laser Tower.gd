@@ -5,6 +5,8 @@ onready var laser = $Laser
 var target_dict = []
 var damage = 5
 
+
+
 func _ready():
 	spawn()
 
@@ -14,6 +16,7 @@ func fire(_target):
 		target_dict.append(_target)
 		laser.is_casting = true
 		laser.global_rotation = (target_dict[0].get_global_position() - get_global_position()).angle() + PI/2
+		$Laser_Noise.play()
 
 
 func _physics_process(delta):
@@ -25,6 +28,7 @@ func _physics_process(delta):
 	else:
 		if laser.is_casting != false:
 			laser.is_casting = false
+			$Laser_Noise.stop()
 
 
 func can_fire_at(body):
