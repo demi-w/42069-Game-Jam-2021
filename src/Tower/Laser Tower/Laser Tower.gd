@@ -31,9 +31,6 @@ func can_fire_at(body):
 	return true
 
 
-
-
-
 func start():
 	pass
 

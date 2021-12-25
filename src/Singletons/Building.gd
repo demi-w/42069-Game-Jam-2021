@@ -60,20 +60,30 @@ func take_damage(damage = 1):
 
 func _set_health(value):
 	var prev_health = health
-	print(prev_health)
-	print(health)
 	health = clamp(value,0,max_health)
-	print(value, " ", 0, " ", max_health)
-	print(health)
 	if health != prev_health:
 		emit_signal("health_updated", health)
 		healthbar.set_value(health)
 		if health == 0:
-			die()
+			_die()
 
 
+func _die():
+	die()
+	if tween.is_active():
+		tween.stop_all()
+	tween.interpolate_property(self,"position", 
+				get_position(), get_position() + Vector2(0,24).rotated(get_position().angle() + PI/2),4)
+	tween.interpolate_property(self,"modulate:a",
+				1, 0, 4)
+	tween.interpolate_property(self, "rotation", get_rotation(), get_rotation() + PI/4, 4, 
+				Tween.EASE_IN, Tween.TRANS_QUINT)
+	tween.connect("tween_all_completed", self, "despawn")
+	tween.start()
+
+#stop special processes
 func die():
-	despawn()
+	pass
 
 #Building stuff
 func _start(_body, _key):
@@ -103,4 +113,3 @@ func start_build():
 func hitbox_entered(body):
 	if body is Asteroid:
 		take_damage(body.damage)
-		print("took_damage")

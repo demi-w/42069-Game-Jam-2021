@@ -16,7 +16,10 @@ func start():
 	for particle in $Particles.get_children():
 		particle.set_emitting(true)
 
-
+func die():
+	set_physics_process(false)
+	for particle in $Particles.get_children():
+		particle.set_emitting(false)
 
 
 func _on_exception_area_entered(body):
