@@ -89,7 +89,7 @@ func _process(delta):
 
 
 func _on_Asteroid_body_entered(body):
-	if body.get_collision_layer_bit(4): #if it's a planet! gotta love gdscript
+	if body is Planet: #if it's a planet! gotta love gdscript
 		GameData.planet_health -= 1
 		die()
 	
