@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/Towers/Laser Tower/Laser Tower.png" type="Texture" id=1]
 [ext_resource path="res://src/Tower/Laser Tower/Laser Tower.gd" type="Script" id=2]
+[ext_resource path="res://src/Tower/Laser Tower/Laser/Laser.tscn" type="PackedScene" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 24.0
@@ -9,10 +10,18 @@ radius = 24.0
 [sub_resource type="CircleShape2D" id=2]
 radius = 567.0
 
+[sub_resource type="CircleShape2D" id=3]
+radius = 56.0
+
 [node name="Tower_Laser" type="Node2D"]
+show_behind_parent = true
 script = ExtResource( 2 )
 fireRate = 1.0
 percentOfCircleVisible = 1.0
+
+[node name="Sounds" type="Node2D" parent="."]
+
+[node name="Landing_Sound" type="AudioStreamPlayer2D" parent="Sounds"]
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -20 )
@@ -28,8 +37,24 @@ position = Vector2( 0, -18 )
 shape = SubResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="."]
-collision_layer = 2
+collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 2 )
+
+[node name="Exception_Area" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Exception_Area"]
+shape = SubResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Laser" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -32 )
+
+[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[connection signal="body_entered" from="Exception_Area" to="." method="_on_Exception_Area_body_entered"]
+[connection signal="body_exited" from="Exception_Area" to="." method="_on_Exception_Area_body_exited"]
