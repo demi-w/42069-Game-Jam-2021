@@ -11,6 +11,10 @@ func _ready():
 	spawn()
 
 
+func die():
+	field.is_pulling = false
+
+
 func fire(_target):
 	if !target_dict.has(_target) && !in_chute.has(_target):
 		target_dict.append(_target)

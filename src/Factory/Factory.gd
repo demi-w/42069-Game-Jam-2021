@@ -13,7 +13,7 @@ var base_color = Color.white
 var currently_building = false
 var current_construction = null
 var selected_construct = null
-var construct_start_velocity = Vector2(40,-40)
+var construct_start_velocity = Vector2(40,40)
 
 func _ready():
 	randomize()
@@ -35,6 +35,7 @@ func build():
 			construction_timer.start()
 			animation.play("Build")
 			construction_sound.play()
+			$Particles2D.set_emitting(true)
 		else:
 			get_node("Sprite").material.set("shader_param/NEWCOLOR1", Color.red)
 			animation.play("Flash")
@@ -54,6 +55,7 @@ func stop_build():
 		selected_construct = null
 		current_construction = null
 		currently_building = false
+		$Particles2D.set_emitting(false)
 
 
 func change_selected(construct):
@@ -97,6 +99,7 @@ func send_box():
 		construction_sound.stop()
 		get_node("Sprite").material.set("shader_param/NEWCOLOR1",base_color)
 		new_box.show_behind_parent = true
+		$Particles2D.set_emitting(false)
 		selected_construct = null
 		currently_building = false
 		current_construction = null
@@ -113,7 +116,7 @@ func _on_exception_area_exited(body):
 
 
 func _on_body_exited(body):
-	if body.get_parent == self:
+	if body.get_parent() == self:
 		call_deferred("change_parent",body, get_parent())
 		body.show_behind_parent = false
 

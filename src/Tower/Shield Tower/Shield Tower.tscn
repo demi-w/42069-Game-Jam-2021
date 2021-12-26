@@ -88,6 +88,7 @@ process_material = SubResource( 4 )
 texture = ExtResource( 6 )
 
 [node name="Shields" type="Node2D" parent="."]
+position = Vector2( 0, -16 )
 
 [node name="Beam_Center" parent="Shields" instance=ExtResource( 7 )]
 position = Vector2( 0, -85 )

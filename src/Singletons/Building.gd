@@ -70,6 +70,7 @@ func _set_health(value):
 
 func _die():
 	die()
+	exit_building()
 	if tween.is_active():
 		tween.stop_all()
 	tween.interpolate_property(self,"position", 

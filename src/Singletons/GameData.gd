@@ -43,4 +43,5 @@ func reset():
 	stardust = 0.0
 	planet_health = 100.0
 	refinery_count = 0
+	scrap = 0
 	player = null

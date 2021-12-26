@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://assets/Towers/Factory/factory.png" type="Texture" id=1]
 [ext_resource path="res://src/Factory/Factory.gd" type="Script" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://assets/Towers/General/Factory_Fill.png" type="Texture" id=7]
 [ext_resource path="res://assets/Towers/General/Factory_Bot.png" type="Texture" id=8]
 [ext_resource path="res://assets/Dialogue Stuff/Fonts/DigitalDisco.tres" type="DynamicFont" id=9]
+[ext_resource path="res://assets/Towers/Laser Tower/Laser/white_circle.png" type="Texture" id=10]
 
 [sub_resource type="Animation" id=4]
 resource_name = "Build"
@@ -66,10 +67,30 @@ extents = Vector2( 48, 9 )
 radius = 96.0
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 48, 42 )
+extents = Vector2( 57, 42 )
 
-[sub_resource type="CircleShape2D" id=7]
-radius = 48.1664
+[sub_resource type="RectangleShape2D" id=10]
+extents = Vector2( 20, 15 )
+
+[sub_resource type="Curve" id=11]
+_data = [ Vector2( 0, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), -2.7294, 0.0, 0, 0 ]
+
+[sub_resource type="CurveTexture" id=12]
+curve = SubResource( 11 )
+
+[sub_resource type="ParticlesMaterial" id=13]
+emission_shape = 2
+emission_box_extents = Vector3( 30, 5, 1 )
+flag_disable_z = true
+direction = Vector3( 0, -1, 0 )
+spread = 0.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 50.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+tangential_accel = -30.0
+scale = 0.4
+scale_curve = SubResource( 12 )
 
 [node name="Factory" type="Node2D"]
 show_behind_parent = true
@@ -78,7 +99,7 @@ max_health = 10000.0
 
 [node name="Sprite" type="Sprite" parent="."]
 material = ExtResource( 4 )
-position = Vector2( 0, -44 )
+position = Vector2( 6, -38 )
 scale = Vector2( 6, 6 )
 texture = ExtResource( 1 )
 
@@ -93,6 +114,7 @@ stream = ExtResource( 5 )
 max_distance = 200.0
 
 [node name="Scrap_Detection" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 8
 
@@ -101,9 +123,10 @@ position = Vector2( 0, -40 )
 shape = SubResource( 8 )
 
 [node name="Box_Spawn" type="Position2D" parent="."]
-position = Vector2( 0, -64 )
+position = Vector2( 48, -36 )
 
 [node name="Interaction_Area" type="Area2D" parent="."]
+visible = false
 position = Vector2( 16, -4 )
 collision_layer = 32
 collision_mask = 0
@@ -125,6 +148,7 @@ position = Vector2( 20, -8 )
 one_shot = true
 
 [node name="Exception_Area" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 8
 
@@ -172,31 +196,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-collision_layer = 0
-collision_mask = 0
-mode = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-position = Vector2( 0, -38 )
-shape = SubResource( 6 )
-
-[node name="Expulsion_Area" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 8
-space_override = 1
-gravity_point = true
-gravity = -120.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Expulsion_Area"]
-position = Vector2( 0, -56 )
-shape = SubResource( 7 )
-
 [node name="Healthbar" type="TextureProgress" parent="."]
 margin_left = -40.0
 margin_top = -136.0
 margin_right = 42.0
-margin_bottom = -54.0
+margin_bottom = -128.0
 value = 50.0
 texture_under = ExtResource( 8 )
 texture_over = ExtResource( 6 )
@@ -211,10 +215,25 @@ collision_layer = 0
 collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2( 0, -38 )
+position = Vector2( 9, -38 )
 shape = SubResource( 6 )
 
 [node name="Tween" type="Tween" parent="."]
+
+[node name="Projectile_Ejection" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile_Ejection"]
+position = Vector2( 46, -35 )
+shape = SubResource( 10 )
+
+[node name="Particles2D" type="Particles2D" parent="."]
+modulate = Color( 0.376471, 0.376471, 0.376471, 1 )
+show_behind_parent = true
+position = Vector2( 0, -68 )
+emitting = false
+lifetime = 2.0
+process_material = SubResource( 13 )
+texture = ExtResource( 10 )
 
 [connection signal="body_entered" from="Scrap_Detection" to="." method="_on_scrap_entered"]
 [connection signal="timeout" from="Construction_Timer" to="." method="send_box"]
@@ -224,4 +243,4 @@ shape = SubResource( 6 )
 [connection signal="leave_pressed" from="CanvasLayer/Control" to="." method="exit_building"]
 [connection signal="selected_changed" from="CanvasLayer/Control" to="." method="change_selected"]
 [connection signal="stop_pressed" from="CanvasLayer/Control" to="." method="stop_build"]
-[connection signal="body_exited" from="RigidBody2D" to="." method="_on_body_exited"]
+[connection signal="body_exited" from="Projectile_Ejection" to="." method="_on_body_exited"]
