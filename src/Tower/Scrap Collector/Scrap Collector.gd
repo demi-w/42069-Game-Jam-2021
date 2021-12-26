@@ -43,7 +43,6 @@ func move_gravity(_start: Vector2, _destination: Vector2):
 
 
 func complete(_body, _key):
-	print(in_chute)
 	for i in in_chute.size():
 		in_chute[i].set_linear_velocity(Vector2(0,-20).rotated(get_position().angle()+PI/2))
 

@@ -3,7 +3,7 @@ extends Tower
 onready var laser = $Laser
 
 var target_dict = []
-var damage = 5
+var damage = 10
 
 
 

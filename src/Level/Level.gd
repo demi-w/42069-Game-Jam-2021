@@ -89,7 +89,7 @@ func lose():
 	dialog = Dialogic.start("Failure")
 	over = true
 	add_child(dialog)
-	dialog.connect("dialogic_signal", self, "open_next_level")
+	dialog.connect("dialogic_signal", self, "restart_level")
 
 
 func on_dialogue_end(_string):

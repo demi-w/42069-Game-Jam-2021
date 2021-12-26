@@ -11,10 +11,15 @@ var button_list = []
 
 func _ready():
 	add_all_buttons(self)
+	set_costs()
+
+
+func set_costs():
 	$BoxContainer/Refinery/VBoxContainer/LabelStuff/Scrap_Cost.set_text(str(TowerStuff.get_building_cost("Refinery")))
 	$BoxContainer/Launcher/VBoxContainer/LabelStuff/Scrap_Cost.set_text(str(TowerStuff.get_building_cost("Launcher")))
 	$BoxContainer/Laser_Tower/VBoxContainer/LabelStuff/Scrap_Cost.set_text(str(TowerStuff.get_building_cost("Laser Tower")))
 	$BoxContainer/Scrap_Collector/VBoxContainer/LabelStuff/Scrap_Cost.set_text(str(TowerStuff.get_building_cost("Scrap Collector")))
+	$BoxContainer/Shield_Tower/VBoxContainer/LabelStuff/Scrap_Cost.set_text(str(TowerStuff.get_building_cost("Shield Tower")))
 
 
 func add_all_buttons(node):

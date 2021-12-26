@@ -219,6 +219,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/Scrap/Scrap.gd"
 }, {
+"base": "Area2D",
+"class": "Shield",
+"language": "GDScript",
+"path": "res://src/Tower/Shield Tower/Shields/Shield_Mid.gd"
+}, {
 "base": "Node",
 "class": "StateMachine",
 "language": "GDScript",
@@ -272,6 +277,7 @@ _global_script_class_icons={
 "SS2D_Strings": "",
 "SS2D_VertexProperties": "",
 "Scrap": "",
+"Shield": "",
 "StateMachine": "",
 "Tower": ""
 }
@@ -295,7 +301,7 @@ mouse_cursor/tooltip_position_offset=Vector2( 0, 0 )
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/dialogic/plugin.cfg", "res://addons/rmsmartshape/plugin.cfg" )
 
 [global]
 

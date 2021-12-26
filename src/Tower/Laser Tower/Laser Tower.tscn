@@ -50,16 +50,16 @@ percentOfCircleVisible = 1.0
 
 [node name="Healthbar" type="TextureProgress" parent="."]
 visible = false
-margin_left = 24.0
-margin_top = -22.0
-margin_right = 32.0
-margin_bottom = 4.0
+margin_left = -14.0
+margin_top = -52.0
+margin_right = 14.0
+margin_bottom = -26.0
+rect_pivot_offset = Vector2( 14, 0 )
 value = 50.0
 texture_under = ExtResource( 6 )
 texture_over = ExtResource( 5 )
 texture_progress = ExtResource( 4 )
-fill_mode = 3
-tint_progress = Color( 0.227451, 0.619608, 0.694118, 1 )
+tint_progress = Color( 0, 1, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

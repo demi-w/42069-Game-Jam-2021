@@ -5,6 +5,7 @@ const launcher = preload("res://src/Launcher/Launcher.tscn")
 const refinery = preload("res://src/Refinery/Refinery.tscn")
 const laser_tower = preload("res://src/Tower/Laser Tower/Laser Tower.tscn")
 const scrap_collector = preload("res://src/Tower/Scrap Collector/Scrap Collector.tscn")
+const shield_tower = preload("res://src/Tower/Shield Tower/Shield Tower.tscn")
 
 func get_building(key):
 	match key:
@@ -16,6 +17,8 @@ func get_building(key):
 			return laser_tower
 		"Scrap Collector":
 			return scrap_collector
+		"Shield Tower":
+			return shield_tower
 
 
 func get_building_color(building):
@@ -29,6 +32,8 @@ func get_building_color(building):
 				return Color.green
 			scrap_collector:
 				return Color.violet
+			shield_tower:
+				return Color.aqua
 
 
 func get_building_secondary_color(building):
@@ -42,6 +47,8 @@ func get_building_secondary_color(building):
 				return Color.limegreen
 			scrap_collector:
 				return Color.purple
+			shield_tower:
+				return Color.blue
 
 
 func get_building_cost(building):
@@ -55,6 +62,8 @@ func get_building_cost(building):
 				return 15
 			scrap_collector:
 				return 10
+			shield_tower:
+				return 15
 	elif building is String:
 		match building:
 			"Refinery":
@@ -65,3 +74,5 @@ func get_building_cost(building):
 				return 15
 			"Scrap Collector":
 				return 10
+			"Shield Tower":
+				return 15
