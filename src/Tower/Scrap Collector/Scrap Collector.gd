@@ -58,10 +58,9 @@ func complete(_body, _key):
 	for i in in_chute.size():
 		in_chute[i].set_linear_velocity(Vector2(0,-20).rotated(get_position().angle()+PI/2))
 
-
+#This is the coolest piece of code I will ever write
 func can_fire_at(body):
-	return !body.collected && body is Scrap
-
+	return !body.collected if (body is Scrap) else false
 
 func start():
 	pass

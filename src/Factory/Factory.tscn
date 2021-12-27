@@ -114,7 +114,6 @@ stream = ExtResource( 5 )
 max_distance = 200.0
 
 [node name="Scrap_Detection" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 8
 
@@ -221,6 +220,8 @@ shape = SubResource( 6 )
 [node name="Tween" type="Tween" parent="."]
 
 [node name="Projectile_Ejection" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Projectile_Ejection"]
 position = Vector2( 46, -35 )

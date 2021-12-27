@@ -71,7 +71,8 @@ func _set_health(value):
 #Called when the building loses all health, makes the building die
 func _die():
 	die()
-	exit_building()
+	if player != null:
+		exit_building()
 	if tween.is_active():
 		tween.stop_all()
 	tween.interpolate_property(self,"position", 
