@@ -73,13 +73,16 @@ func _die():
 	if player != null:
 		exit_building()
 	die()
+	if !sound.is_playing():
+		sound.stream = death_sound
+		sound.play()
 	if tween.is_active():
 		tween.stop_all()
 	tween.interpolate_property(self,"position", 
-				get_position(), get_position() + Vector2(0,24).rotated(get_position().angle() + PI/2),4)
+				get_position(), get_position() + Vector2(0,24).rotated(get_position().angle() + PI/2),6)
 	tween.interpolate_property(self,"modulate:a",
-				1, 0, 4)
-	tween.interpolate_property(self, "rotation", get_rotation(), get_rotation() + PI/4, 4, 
+				1, 0, 6)
+	tween.interpolate_property(self, "rotation", get_rotation(), get_rotation() + PI/4, 6, 
 				Tween.EASE_IN, Tween.TRANS_QUINT)
 	tween.connect("tween_all_completed", self, "despawn")
 	tween.start()
