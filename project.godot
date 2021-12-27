@@ -306,6 +306,7 @@ config/name="fuck"
 run/main_scene="res://Main.tscn"
 boot_splash/image="res://SplashScreen.png"
 config/icon="res://game_icon.png"
+config/windows_native_icon="res://game_icon.ico"
 
 [autoload]
 
