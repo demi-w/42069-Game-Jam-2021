@@ -57,7 +57,7 @@ func complete(_body, _key):
 
 
 func can_fire_at(body):
-	return !body.collected && body is Scrap
+	return !body.collected if (body is Scrap) else false
 
 
 func start():

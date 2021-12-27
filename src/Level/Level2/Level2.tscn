@@ -23,6 +23,9 @@ position = Vector2( 0, -980 )
 position = Vector2( 0, -520 )
 
 [node name="AsteroidSpawner" parent="." instance=ExtResource( 2 )]
+difficulty = 6.0
+difficulty_end = 9.0
+expected_level_time = 100.0
 planetPath = NodePath("../Planet")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
