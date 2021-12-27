@@ -115,5 +115,5 @@ func _on_Exception_Area_body_exited(body):
 		body.too_close = false
 
 
-func upgrade(body):
+func upgrade(_body):
 	return false

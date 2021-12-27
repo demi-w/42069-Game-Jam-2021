@@ -32,7 +32,6 @@ func build():
 			current_construction = selected_construct
 			currently_building = true
 			construction_timer.start()
-			animation.play("Build")
 			construction_sound.play()
 			$Particles2D.set_emitting(true)
 		else:
@@ -47,7 +46,6 @@ func build():
 func stop_build():
 	if selected_construct != null && currently_building:
 		construction_timer.stop()
-		animation.stop()
 		construction_sound.stop()
 		GameData.scrap += TowerStuff.get_building_cost(selected_construct)
 		get_node("Sprite").material.set("shader_param/NEWCOLOR1",base_color)
@@ -94,7 +92,6 @@ func send_box():
 		new_box.set_linear_velocity(construct_start_velocity.rotated((get_position().angle()+ PI/2)))
 		new_box.set_angular_velocity(rand_range(-PI, PI))
 		call_deferred("add_child", new_box)
-		animation.stop()
 		construction_sound.stop()
 		get_node("Sprite").material.set("shader_param/NEWCOLOR1",base_color)
 		new_box.show_behind_parent = true

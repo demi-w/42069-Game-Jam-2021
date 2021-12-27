@@ -45,7 +45,7 @@ func _physics_process(delta):
 #			laser.is_casting = false
 
 
-func can_fire_at(body):
+func can_fire_at(_body):
 	return true
 
 

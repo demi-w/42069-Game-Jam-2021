@@ -41,7 +41,7 @@ func firing(value):
 		$Laser_Noise.stop()
 
 
-func can_fire_at(body):
+func can_fire_at(_body):
 	return true
 
 

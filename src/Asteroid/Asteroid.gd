@@ -15,7 +15,7 @@ func _defaultLinearFall(configInfo : Dictionary):
 	#return 500
 	return (8+configInfo["rng"].randf_range(0,12))
 
-func _defaultGiveUpDist(configInfo : Dictionary):
+func _defaultGiveUpDist(_configInfo : Dictionary):
 	return 1
 	#return (1.4-(configInfo["rng"].randf_range(0,0.15)/_worldScale)/2)
 

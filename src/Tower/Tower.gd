@@ -58,10 +58,10 @@ func select_target():
 			target = asteroid
 	return target
 
-func fire(target):
+func fire(_target):
 	assert(1 == 0, "default behavior for tower fire not overriden!! WTF do I do?")
 
 
-func _on_Area2D_body_entered(body):
+func _on_Area2D_body_entered(_body):
 	if _currentlyFiring == false:
 		fire_coroutine()
