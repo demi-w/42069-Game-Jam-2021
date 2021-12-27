@@ -16,6 +16,7 @@ var too_close = false
 func _ready():
 	get_node("Sprite").material.set("shader_param/NEWCOLOR1", TowerStuff.get_building_color(building))
 	get_node("Sprite").material.set("shader_param/NEWCOLOR2", TowerStuff.get_building_secondary_color(building))
+	particles.set_modulate(TowerStuff.get_building_color(building))
 
 
 func _physics_process(_delta):

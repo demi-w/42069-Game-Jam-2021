@@ -80,7 +80,7 @@ region_rect = Rect2( 16, 0, 16, 16 )
 show_behind_parent = true
 position = Vector2( 0, -5 )
 
-[node name="Base" type="Sprite" parent="."]
+[node name="Sprite" type="Sprite" parent="."]
 material = ExtResource( 12 )
 position = Vector2( 0, -14 )
 scale = Vector2( 2, 2 )
@@ -88,7 +88,7 @@ texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 16, 16 )
 
-[node name="Animation" type="AnimationPlayer" parent="Base"]
+[node name="Animation" type="AnimationPlayer" parent="Sprite"]
 anims/Hit = SubResource( 5 )
 anims/RESET = SubResource( 6 )
 

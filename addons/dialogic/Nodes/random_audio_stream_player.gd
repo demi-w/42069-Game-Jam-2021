@@ -43,12 +43,12 @@ func play(from_position=0.0, playing_sample_nb=-1):
 				playing_sample_nb = 0
 			else:
 				match random_strategy:
-					1:
+					2:
 						playing_sample_nb = randi() % (number_of_samples - 1)
 						if last_played_sample_nb == playing_sample_nb:
 							playing_sample_nb += 1
 						last_played_sample_nb = playing_sample_nb
-					2:
+					1:
 						if len(to_play) > len(samples):
 							to_play.clear()
 						if len(to_play) == 0:
