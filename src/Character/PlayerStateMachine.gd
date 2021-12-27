@@ -23,7 +23,10 @@ func _input(_event):
 			if Input.is_action_just_released("run"):
 				parent.maxSpeed = 100
 			if Input.is_action_just_pressed("throw") && parent.held_item != null:
-				set_state(states.Throw)
+				if parent.held_item is Asteroid:
+					parent.crush_item()
+				else:
+					set_state(states.Throw)
 		elif state == states.Throw:
 			if Input.is_action_just_pressed("throw"):
 				parent._throw()
@@ -66,6 +69,9 @@ func _state_logic(_delta):
 		parent._update_movDir()
 		parent._update_angleDir()
 		parent._handle_throw()
+	if !is_instance_valid(parent.held_item):
+		parent.held_item = null
+		parent.f_button.set_visible(false)
 
 func _get_transition(_delta):
 	match state:

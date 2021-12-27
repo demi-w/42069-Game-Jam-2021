@@ -141,6 +141,13 @@ func drop_item():
 		f_button.set_visible(false)
 
 
+func crush_item():
+	if held_item != null:
+		held_item.die()
+		held_item = null
+		f_button.set_visible(false)
+
+
 func change_parent(changed = null, new_owner = null):
 	if changed != null:
 		var old_owner = changed.get_parent()
