@@ -10,7 +10,7 @@
 
 [node name="Level1" type="Node2D"]
 script = ExtResource( 1 )
-stardust_cap = 600
+stardust_cap = 200
 end_dialogue = "Third Round"
 next_level_resource = "res://src/Level/Victory Screen/Victory Screen.tscn"
 number_of_factories = 1
