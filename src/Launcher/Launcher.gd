@@ -53,8 +53,8 @@ func predict_path(direction):
 			"texture_region" : current_projectile.get_node(@"Sprite").get_region_rect(),
 			"texture_scale" : current_projectile.get_node(@"Sprite").get_scale(),
 			"collision" : current_projectile.shape_owner_get_owner(current_projectile.get_shape_owners()[0]).get_shape(),
-			"sim_speed" : 2,
-#			"from_planet" : false,
+			"sim_speed" : 8,
+			"from_planet" : true,
 			"launch_position" : to_local(current_projectile.get_global_position()),
 			"velocity" : direction
 		})
@@ -97,11 +97,11 @@ func enter_building(entered):
 
 
 func exit_building():
+	player.leave_building(self)
+	player.call_deferred("set_mode", 0)
 	change_parent(player, get_parent())
 	manned = false
 	launcher_ui.close()
-	player.leave_building(self)
-	player.set_mode(0)
 	player = null
 
 

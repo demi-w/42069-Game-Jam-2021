@@ -116,7 +116,6 @@ func _on_exception_area_exited(body):
 
 
 func _on_body_exited(body):
-	print(body)
 	if body.get_parent() == self:
 		call_deferred("change_parent", body, get_parent())
 		body.show_behind_parent = false

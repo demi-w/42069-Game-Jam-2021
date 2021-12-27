@@ -150,6 +150,8 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Upgrades" type="Node2D" parent="."]
+
 [connection signal="launch_pressed" from="CanvasLayer/LauncherUI" to="State_Machine" method="_on_launch_pressed"]
 [connection signal="leave_pressed" from="CanvasLayer/LauncherUI" to="State_Machine" method="_on_back_pressed"]
 [connection signal="predict_pressed" from="CanvasLayer/LauncherUI" to="State_Machine" method="_on_predict_pressed"]
