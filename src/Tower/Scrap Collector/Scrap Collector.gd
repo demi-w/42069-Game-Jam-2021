@@ -1,6 +1,7 @@
 extends Tower
 
 onready var field = $Gravity_Area
+onready var field_tween = $Field_Tween
 
 var in_chute = []
 var target = null
@@ -17,7 +18,7 @@ func die():
 
 func fire(_target):
 	target = _target
-	if !tween.is_active():
+	if !field_tween.is_active():
 		move_gravity(to_local(target.get_global_position()), $Scrap_Chute.get_position())
 		field.is_pulling = true
 		for particle in $Particles.get_children():
@@ -26,7 +27,7 @@ func fire(_target):
 
 func _physics_process(_delta):
 	if _currentlyFiring:
-		if !tween.is_active():
+		if !field_tween.is_active():
 			move_gravity(to_local(target.get_global_position()), $Scrap_Chute.get_position())
 			field.is_pulling = true
 	else:
@@ -36,22 +37,11 @@ func _physics_process(_delta):
 			field.is_pulling = false
 
 
-#func _physics_process(delta):
-#	if _currentlyFiring && is_instance_valid(target):
-#		laser.global_rotation = (target.get_global_position() - laser.get_global_position()).angle()
-#		target.take_damage(damage*delta)
-#	else:
-#		target = null
-#		if laser.is_casting == true:
-#			firing(false)
-#			laser.is_casting = false
-
-
 func move_gravity(_start: Vector2, _destination: Vector2):
-	tween.interpolate_property(field, "position", _start, _destination,
+	field_tween.interpolate_property(field, "position", _start, _destination,
 	abs((_destination - _start).length())/field.move_speed)
-	tween.connect("tween_completed", self, "complete", [], CONNECT_ONESHOT)
-	tween.start()
+	field_tween.connect("tween_completed", self, "complete", [], CONNECT_ONESHOT)
+	field_tween.start()
 
 
 func complete(_body, _key):

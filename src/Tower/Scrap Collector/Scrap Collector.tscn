@@ -159,6 +159,8 @@ position = Vector2( 14, 0 )
 [node name="Position2D3" type="Position2D" parent="Upgrades"]
 position = Vector2( -14, 0 )
 
+[node name="Field_Tween" type="Tween" parent="."]
+
 [connection signal="body_entered" from="Exception_Area" to="." method="_on_Exception_Area_body_entered"]
 [connection signal="body_exited" from="Exception_Area" to="." method="_on_Exception_Area_body_exited"]
 [connection signal="body_entered" from="Scrap_Chute" to="." method="_on_Scrap_Chute_body_entered"]

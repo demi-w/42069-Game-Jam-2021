@@ -302,7 +302,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="fuck"
+config/name="Astronomical Profits"
 run/main_scene="res://Main.tscn"
 boot_splash/image="res://SplashScreen.png"
 config/icon="res://game_icon.png"
