@@ -8,6 +8,7 @@ onready var tween = get_node("Tween")
 onready var healthbar = get_node("Healthbar")
 onready var hitbox = get_node("Hitbox")
 onready var upgrade_spots = get_node("Upgrades")
+onready var animation = get_node("Sprite/Animation")
 
 var land_sound = preload("res://assets/Audio/Building General/buildingLanding.wav")
 var death_sound = preload("res://assets/Audio/Building General/buildingBroken.wav")
@@ -56,6 +57,7 @@ func despawn():
 
 
 func take_damage(_damage = 1):
+	damage_animation()
 	_set_health(health - _damage)
 
 
@@ -133,3 +135,10 @@ func upgrade(construct):
 			pos.call_deferred("add_child", new_mini)
 			return true
 	return false
+
+#I am gonna try to make it flash
+func damage_animation():
+	animation.play("Hit")
+
+func reset_shader(_body, _key):
+	pass

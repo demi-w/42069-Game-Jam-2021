@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=20 format=2]
 
 [ext_resource path="res://src/Tower/Scrap Collector/Scrap Collector.gd" type="Script" id=1]
 [ext_resource path="res://assets/Towers/Scrap Collector/Scrap Collector.png" type="Texture" id=2]
@@ -6,7 +6,36 @@
 [ext_resource path="res://assets/Towers/General/Tower_Fill.png" type="Texture" id=4]
 [ext_resource path="res://assets/Towers/General/Tower_Top.png" type="Texture" id=5]
 [ext_resource path="res://assets/Towers/General/Tower_Back.png" type="Texture" id=6]
+[ext_resource path="res://assets/Audio/Building General/flash.tres" type="Material" id=7]
 [ext_resource path="res://assets/Towers/Laser Tower/Laser/white_circle.png" type="Texture" id=8]
+
+[sub_resource type="Animation" id=16]
+resource_name = "Hit"
+tracks/0/type = "bezier"
+tracks/0/path = NodePath(".:material:shader_param/hit_opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"points": PoolRealArray( 1, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 0.5 )
+}
+
+[sub_resource type="Animation" id=17]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:material:shader_param/hit_opacity")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 1.0 ]
+}
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 24.0
@@ -69,9 +98,14 @@ __meta__ = {
 [node name="Landing_Sound" type="AudioStreamPlayer2D" parent="Sounds"]
 
 [node name="Sprite" type="Sprite" parent="."]
+material = ExtResource( 7 )
 position = Vector2( 0, -20 )
 scale = Vector2( 3, 3 )
 texture = ExtResource( 2 )
+
+[node name="Animation" type="AnimationPlayer" parent="Sprite"]
+anims/Hit = SubResource( 16 )
+anims/RESET = SubResource( 17 )
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 2

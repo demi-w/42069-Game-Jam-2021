@@ -5,7 +5,6 @@ const projectile_box = preload("res://src/Box Launcher/Projectile.tscn")
 onready var chair = $Manning_Position
 onready var construction_timer = $Construction_Timer
 onready var factory_ui = $CanvasLayer/Control
-onready var animation = $Sprite/AnimationPlayer
 onready var scrap_label = $ScrapStuff/VBoxContainer/Scrap_Total
 onready var construction_sound = $Sprite/Building_Sound
 
@@ -40,7 +39,7 @@ func build():
 			get_node("Sprite").material.set("shader_param/NEWCOLOR1", Color.red)
 			animation.play("Flash")
 			selected_construct = null
-			yield(get_node("Sprite/AnimationPlayer"),"animation_finished")
+			yield(get_node("Sprite/Animation"),"animation_finished")
 			get_node("Sprite").material.set("shader_param/opacity", 0)
 			get_node("Sprite").material.set("shader_param/NEWCOLOR1", base_color)
 
