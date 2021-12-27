@@ -126,6 +126,8 @@ func pickup_item(body):
 	interaction_list.remove(interaction_list.find(body))
 	e_button.set_visible(false)
 	f_button.set_visible(true)
+	if held_item is Asteroid:
+		linear_velocity += held_item.get_linear_velocity()
 
 
 func drop_item():

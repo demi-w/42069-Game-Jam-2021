@@ -107,8 +107,9 @@ func die():
 	if GameData.asteroid_spawner != null:
 		var new_explosion = GameData.asteroid_spawner.asteroidBoom.instance()
 		var new_scrap = GameData.asteroid_spawner.scrapPrefab.instance()
-		get_parent().call_deferred("add_child",new_scrap)
-		get_parent().call_deferred("add_child", new_explosion)
+		var planet = GameData.current_level.get_node("Planet")
+		planet.call_deferred("add_child",new_scrap)
+		planet.call_deferred("add_child", new_explosion)
 		new_scrap.global_transform = global_transform
 		new_explosion.global_transform = global_transform
 	queue_free()

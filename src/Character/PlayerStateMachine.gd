@@ -38,7 +38,7 @@ func _input(_event):
 				else:
 					parent.drop_item()
 			elif parent.interaction_list.size() > 0:
-				if parent.interaction_list[0] is Scrap || parent.interaction_list[0] is Projectile:
+				if parent.interaction_list[0] is Scrap || parent.interaction_list[0] is Projectile || parent.interaction_list[0] is Asteroid:
 					parent.pickup_item(parent.interaction_list[0])
 				elif parent.interaction_list[0] is Building:
 					parent.enter_building(parent.interaction_list[0])
