@@ -85,6 +85,7 @@ shape = SubResource( 1 )
 
 [node name="Particles2D" type="Particles2D" parent="Particles"]
 position = Vector2( 0, 8 )
+emitting = false
 amount = 16
 local_coords = false
 process_material = SubResource( 2 )

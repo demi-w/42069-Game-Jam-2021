@@ -8,13 +8,14 @@ preload("res://src/Asteroid/DifferentAsteroids/MediumAsteroid.tscn"),
 preload("res://src/Asteroid/DifferentAsteroids/SmallAsteroid.tscn")]
 signal new(asteroid)
 
-export var difficulty : float = 3
-export var difficulty_end : float = 6
-export var spawning_period : float = 12
-export var expected_level_time : float = 60
+export var _difficulty : float = 3
+export var _difficulty_end : float = 6
+export var _spawning_period : float = 12
+export var _expected_level_time : float = 60
+export var _grace_period : float = 0
 
 export var spawnInterval : float = 3
-export var asteroidsOnStart : float = 0
+export var asteroidsOnStart : int = 0
 export var planetPath : NodePath
 
 onready var _planet = get_node(planetPath)
@@ -27,7 +28,7 @@ func _ready():
 	_rng = RandomNumberGenerator.new()
 	_rng.randomize()
 	queueAsteroids(asteroidsOnStart)
-	level_coroutine(difficulty,difficulty_end,spawning_period,expected_level_time)
+	level_coroutine(_difficulty,_difficulty_end,_spawning_period,_expected_level_time, _grace_period)
 
 func queueAsteroids(newAsteroids:int):
 	_queuedAsteroids += newAsteroids
