@@ -64,8 +64,15 @@ func _on_landed(body):
 			if body is Planet:
 				spawn_building(body)
 				queue_free()
+			
 	else:
-		unarm()
+		if body.get_parent() is Building:
+			if upgrade_building(body.get_parent()):
+				queue_free()
+			else:
+				unarm()
+		else:
+			unarm()
 
 func arm():
 	set_collision_layer(0)
@@ -94,6 +101,10 @@ func spawn_building(planet):
 	new_building.global_position = global_position
 	new_building.set_position((new_building.position / new_building.position.length() * planet.planetRadius))
 	planet.call_deferred("add_child", new_building)
+
+
+func upgrade_building(body):
+	return body.upgrade(building)
 
 
 func _on_mask_exited(_body):

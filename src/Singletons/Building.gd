@@ -7,9 +7,10 @@ onready var sound = get_node("Sounds/Landing_Sound")
 onready var tween = get_node("Tween")
 onready var healthbar = get_node("Healthbar")
 onready var hitbox = get_node("Hitbox")
+onready var upgrade_spots = get_node("Upgrades")
 
 var land_sound = preload("res://assets/Audio/Building General/buildingLanding.wav")
-
+var death_sound = preload("res://assets/Audio/Building General/buildingBroken.wav")
 var can_zoom  = false
 var camera_pos = Vector2(0,0)
 var player = null
@@ -39,7 +40,7 @@ func exit_building():
 func store_item(_item):
 	return false
 
-
+#Useful function for all towers, switches an objects parent while keeping position
 func change_parent(changed = null, new_owner = null):
 	if changed != null:
 		var old_owner = changed.get_parent()
@@ -49,7 +50,7 @@ func change_parent(changed = null, new_owner = null):
 			new_owner.add_child(changed)
 			changed.global_transform = temp
 
-
+#despawns, because I'm too dumb to write queue_free() (and we also may want other things)
 func despawn():
 	queue_free()
 
@@ -67,7 +68,7 @@ func _set_health(value):
 		if health == 0:
 			_die()
 
-
+#Called when the building loses all health, makes the building die
 func _die():
 	die()
 	exit_building()
@@ -82,18 +83,19 @@ func _die():
 	tween.connect("tween_all_completed", self, "despawn")
 	tween.start()
 
-#stop special processes
+#stop special processes, meant to be overridden 
 func die():
 	pass
 
-#Building stuff
+#Building starts, when it's done constructing
 func _start(_body, _key):
 	healthbar.set_visible(true)
 	start()
 
-
+#Start special processes, meant to be overriden
 func start():
 	pass
+
 
 func spawn():
 	if !sound.is_playing():
@@ -101,7 +103,7 @@ func spawn():
 		sound.play()
 	start_build()
 
-
+#Tweens the building up, constructs the building
 func start_build():
 	tween.interpolate_property(self,"position", 
 				get_position() + Vector2(0,24).rotated(get_position().angle() + PI/2), get_position(),4)
@@ -114,3 +116,13 @@ func start_build():
 func hitbox_entered(body):
 	if body is Asteroid:
 		take_damage(body.damage)
+
+#Handles Upgrades
+func upgrade(construct):
+	for pos in upgrade_spots.get_children():
+		if pos.get_child_count() == 0:
+			var mini_construct = TowerStuff.get_mini_building(construct)
+			var new_mini = mini_construct.instance()
+			pos.call_deferred("add_child", new_mini)
+			return true
+	return false

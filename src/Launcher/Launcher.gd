@@ -113,3 +113,7 @@ func _on_Exception_Area_body_entered(body):
 func _on_Exception_Area_body_exited(body):
 	if body is Projectile:
 		body.too_close = false
+
+
+func upgrade(body):
+	return false

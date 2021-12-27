@@ -129,13 +129,16 @@ func pickup_item(body):
 
 
 func drop_item():
-	change_parent(held_item, get_parent())
-	if held_item is RigidBody2D:
-		held_item.set_mode(MODE_RIGID)
-	held_item.set_linear_velocity(get_linear_velocity()+held_item.get_linear_velocity())
-	held_item.apply_central_impulse(Vector2(0,20).rotated(get_position().angle()+PI/2))
-	held_item = null
-	f_button.set_visible(false)
+	if held_item != null:
+		change_parent(held_item, get_parent())
+		if held_item is RigidBody2D:
+			held_item.set_mode(MODE_RIGID)
+		held_item.set_linear_velocity(get_linear_velocity()+held_item.get_linear_velocity())
+		held_item.apply_central_impulse(Vector2(0,20).rotated(get_position().angle()+PI/2))
+		held_item = null
+		f_button.set_visible(false)
+	else:
+		f_button.set_visible(false)
 
 
 func change_parent(changed = null, new_owner = null):

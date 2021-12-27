@@ -1,4 +1,4 @@
-extends Tower
+extends MiniTower
 
 onready var field = $Gravity_Area
 
@@ -15,13 +15,23 @@ func die():
 	field.is_pulling = false
 
 
+#func fire(_target):
+#	if !target_dict.has(_target) && _target.collected == false && _target is Scrap:
+#		target_dict.append(_target)
+##		if !tween.is_active():
+#		if !tween.is_active():
+#			move_gravity(to_local(target_dict[0].get_global_position()), $Scrap_Chute.get_position())
+#			field.is_pulling = true
+
+
 func fire(_target):
 	target = _target
 	if !tween.is_active():
 		move_gravity(to_local(target.get_global_position()), $Scrap_Chute.get_position())
 		field.is_pulling = true
-		for particle in $Particles.get_children():
-			particle.set_emitting(true)
+
+
+
 
 
 func _physics_process(_delta):
@@ -31,20 +41,7 @@ func _physics_process(_delta):
 			field.is_pulling = true
 	else:
 		if field.is_pulling != false:
-			for particle in $Particles.get_children():
-				particle.set_emitting(false)
 			field.is_pulling = false
-
-
-#func _physics_process(delta):
-#	if _currentlyFiring && is_instance_valid(target):
-#		laser.global_rotation = (target.get_global_position() - laser.get_global_position()).angle()
-#		target.take_damage(damage*delta)
-#	else:
-#		target = null
-#		if laser.is_casting == true:
-#			firing(false)
-#			laser.is_casting = false
 
 
 func move_gravity(_start: Vector2, _destination: Vector2):
@@ -65,16 +62,6 @@ func can_fire_at(body):
 
 func start():
 	pass
-
-
-func _on_Exception_Area_body_entered(body):
-	if body is Projectile:
-		body.too_close = true
-
-
-func _on_Exception_Area_body_exited(body):
-	if body is Projectile:
-		body.too_close = false
 
 
 #This body is to make sure we dont target scrap above us

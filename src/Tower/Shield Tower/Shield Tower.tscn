@@ -14,7 +14,7 @@ extents = Vector2( 14, 12 )
 [sub_resource type="Curve" id=2]
 _data = [ Vector2( 0, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.52459, 1 ), 0.0, 0.0, 0, 0, Vector2( 1, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=3]
+[sub_resource type="CurveTexture" id=7]
 curve = SubResource( 2 )
 
 [sub_resource type="ParticlesMaterial" id=4]
@@ -26,14 +26,13 @@ gravity = Vector3( 0, 0, 0 )
 orbit_velocity = 0.5
 orbit_velocity_random = 1.0
 scale = 0.2
-scale_curve = SubResource( 3 )
+scale_curve = SubResource( 7 )
 
 [sub_resource type="CircleShape2D" id=6]
 radius = 48.0
 
 [node name="Shield_Tower" type="Node2D"]
 show_behind_parent = true
-position = Vector2( 176, 152 )
 script = ExtResource( 2 )
 
 [node name="Healthbar" type="TextureProgress" parent="."]
@@ -115,6 +114,16 @@ collision_mask = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Exception_Area"]
 shape = SubResource( 6 )
+
+[node name="Upgrades" type="Node2D" parent="."]
+
+[node name="Position2D" type="Position2D" parent="Upgrades"]
+position = Vector2( 14, 0 )
+
+[node name="Position2D2" type="Position2D" parent="Upgrades"]
+
+[node name="Position2D3" type="Position2D" parent="Upgrades"]
+position = Vector2( -14, 0 )
 
 [connection signal="body_entered" from="Exception_Area" to="." method="_on_Exception_Area_body_entered"]
 [connection signal="body_exited" from="Exception_Area" to="." method="_on_Exception_Area_body_exited"]

@@ -6,7 +6,6 @@ export var growth_time := 0.1
 export var beam_color : = Color(0.30,0.65,1.00,1.00) setget set_beam_color
 export var particle_color :Color = Color(0.30,0.65,1.00,1.00) setget set_particle_color
 
-
 onready var casting_particles := $CastingParticles2D
 onready var collision_particles := $CollisionParticles2D
 onready var beam_particles := $BeamParticles2D

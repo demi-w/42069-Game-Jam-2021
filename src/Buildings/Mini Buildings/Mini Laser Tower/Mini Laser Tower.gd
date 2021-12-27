@@ -1,16 +1,16 @@
-extends Tower
+extends MiniTower
+
 
 onready var laser = $Laser
 
-var target = null
-var damage = 10
 
+var target = null
+var damage = 5
 
 
 func _ready():
 	laser.set_beam_color(Color(1.00,1.00,0.0,1.00))
 	laser.set_particle_color(Color(0.00,1.00,0.00,1.00))
-	set_physics_process(true)
 	spawn()
 
 
@@ -18,7 +18,9 @@ func fire(_target):
 	target = _target
 	if !laser.is_casting:
 		laser.is_casting = true
+		set_physics_process(true)
 		laser.global_rotation = (target.get_global_position() - laser.get_global_position()).angle()
+	
 
 
 func _physics_process(delta):
@@ -28,17 +30,19 @@ func _physics_process(delta):
 	else:
 		target = null
 		if laser.is_casting == true:
-			firing(false)
 			laser.is_casting = false
 
 
-func firing(value):
-	if value:
-		laser.is_casting = value
-		$Laser_Noise.play()
-	else:
-		laser.is_casting = value
-		$Laser_Noise.stop()
+#func _physics_process(delta):
+#	if target_dict.size() > 0:
+#		if target_dict[0] != null:
+#			laser.global_rotation = (target_dict[0].get_global_position() - laser.get_global_position()).angle()
+#			target_dict[0].take_damage(damage * delta)
+#		else:
+#			target_dict.remove(0)
+#	else:
+#		if laser.is_casting != false:
+#			laser.is_casting = false
 
 
 func can_fire_at(body):

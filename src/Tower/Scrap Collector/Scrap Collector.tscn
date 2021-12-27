@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/Tower/Scrap Collector/Scrap Collector.gd" type="Script" id=1]
 [ext_resource path="res://assets/Towers/Scrap Collector/Scrap Collector.png" type="Texture" id=2]
-[ext_resource path="res://assets/Towers/Scrap Collector/Gravity Field/Gravity Field.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/Tower/Scrap Collector/Gravity Field/Gravity Field.tscn" type="PackedScene" id=3]
 [ext_resource path="res://assets/Towers/General/Tower_Fill.png" type="Texture" id=4]
 [ext_resource path="res://assets/Towers/General/Tower_Top.png" type="Texture" id=5]
 [ext_resource path="res://assets/Towers/General/Tower_Back.png" type="Texture" id=6]
@@ -82,7 +82,6 @@ position = Vector2( 0, -18 )
 shape = SubResource( 1 )
 
 [node name="Area2D" type="Area2D" parent="."]
-visible = false
 collision_layer = 0
 collision_mask = 8
 
@@ -117,6 +116,7 @@ gravity_point = true
 modulate = Color( 0.960784, 0.294118, 1, 1 )
 position = Vector2( -10, -18 )
 rotation = -3.14159
+emitting = false
 lifetime = 0.5
 visibility_rect = Rect2( 0, -18.722, 29.6756, 38.4841 )
 local_coords = false
@@ -126,6 +126,7 @@ texture = ExtResource( 8 )
 [node name="CastingParticles2D" type="Particles2D" parent="Particles"]
 modulate = Color( 0.960784, 0.294118, 1, 1 )
 position = Vector2( 10, -18 )
+emitting = false
 lifetime = 0.5
 visibility_rect = Rect2( 0, -18.722, 29.6756, 38.4841 )
 local_coords = false
@@ -148,7 +149,16 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Scrap_Detection"]
 shape = SubResource( 3 )
 
-[connection signal="body_exited" from="Area2D" to="." method="_on_Area2D_body_exited"]
+[node name="Upgrades" type="Node2D" parent="."]
+
+[node name="Position2D" type="Position2D" parent="Upgrades"]
+position = Vector2( 14, 0 )
+
+[node name="Position2D2" type="Position2D" parent="Upgrades"]
+
+[node name="Position2D3" type="Position2D" parent="Upgrades"]
+position = Vector2( -14, 0 )
+
 [connection signal="body_entered" from="Exception_Area" to="." method="_on_Exception_Area_body_entered"]
 [connection signal="body_exited" from="Exception_Area" to="." method="_on_Exception_Area_body_exited"]
 [connection signal="body_entered" from="Scrap_Chute" to="." method="_on_Scrap_Chute_body_entered"]
