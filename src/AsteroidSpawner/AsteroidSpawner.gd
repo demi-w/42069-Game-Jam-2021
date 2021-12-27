@@ -50,10 +50,12 @@ func level_coroutine(difficulty,difficulty_end,spawning_period,expected_level_ti
 			delaySum += spawnDelays[i]
 		#after creating a bunch of random values, create a multiplier such that sum(delays) = spawning_period (with some rng thrown in for spice)
 		var funkyPeriod = spawning_period*rng.randf_range(0.8,1)
+		delaySum += 1
 		var spawnDelayMult = funkyPeriod/delaySum
-		#print("delay times:",spawnDelays)
-		#print("spawning period:",spawning_period)
-		#print("spawn delay multiplier:",spawnDelayMult)
+#		print("delaySum: ",delaySum)
+#		print("difficulty: ",difficulty)
+		#print("spawning period:",spawning_period)cd
+#		print("spawn delay multiplier:",spawnDelayMult)
 		yield(get_tree().create_timer(spawnDelays[0]*spawnDelayMult), "timeout")
 		for delayTime in spawnDelays.slice(1,asteroidsToSpawn+1):
 			new_asteroid()
@@ -61,6 +63,7 @@ func level_coroutine(difficulty,difficulty_end,spawning_period,expected_level_ti
 			yield(get_tree().create_timer(delayTime*spawnDelayMult), "timeout")
 		startTime += funkyPeriod
 		var percentProgression = startTime/expected_level_time
+		percentProgression = clamp(percentProgression, 0, 1)
 		difficulty = difficulty*(1-percentProgression) + difficulty_end*percentProgression
 func spawner_coroutine():
 	_spawnerRunning = true
