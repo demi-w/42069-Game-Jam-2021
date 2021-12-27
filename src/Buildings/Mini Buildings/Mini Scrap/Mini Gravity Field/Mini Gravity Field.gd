@@ -16,5 +16,7 @@ func set_pulling(_value):
 		$Particles2D.set_emitting(false)
 
 
-func _on_Gravity_Area_body_entered(body):
+func _on_Mini_Gravity_Field_body_entered(body):
+	body.set_linear_velocity(Vector2(0,0))
 	body.apply_central_impulse((body.get_global_position() - get_global_position()).normalized()*20)
+

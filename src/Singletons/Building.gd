@@ -121,6 +121,9 @@ func hitbox_entered(body):
 func upgrade(construct):
 	for pos in upgrade_spots.get_children():
 		if pos.get_child_count() == 0:
+			if !sound.is_playing():
+				sound.stream = land_sound
+				sound.play()
 			var mini_construct = TowerStuff.get_mini_building(construct)
 			var new_mini = mini_construct.instance()
 			pos.call_deferred("add_child", new_mini)

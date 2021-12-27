@@ -32,7 +32,7 @@ collision_mask = 8
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource( 1 )
 
-[node name="Mini Gravity Field" parent="." instance=ExtResource( 2 )]
+[node name="Gravity_Area" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, -61 )
 
 [node name="Scrap_Chute" type="Area2D" parent="."]
