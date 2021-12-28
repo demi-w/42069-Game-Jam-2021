@@ -17,6 +17,7 @@ func set_pulling(_value):
 
 
 func _on_Mini_Gravity_Field_body_entered(body):
-	body.set_linear_velocity(Vector2(0,0))
-	body.apply_central_impulse((body.get_global_position() - get_global_position()).normalized()*20)
+	if body is Scrap:
+		body.set_linear_velocity(Vector2(0,0))
+		body.apply_central_impulse((body.get_global_position() - get_global_position()).normalized()*20)
 
