@@ -26,7 +26,7 @@ func fire(_target):
 
 
 func _physics_process(_delta):
-	if _currentlyFiring:
+	if _currentlyFiring && is_instance_valid(target):
 		if !field_tween.is_active():
 			move_gravity(to_local(target.get_global_position()), $Scrap_Chute.get_position())
 			field.is_pulling = true
