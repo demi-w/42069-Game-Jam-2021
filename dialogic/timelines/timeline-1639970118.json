@@ -43,6 +43,14 @@
 			"set_theme": "theme-1640225328.cfg"
 		},
 		{
+			"audio": "play",
+			"audio_bus": "Master",
+			"event_id": "dialogic_030",
+			"event_name": "AudioEvent",
+			"file": "res://assets/Audio/Dialog/TechnoPus/Hmm/z hm .wav",
+			"volume": 0
+		},
+		{
 			"character": "character-1639967132.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
@@ -71,6 +79,14 @@
 		{
 			"event_id": "dialogic_024",
 			"set_theme": "theme-1640225328.cfg"
+		},
+		{
+			"audio": "play",
+			"audio_bus": "Master",
+			"event_id": "dialogic_030",
+			"event_name": "AudioEvent",
+			"file": "res://assets/Audio/Dialog/TechnoPus/Hmm/z hm .wav",
+			"volume": 0
 		},
 		{
 			"character": "character-1639967132.json",

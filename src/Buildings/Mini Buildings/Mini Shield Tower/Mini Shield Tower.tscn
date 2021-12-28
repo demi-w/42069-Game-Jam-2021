@@ -43,13 +43,5 @@ texture = ExtResource( 2 )
 
 [node name="Shields" type="Node2D" parent="."]
 
-[node name="Mini Shield2" parent="Shields" instance=ExtResource( 4 )]
-position = Vector2( 31, -95 )
-rotation = 0.0523599
-
 [node name="Mini Shield" parent="Shields" instance=ExtResource( 4 )]
-position = Vector2( 0, -96 )
-
-[node name="Mini Shield3" parent="Shields" instance=ExtResource( 4 )]
-position = Vector2( -31, -95 )
-rotation = -0.0523599
+position = Vector2( 0, -80 )

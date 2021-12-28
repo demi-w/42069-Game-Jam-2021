@@ -43,6 +43,14 @@
 			"set_theme": "theme-1640225328.cfg"
 		},
 		{
+			"audio": "play",
+			"audio_bus": "Master",
+			"event_id": "dialogic_030",
+			"event_name": "AudioEvent",
+			"file": "res://assets/Audio/Dialog/TechnoPus/Hmm/z hm .wav",
+			"volume": 0
+		},
+		{
 			"character": "character-1639967132.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
@@ -56,11 +64,15 @@
 			"character": "character-1639967132.json",
 			"event_id": "dialogic_001",
 			"portrait": "",
-			"text": "Indeed. $3190. You may be free of this time loop.\nZzkrezzt will call again should services be required."
+			"text": "Indeed. 3190 Credits. You may be free of this time loop.\nZzkrezzt will call again should services be required."
 		},
 		{
 			"emit_signal": "end",
 			"event_id": "dialogic_040"
+		},
+		{
+			"event_id": "dialogic_024",
+			"set_theme": "theme-1640222929.cfg"
 		}
 	],
 	"metadata": {
